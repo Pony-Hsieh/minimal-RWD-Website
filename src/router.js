@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
 import Home from '@/views/frontEnd/Home.vue';
-import ContactUs from '@/views/frontEnd/ContactUs.vue';
 
 
 // // 前台
@@ -31,12 +31,64 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+
+    // 客戶端 前台
     {
+      // 客戶端首頁
       path: '/',
       name: 'home',
       component: Home,
     },
+
     {
+      // 商城 - 所有產品
+      path: "/shop",
+      name: "Shop",
+      component: () => import('@/views/frontEnd/Shop.vue'),
+    },
+    {
+      // 商城 - 單一商品頁面
+      path: "/singleProduct",
+      name: "SingleProduct",
+      component: () => import('@/views/frontEnd/SingleProduct.vue'),
+    },
+
+    {
+      // 會員 - 登入頁面
+      path: "/login",
+      name: "Login",
+      component: () => import('@/views/frontEnd/Login.vue'),
+      // meta: { requiresAuth: true }, // 須驗證登入 // 經由測試，meta 內的屬性可自定義名稱
+    },
+    {
+      // 會員 - 登出頁面
+      path: "/logout",
+      name: "Logout",
+      component: () => import('@/views/frontEnd/Logout.vue'),
+      // meta: { requiresAuth: true }, // 須驗證登入
+    },
+    {
+      // 會員 - 檢視訂單
+      path: "/order",
+      name: "Order",
+      component: () => import('@/views/frontEnd/Order.vue'),
+      // meta: { requiresAuth: true }, // 須驗證登入
+    },
+    {
+      // 會員 - 購物車
+      path: "/cart",
+      name: "Cart",
+      component: () => import('@/views/frontEnd/Cart.vue'),
+    },
+    {
+      // 下單後頁面、檢視單一訂單(兩者共用)
+      name: "singleOrder",
+      path: "/SingleOrder",
+      component: () => import('@/views/frontEnd/SingleOrder.vue'),
+    },
+
+    {
+      // 聯繫我們
       path: '/contactUs',
       name: 'ContactUs',
       // route level code-splitting
@@ -44,6 +96,10 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import('@/views/frontEnd/ContactUs.vue'),
     },
+
+    // 客服人員端 後台
+
+
     {
       // 避免因為用戶輸入非預期的網址而跳轉至空白頁面
       // 萬用路由要放在最後
@@ -52,3 +108,4 @@ export default new Router({
     },
   ],
 });
+

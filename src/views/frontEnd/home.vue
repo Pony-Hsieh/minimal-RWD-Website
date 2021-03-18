@@ -196,6 +196,158 @@
 </template>
 
 
+<script>
+  import HeaderComponent from '@/components/HeaderComponent.vue';
+  import ShippingDescription from '@/components/ShippingDescription.vue';
+  import IgPost from '@/components/IgPost.vue';
+  import FooterComponent from '@/components/FooterComponent.vue';
+
+  import eventBus from "@/eventBus";
+
+  export default {
+
+    // name: "Home",
+
+    components: {
+      HeaderComponent,
+      ShippingDescription,
+      IgPost,
+      FooterComponent,
+    },
+
+    data() {
+      return {
+        imageUrl: "https://preview.colorlib.com/theme/winter/img/feature_1.png",
+        categoryDirectHover: "", // 現在 hover 的是哪個類別
+
+        rawNewArrivalArr: [],
+        newArrivalCategoryArr: {
+          all: [],
+          rawMen: [],
+          rawWomen: [],
+          rawShoes: [],
+          rawSports: [],
+        },
+        newArrivalCategoryTab: "all",
+        newArrivalProductHover: "",
+
+        originalCart: [], // 原本的購物車內容
+        sameProductStatus: false, // 購物車內是否有同樣的商品 // 預設為沒有
+        cartItemNum: 0,
+      }
+    },
+
+    created() {
+      // document.body.scrollTop = document.documentElement.scrollTop = 0;
+      this.getRawProducts();
+      this.getCart();
+    },
+
+    methods: {
+
+      getRawProducts() {
+        const vm = this;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`; // 這個成功取回資料
+
+        // vm.isLoading = true; // 讀取效果
+
+        // 從遠端取回 產品 、 分頁 的資料
+        // 使用 ES6 的 promise 方法，所以使用 then 進行串接
+        this.$http.get(api).then((response) => {
+          // console.log(response); // 確認遠端撈回來的資料結構
+          vm.rawNewArrivalArr = response.data.products.slice(0, 6);
+          // vm.isLoading = false;  // 讀取效果
+          vm.makeNewArrivalCategoryArr();
+        });
+      },
+
+      makeNewArrivalCategoryArr() {
+        const vm = this;
+        vm.newArrivalCategoryArr.all = vm.rawNewArrivalArr;
+
+        for (let i = 0; i < vm.rawNewArrivalArr.length; i++) {
+          if (vm.rawNewArrivalArr[i].category === "男士") {
+            vm.newArrivalCategoryArr.rawMen.push(vm.rawNewArrivalArr[i]);
+          }
+          if (vm.rawNewArrivalArr[i].category === "女士") {
+            vm.newArrivalCategoryArr.rawWomen.push(vm.rawNewArrivalArr[i]);
+          }
+          if (vm.rawNewArrivalArr[i].category === "鞋類") {
+            vm.newArrivalCategoryArr.rawShoes.push(vm.rawNewArrivalArr[i]);
+          }
+          if (vm.rawNewArrivalArr[i].category === "運動") {
+            vm.newArrivalCategoryArr.rawSports.push(vm.rawNewArrivalArr[i]);
+          }
+        }
+      },
+
+      // 取得購物車內容
+      getCart() {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+        const vm = this;
+        this.$http.get(api).then((response) => {
+          // console.log(response); // 確認從遠端撈回來的資料結構
+          // console.log("response.data.data.carts", response.data.data.carts); // 確認從遠端撈回來的資料結構
+          vm.originalCart = response.data.data.carts;
+          vm.cartItemNum = response.data.data.carts.length; // 將購物車 有幾樣商品 存入 data return 中
+          vm.sendCartItemNum();
+        });
+      },
+
+      // 將商品加入購物車
+      addToCart(id, title) {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+        const vm = this;
+        const cart = {
+          product_id: id,
+          qty: 1,
+        };
+
+        // 逐一比對原始購物車內的品項
+        // 如果有，則跳出迴圈
+        for (let i = 0; i < vm.originalCart.length; i++) {
+          if (vm.originalCart[i].product_id === id) {
+            vm.sameProductStatus = true;
+            alert("購物車內已經有這項商品囉~");
+            break;
+          }
+        }
+
+        // 如果沒有，則將一件該商品加入購物車
+        if (vm.sameProductStatus === false) {
+          this.$http.post(api, { data: cart }).then((response) => {
+            if (response.data.success) {
+              alert(`成功將 ${title} 加入至購物車！`);
+              vm.getCart();
+            }
+            else {
+              alert("加入購物車失敗，請重整頁面後再試一次~");
+            }
+          });
+        }
+
+        vm.sameProductStatus = false; // 重設 購物車內是否有同樣的商品 的狀態
+      },
+
+      // 將更新後的數量送到 headerComponent 中進行更新
+      sendCartItemNum() {
+        eventBus.$emit("cartItemNumEvent", this.cartItemNum)
+      },
+
+      routerTo(categoryName) {
+        this.$router.push(
+          {
+            path: '/shop',
+            query: { category: categoryName },
+          }
+        );
+      },
+    },
+
+  }
+</script>
+
+
 <style scoped>
   a {
     text-decoration: none;
@@ -530,155 +682,3 @@
     }
   }
 </style>
-
-
-<script>
-  import HeaderComponent from '@/components/HeaderComponent.vue';
-  import ShippingDescription from '@/components/ShippingDescription.vue';
-  import IgPost from '@/components/IgPost.vue';
-  import FooterComponent from '@/components/FooterComponent.vue';
-
-  import eventBus from "@/eventBus";
-
-  export default {
-
-    // name: "Home",
-
-    components: {
-      HeaderComponent,
-      ShippingDescription,
-      IgPost,
-      FooterComponent,
-    },
-
-    data() {
-      return {
-        imageUrl: "https://preview.colorlib.com/theme/winter/img/feature_1.png",
-        categoryDirectHover: "", // 現在 hover 的是哪個類別
-
-        rawNewArrivalArr: [],
-        newArrivalCategoryArr: {
-          all: [],
-          rawMen: [],
-          rawWomen: [],
-          rawShoes: [],
-          rawSports: [],
-        },
-        newArrivalCategoryTab: "all",
-        newArrivalProductHover: "",
-
-        originalCart: [], // 原本的購物車內容
-        sameProductStatus: false, // 購物車內是否有同樣的商品 // 預設為沒有
-        cartItemNum: 0,
-      }
-    },
-
-    created() {
-      // document.body.scrollTop = document.documentElement.scrollTop = 0;
-      this.getRawProducts();
-      this.getCart();
-    },
-
-    methods: {
-
-      getRawProducts() {
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`; // 這個成功取回資料
-
-        // vm.isLoading = true; // 讀取效果
-
-        // 從遠端取回 產品 、 分頁 的資料
-        // 使用 ES6 的 promise 方法，所以使用 then 進行串接
-        this.$http.get(api).then((response) => {
-          // console.log(response); // 確認遠端撈回來的資料結構
-          vm.rawNewArrivalArr = response.data.products.slice(0, 6);
-          // vm.isLoading = false;  // 讀取效果
-          vm.makeNewArrivalCategoryArr();
-        });
-      },
-
-      makeNewArrivalCategoryArr() {
-        const vm = this;
-        vm.newArrivalCategoryArr.all = vm.rawNewArrivalArr;
-
-        for (let i = 0; i < vm.rawNewArrivalArr.length; i++) {
-          if (vm.rawNewArrivalArr[i].category === "男士") {
-            vm.newArrivalCategoryArr.rawMen.push(vm.rawNewArrivalArr[i]);
-          }
-          if (vm.rawNewArrivalArr[i].category === "女士") {
-            vm.newArrivalCategoryArr.rawWomen.push(vm.rawNewArrivalArr[i]);
-          }
-          if (vm.rawNewArrivalArr[i].category === "鞋類") {
-            vm.newArrivalCategoryArr.rawShoes.push(vm.rawNewArrivalArr[i]);
-          }
-          if (vm.rawNewArrivalArr[i].category === "運動") {
-            vm.newArrivalCategoryArr.rawSports.push(vm.rawNewArrivalArr[i]);
-          }
-        }
-      },
-
-      // 取得購物車內容
-      getCart() {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        const vm = this;
-        this.$http.get(api).then((response) => {
-          // console.log(response); // 確認從遠端撈回來的資料結構
-          // console.log("response.data.data.carts", response.data.data.carts); // 確認從遠端撈回來的資料結構
-          vm.originalCart = response.data.data.carts;
-          vm.cartItemNum = response.data.data.carts.length; // 將購物車 有幾樣商品 存入 data return 中
-          vm.sendCartItemNum();
-        });
-      },
-
-      // 將商品加入購物車
-      addToCart(id, title) {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        const vm = this;
-        const cart = {
-          product_id: id,
-          qty: 1,
-        };
-
-        // 逐一比對原始購物車內的品項
-        // 如果有，則跳出迴圈
-        for (let i = 0; i < vm.originalCart.length; i++) {
-          if (vm.originalCart[i].product_id === id) {
-            vm.sameProductStatus = true;
-            alert("購物車內已經有這項商品囉~");
-            break;
-          }
-        }
-
-        // 如果沒有，則將一件該商品加入購物車
-        if (vm.sameProductStatus === false) {
-          this.$http.post(api, { data: cart }).then((response) => {
-            if (response.data.success) {
-              alert(`成功將 ${title} 加入至購物車！`);
-              vm.getCart();
-            }
-            else {
-              alert("加入購物車失敗，請重整頁面後再試一次~");
-            }
-          });
-        }
-
-        vm.sameProductStatus = false; // 重設 購物車內是否有同樣的商品 的狀態
-      },
-
-      // 將更新後的數量送到 headerComponent 中進行更新
-      sendCartItemNum() {
-        eventBus.$emit("cartItemNumEvent", this.cartItemNum)
-      },
-
-      routerTo(categoryName) {
-        this.$router.push(
-          {
-            path: '/shop',
-            query: { category: categoryName },
-          }
-        );
-      },
-    },
-
-  }
-</script>

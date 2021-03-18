@@ -65,7 +65,6 @@
         >
           <img src="https://preview.colorlib.com/theme/winter/img/logo.png"
             alt=""
-            @click.prevent="test"
           >
         </router-link>
       </div>
@@ -98,6 +97,7 @@
     </div>
   </header>
 </template>
+
 
 <script>
   import $ from 'jquery';
@@ -132,7 +132,7 @@
     watch: {
       $route: {
         handler(val, oldVal) {
-          console.log(val);
+          // console.log(val);
         },
         // 深度觀察監聽
         deep: true,
@@ -151,13 +151,13 @@
     },
 
     methods: {
-      test() {
-        console.log(this.$route);
-      },
+      // test() {
+      //   console.log(this.$route);
+      // },
 
       // 從 server 取得購物車內有幾項商品
       getCartItemNum() {
-        const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
         const vm = this;
 
         this.$http.get(api).then((response) => {
@@ -188,6 +188,7 @@
 
   };
 </script>
+
 
 <style scoped>
   /* 通用樣式 */

@@ -91,6 +91,7 @@
   </div>
 </template>
 
+
 <script>
   import HeaderComponent from '@/components/HeaderComponent.vue';
   import IgPost from '@/components/IgPost.vue';
@@ -103,12 +104,15 @@
       IgPost,
       FooterComponent,
     },
+    
     created() {
       // 回到頁面頂部
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
+    
   };
 </script>
+
 
 <style scoped>
   iframe {

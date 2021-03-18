@@ -2,19 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import Home from '@/views/frontEnd/Home.vue';
-
-
-// // 前台
-// import home from '@/components/pages/home'; // 首頁
-// import login from '@/components/pages/login'; // 登入頁
-// import logout from '@/components/pages/logout'; // 登出頁
-// import shop from '@/components/pages/shop'; // 商城
-// import singleProduct from '@/components/pages/singleProduct'; // 單一商品頁面
-// import cart from '@/components/pages/cart'; // 購物車
-// import order from '@/components/pages/order'; // 檢視所有訂單
-// import singleOrder from '@/components/pages/singleOrder'; // 檢視單一訂單、下單後頁面
-// import contactUs from '@/components/pages/contactUs'; // 連絡我們
-
+import Admin_Dashboard from '@/views/backEnd/Admin_Dashboard.vue';
 
 // // 後台
 // import admin_Dashboard from '@/components/pages/admin_Dashboard';
@@ -97,7 +85,44 @@ export default new Router({
       component: () => import('@/views/frontEnd/ContactUs.vue'),
     },
 
+
     // 客服人員端 後台
+    {
+      // name: "admin_Dashboard", // 下方這個黃色警示，在去除這個 name 之後就會消失
+      // vue-router.esm.js?fe87:16 [vue-router] Named Route 'admin_Dashboard' has a default child route. When navigating to this named route (:to="{name: 'admin_Dashboard'"), the default child route will not be rendered. Remove the name from this route and use the name of the default child route for named links instead.
+      path: "/admin_Dashboard",
+      component: Admin_Dashboard,
+      children: [
+        {
+          name: "AdminHome",
+          path: "", // 空值表示預設會尋訪這個子路由
+          component: () => import('@/views/backEnd/AdminHome.vue'),
+        },
+        // {
+        //   name: "adminLogin",
+        //   path: "adminLogin",
+        //   component: adminLogin,
+        // },
+        // {
+        //   name: "adminProducts",
+        //   path: "adminProducts",
+        //   component: adminProducts,
+        //   meta: { requiresAdminAuth: true }, // 須驗證登入
+        // },
+        // {
+        //   name: "adminCoupon",
+        //   path: "adminCoupon",
+        //   component: adminCoupon,
+        //   meta: { requiresAdminAuth: true }, // 須驗證登入
+        // },
+        // {
+        //   name: "adminOrder",
+        //   path: "adminOrder",
+        //   component: adminOrder,
+        //   meta: { requiresAdminAuth: true }, // 須驗證登入
+        // },
+      ]
+    },
 
 
     {
@@ -106,6 +131,7 @@ export default new Router({
       path: '*',
       redirect: '/', // 導至首頁
     },
+
   ],
 });
 

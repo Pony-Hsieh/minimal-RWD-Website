@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Home from '@/views/frontEnd/Home.vue';
+import ContactUs from '@/views/frontEnd/ContactUs.vue';
+
 
 // // 前台
 // import home from '@/components/pages/home'; // 首頁
@@ -14,7 +16,6 @@ import Home from './views/Home.vue';
 // import contactUs from '@/components/pages/contactUs'; // 連絡我們
 
 
-
 // // 後台
 // import admin_Dashboard from '@/components/pages/admin_Dashboard';
 // // import adminSimulatedOrder from '@/components/pages/adminSimulatedOrder';
@@ -24,9 +25,6 @@ import Home from './views/Home.vue';
 // import adminCoupon from '@/components/pages/adminCoupon'; // 管理 coupon
 // import adminOrder from '@/components/pages/adminOrder'; // 管理訂單
 // // import test from '@/components/pages/test';
-
-
-
 
 
 Vue.use(Router);
@@ -39,12 +37,18 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/contactUs',
+      name: 'ContactUs',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import('@/views/frontEnd/ContactUs.vue'),
+    },
+    {
+      // 避免因為用戶輸入非預期的網址而跳轉至空白頁面
+      // 萬用路由要放在最後
+      path: '*',
+      redirect: '/', // 導至首頁
     },
   ],
 });

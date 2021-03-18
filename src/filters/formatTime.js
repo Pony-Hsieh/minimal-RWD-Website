@@ -2,13 +2,12 @@
 // 將 unix timestamp 轉為 yyyy-mm-dd
 
 export default function (unixTimeStamp) {
+  const dates = new Date(unixTimeStamp * 1000);
+  const year = dates.getFullYear();
+  const month = dates.getMonth() + 1;
+  const date = dates.getDate() + 1;
+  const hours = dates.getHours();
+  const minutes = dates.getMinutes();
 
-    let dates = new Date(unixTimeStamp * 1000);
-    let year = dates.getFullYear();
-    let month = dates.getMonth() + 1;
-    let date = dates.getDate() + 1;
-    let hours = dates.getHours();
-    let minutes = dates.getMinutes();
-
-    return `${year}/${month}/${date} ${hours}:${minutes}`;
+  return `${year}/${month}/${date} ${hours}:${minutes}`;
 }

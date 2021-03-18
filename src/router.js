@@ -94,37 +94,38 @@ export default new Router({
       component: Admin_Dashboard,
       children: [
         {
-          name: "AdminHome",
           path: "", // 空值表示預設會尋訪這個子路由
+          name: "AdminHome",
           component: () => import('@/views/backEnd/AdminHome.vue'),
         },
-        // {
-        //   name: "adminLogin",
-        //   path: "adminLogin",
-        //   component: adminLogin,
-        // },
-        // {
-        //   name: "adminProducts",
-        //   path: "adminProducts",
-        //   component: adminProducts,
-        //   meta: { requiresAdminAuth: true }, // 須驗證登入
-        // },
-        // {
-        //   name: "adminCoupon",
-        //   path: "adminCoupon",
-        //   component: adminCoupon,
-        //   meta: { requiresAdminAuth: true }, // 須驗證登入
-        // },
-        // {
-        //   name: "adminOrder",
-        //   path: "adminOrder",
-        //   component: adminOrder,
-        //   meta: { requiresAdminAuth: true }, // 須驗證登入
-        // },
+        {
+          path: "adminLogin",
+          name: "AdminLogin",
+          component: () => import('@/views/backEnd/AdminLogin.vue'),
+        },
+        {
+          path: "adminProducts",
+          name: "AdminProducts",
+          component: () => import('@/views/backEnd/AdminProducts.vue'),
+          // meta: { requiresAdminAuth: true }, // 須驗證登入
+        },
+        {
+          path: "adminCoupon",
+          name: "AdminCoupon",
+          component: () => import('@/views/backEnd/AdminCoupon.vue'),
+          // meta: { requiresAdminAuth: true }, // 須驗證登入
+        },
+        {
+          path: "adminOrder",
+          name: "AdminOrder",
+          component: () => import('@/views/backEnd/AdminOrder.vue'),
+          // meta: { requiresAdminAuth: true }, // 須驗證登入
+        },
       ]
     },
 
 
+    // 萬用路由
     {
       // 避免因為用戶輸入非預期的網址而跳轉至空白頁面
       // 萬用路由要放在最後

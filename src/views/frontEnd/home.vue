@@ -253,7 +253,7 @@
 
         // 從遠端取回 產品 、 分頁 的資料
         // 使用 ES6 的 promise 方法，所以使用 then 進行串接
-        this.$http.get(api).then((response) => {
+        vm.$http.get(api).then((response) => {
           // console.log(response); // 確認遠端撈回來的資料結構
           vm.rawNewArrivalArr = response.data.products.slice(0, 6);
           // vm.isLoading = false;  // 讀取效果
@@ -283,9 +283,10 @@
 
       // 取得購物車內容
       getCart() {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
         const vm = this;
-        this.$http.get(api).then((response) => {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+
+        vm.$http.get(api).then((response) => {
           // console.log(response); // 確認從遠端撈回來的資料結構
           // console.log("response.data.data.carts", response.data.data.carts); // 確認從遠端撈回來的資料結構
           vm.originalCart = response.data.data.carts;
@@ -296,8 +297,8 @@
 
       // 將商品加入購物車
       addToCart(id, title) {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
         const vm = this;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
         const cart = {
           product_id: id,
           qty: 1,

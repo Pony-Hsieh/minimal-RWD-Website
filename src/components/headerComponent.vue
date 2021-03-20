@@ -157,10 +157,10 @@
 
       // 從 server 取得購物車內有幾項商品
       getCartItemNum() {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
         const vm = this;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
 
-        this.$http.get(api).then((response) => {
+        vm.$http.get(api).then((response) => {
           // console.log(response); // 確認從遠端撈回來的資料結構
           vm.cartItemNum = response.data.data.carts.length; // 將購物車有幾項商品 存入資料結構中
         });

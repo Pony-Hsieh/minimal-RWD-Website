@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <HeaderComponent />
 
     <div class="container">
@@ -421,6 +422,7 @@
     </div>
 
     <FooterComponent />
+    
   </div>
 </template>
 

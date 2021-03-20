@@ -31,6 +31,7 @@ axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios); // 啟用 VueAxios 套件
 Vue.component('VueSlider', VueSlider); // 啟用 vue-slider 套件
 
+
 // 引入 vee-validate 相關設定
 Object.keys(rules).forEach((rule) => {
 	extend(rule, rules[rule]);
@@ -49,8 +50,6 @@ configure({
 });
 
 
-
-
 // 啟用 filter
 Vue.filter('currency', currencyFilter) // 啟用 千分號 (數字 三位一撇) filter
 Vue.filter('formatTime', formatTime) // 啟用 unxiTimeStamp 轉 西元 filter，一般商品資料用
@@ -58,7 +57,9 @@ Vue.filter('couponFormatTime', couponFormatTime) // 啟用 unxiTimeStamp 轉 西
 Vue.filter('couponTransfer', couponTransfer) // 啟用 %數轉折數 filter
 
 
+// 好像是用以關掉某些提示用的
 Vue.config.productionTip = false;
+
 
 new Vue({
   router,

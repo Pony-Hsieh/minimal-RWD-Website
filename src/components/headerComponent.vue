@@ -106,7 +106,7 @@
 
   export default {
 
-    name: 'HeaderComponent', // 其實我也不確定這個到底要不要寫，因為拿掉好像也沒看到甚麼立即的影響
+    // name: 'HeaderComponent', // 其實我也不確定這個到底要不要寫，因為拿掉好像也沒看到甚麼立即的影響
 
     data() {
       return {

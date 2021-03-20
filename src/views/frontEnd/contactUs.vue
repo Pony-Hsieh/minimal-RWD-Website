@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <HeaderComponent />
 
     <div class="container py-5">
@@ -88,6 +89,7 @@
 
     <IgPost />
     <FooterComponent />
+
   </div>
 </template>
 
@@ -98,7 +100,9 @@
   import FooterComponent from '@/components/FooterComponent.vue';
 
   export default {
+
     // name: 'ContactUs',
+    
     components: {
       HeaderComponent,
       IgPost,

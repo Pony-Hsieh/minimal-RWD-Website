@@ -1,148 +1,18 @@
 <template>
   <div>
+
     <HeaderComponent />
 
     <div class="container all">
       <div class="row pt-5">
-        <!-- 套用 filter -->
-        <div class="col-12 col-lg-3">
-          <!-- 類別 filter -->
-          <div class="filterCard">
-            <h5>依據 類別 篩選</h5>
-            <ul class="list-unstyled categoryList">
-              <li>
-                <a href="#" @click.prevent="showCategory = 'all', saveFilteredArray()">全部</a>
-                <!-- <a href="#" @click.prevent="showCategory = 'all', saveFilteredArray">全部</a> -->
-              </li>
-              <li>
-                <a href="#" @click.prevent="showCategory = 'rawMen', saveFilteredArray()">男士</a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="showCategory = 'rawWomen', saveFilteredArray()">女士</a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="showCategory = 'rawShoes', saveFilteredArray()">鞋類</a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="showCategory = 'rawSports', saveFilteredArray()">運動</a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- 金額 filter -->
-          <div class="filterCard priceFilter mt-5">
-            <h5>依據 金額 篩選</h5>
-            <div class="priceFilterInfo">
-              <vue-slider v-model="priceRange" dot-size="20" max="10000" interval="100" :lazy="true" />
-
-              <div class="w-100">
-                <input v-model="priceRange[0]" type="number">
-                到
-                <input v-model="priceRange[1]" type="number">
-              </div>
-
-              <div class="w-100">
-                <button class="btn btn-sm" @click="saveFilteredArray">
-                  套用金額範圍
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <main class="col-12 col-lg-9">
           <div class="container-fluid">
-            <!-- 顯示類別、該類別有幾項商品 -->
+
+            <!-- 顯示 LS 資料 -->
             <div class="row">
-              <div class="col-12 col-lg-6 p-0 pl-lg-4">
-                <h3 class="h4" style="line-height: 42px;">
-                  {{ showString[showCategory] }}
-                  ({{ filteredArray.length }})
-                </h3>
-              </div>
-              <!-- <div class="col-12 col-lg-6 p-0 pr-lg-4 filterDropDown"
-                                style="margin-top:20px; margin-bottom: 40px;"> -->
-              <div class="col-12 col-lg-6 p-0 pr-lg-4 filterDropDown">
-                <!-- 依據類別篩選 -->
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col p-0 mr-1">
-                      <select v-model="showCategory" class="w-100" style="height: 42px;" @change="saveFilteredArray">
-                        <option value="all" disabled>
-                          選擇類別
-                        </option>
-                        <option value="all">
-                          全部
-                        </option>
-                        <option value="rawMen">
-                          男士
-                        </option>
-                        <option value="rawWomen">
-                          女士
-                        </option>
-                        <option value="rawShoes">
-                          鞋類
-                        </option>
-                        <option value="rawSports">
-                          運動
-                        </option>
-                      </select>
-                    </div>
-                    <div class="col p-0 ml-1">
-                      <!-- 每頁顯示幾項商品 -->
-                      <select v-model="pageUnit" class="w-100" style="height: 42px;" @change="getPage">
-                        <option value="9" default>
-                          每頁顯示 9 樣商品
-                        </option>
-                        <option value="6">
-                          每頁顯示 6 樣商品
-                        </option>
-                        <option value="3">
-                          每頁顯示 3 樣商品
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {{ userLSCartArr }}
             </div>
-
-            <!-- 分頁功能 -->
-            <!-- <div class="row">
-                            頁數列表
-                            <ul :value="pageNum" v-for="pageNum in totalPageNumber" :key="pageNum">
-                                <button @click="updateCurrentPageNumber(pageNum)">
-                                    {{pageNum}}
-                                </button>
-                            </ul>
-                        </div> -->
-
-            <!-- 分頁功能 -->
-            <nav aria-label="Page navigation example" class="my-4">
-              <ul class="pagination justify-content-center">
-                <!-- 上一頁 -->
-                <li class="page-item" :class="{'disabled' : currentPageNumber === 1}">
-                  <a class="page-link" href="#" aria-label="Previous"
-                    @click.prevent="updateCurrentPageNumber(currentPageNumber - 1)">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <!-- 各分頁 -->
-                <li v-for="pageNum in totalPageNumber" :key="pageNum" class="page-item"
-                  :class="{ 'active' : currentPageNumber === pageNum }">
-                  <a class="page-link" href="#" @click.prevent="updateCurrentPageNumber(pageNum)">{{ pageNum }}</a>
-                </li>
-                <!-- 下一頁 -->
-                <li class="page-item" :class="{'disabled' : currentPageNumber === totalPageNumber}">
-                  <a class="page-link" href="#" aria-label="Next"
-                    @click.prevent="updateCurrentPageNumber(currentPageNumber + 1)">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
 
             <!-- 顯示商品 -->
             <div class="row productInfo">
@@ -169,7 +39,8 @@
                     </a>
                   </li>
                   <li class="addCart">
-                    <a href="#" title="加入購物車" @click.prevent="addToCart(item.id, item.title)">
+                    <!-- <a href="#" title="加入購物車" @click.prevent="addToCart(item.id, item.title)"> -->
+                    <a href="#" title="加入購物車" @click.prevent="addToLSCart(item)">
                       <i class="fas fa-cart-plus" />
                     </a>
                   </li>
@@ -203,15 +74,13 @@
                 </li>
               </ul>
             </nav>
-            
+
           </div>
         </main>
+
       </div>
     </div>
 
-    <ShippingDescription />
-    <IgPost />
-    <FooterComponent />
   </div>
 </template>
 
@@ -235,6 +104,16 @@
 
     data() {
       return {
+
+        userLSCartArr: [],    // LS 購物車內容
+        // userLSCompareArr: [], // 用以比較是否有相同產品的陣列
+        tempCart: {},
+
+
+
+
+
+
         rawProducts: [],  // 所有商品資料
         rawCategoryProducts: {
           all: [],
@@ -293,6 +172,60 @@
     },
 
     methods: {
+
+      // 將商品加入 LS
+      addToLSCart(nowProduct) {
+
+        let compareArr = []; // 用以 比較是否有相同產品 用的陣列
+        let tempAddObj = {}; // 用以 暫存要加入購物車的資料
+
+        let addToLSObj = {
+          product_id: nowProduct.id, // 商品 id   // API 需要
+          qty: 1, // 欲購買數量 // 預設購買 1 項商品 // API 需要 
+          imageUrl: nowProduct.imageUrl, // 圖片網址
+          title: nowProduct.title, // 商品名稱
+          origin_price: nowProduct.origin_price, // 單價
+          price: nowProduct.price, // 折扣價(不包含 coupon 的折扣)
+        };
+
+        // 取得 LS，並存入 data return 中
+        this.userLSCartArr = JSON.parse(localStorage.getItem("userLSCart")) || []; // 有機會可以嘗試使用 ?? (空位合併 Nullish Coalescing)
+
+        // 將 LS 內的產品 id 取出，一一放入比較用的陣列中
+        this.userLSCartArr.forEach((item) => {
+          compareArr.push(item.product_id);
+        });
+        
+        // 判斷 LS 內是否有相同產品
+        if (compareArr.indexOf(nowProduct.id) === -1) { // LS內 無 相同產品  // 直接加入(1項)該商品於陣列中，並送往 LS  // indexOf === -1 代表這個值不存在於陣列中
+          this.userLSCartArr.push(addToLSObj);
+          localStorage.setItem("userLSCart", JSON.stringify(this.userLSCartArr));
+        }
+        else { // LS內 已經有 相同產品  // 再跑一次迴圈，去找相同的產品在哪；加入新的數量於陣列末端；再將原本的資料刪除，並送往 LS
+          this.userLSCartArr.forEach((item, index) => { // 透過迴圈
+            if (nowProduct.id === item.product_id) { // 找相同的產品在哪
+              tempAddObj = { // 將資料暫存起來
+                product_id: item.product_id,
+                qty: item.qty + 1,
+                imageUrl: item.imageUrl,
+                title: item.title,
+                origin_price: item.origin_price,
+                price: item.price,
+              };
+              this.userLSCartArr.splice(index, 1); // 再將原本的資料刪除
+            }
+          });
+          this.userLSCartArr.push(tempAddObj); // push 進 LS 陣列中
+          localStorage.setItem("userLSCart", JSON.stringify(this.userLSCartArr)); // 並送往 LS
+        }
+
+      },
+
+
+
+      // ----------------------------------------------------------------------------------------------------------------------------------------------------
+      // ----------  以上為測試區域  ----------------------------------------------------------------------------------------------------------------------------------
+      // ----------------------------------------------------------------------------------------------------------------------------------------------------
 
       judgeCategoryByRouterParam() {
         // console.log(this.$route.query.category);

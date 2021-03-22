@@ -16,6 +16,7 @@ module.exports = {
       "singleline": 1,
       "multiline": {
         "max": 1,
+        // "max": 0, // 可以試試看設成 0 會不會標籤都在同一行
         "allowFirstLine": true
       }
     }],

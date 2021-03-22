@@ -68,6 +68,22 @@ export default new Router({
       name: "Cart",
       component: () => import('@/views/frontEnd/Cart.vue'),
     },
+    
+    ////////////////////////////////////  測試用頁面  ////////////////////////////////////
+    {
+      // 商城 - 所有產品  localStorage 測試
+      path: "/testShop",
+      name: "TestShop",
+      component: () => import('@/views/frontEnd/TestShop.vue'),
+    },
+    {
+      // 會員 - 購物車 localStorage 測試
+      path: "/testCart",
+      name: "TestCart",
+      component: () => import('@/views/frontEnd/TestCart.vue'),
+    },
+    ////////////////////////////////////  測試用頁面  ////////////////////////////////////
+
     {
       // 下單後頁面、檢視單一訂單(兩者共用)
       name: "singleOrder",

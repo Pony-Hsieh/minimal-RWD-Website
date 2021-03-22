@@ -1,5 +1,13 @@
 <template>
   <div>
+
+    <!-- <button type="button" class="btn btn-lg btn-dark" @click="ls_Set_Test">ls Set Test</button>
+    <button type="button" class="btn btn-lg btn-dark" @click="ls_Get_Test">ls Get Test</button>
+    <button type="button" class="btn btn-lg btn-dark" @click="ls_Remove_Test">ls Remove Test</button> -->
+    
+    <button type="button" class="btn btn-lg btn-dark" @click="ls_addCartItem">ls_addCartItem</button>
+
+    
     
     <HeaderComponent />
 
@@ -12,9 +20,7 @@
           <hr>
 
           <!-- 如果購物車為空，則顯示此區塊 -->
-          <div v-if="cartItem.length == 0"
-            class="text-center my-5"
-          >
+          <div v-if="cartItem.length == 0" class="text-center my-5">
             目前購物車內沒有商品喔，趕快ㄑ選購商品吧~~
             <br>
             <br>
@@ -25,69 +31,44 @@
             </router-link>
           </div>
 
-          <table v-if="cartItem.length != '0'"
-            class="talbe mt-4 w-100 table-striped table-responsive-lg"
-          >
+          <table v-if="cartItem.length != '0'" class="talbe mt-4 w-100 table-striped table-responsive-lg">
             <thead>
               <tr>
-                <th width="120px"
-                  class="text-center py-3"
-                >
+                <th width="120px" class="text-center py-3">
                   商品
                 </th>
-                <th width="200PX"
-                  class="text-center"
-                >
+                <th width="200PX" class="text-center">
                   數量
                 </th>
-                <th width="120px"
-                  class="text-center d-none d-sm-table-cell"
-                >
+                <th width="120px" class="text-center d-none d-sm-table-cell">
                   單價
                 </th>
-                <th width="120px"
-                  class="text-center"
-                >
+                <th width="120px" class="text-center">
                   小計
                 </th>
-                <th width="100px"
-                  class="text-center"
-                >
+                <th width="100px" class="text-center">
                   移除
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in cartItem"
-                :key="item.id"
-              >
+              <tr v-for="item in cartItem" :key="item.id">
                 <!-- 商品 -->
                 <td class="text-center py-2 py-sm-3">
-                  <img :src="item.product.imageUrl"
-                    width="70px"
-                    alt=""
-                    class="mb-sm-2"
-                  >
+                  <img :src="item.product.imageUrl" width="70px" alt="" class="mb-sm-2">
                   <br>
                   {{ item.product.title }}
                 </td>
                 <!-- 數量 -->
                 <td class="text-center editProductQty">
-                  <button class="qtyChange_btn"
-                    @click.prevent="editProductQty(item, 'minus')"
-                  >
+                  <button class="qtyChange_btn" @click.prevent="editProductQty(item, 'minus')">
                     －
                   </button>
-                  <input v-model.lazy="item.qty"
-                    type="number"
-                    :class="{'ing':item.id === changingQtyItem}"
+                  <input v-model.lazy="item.qty" type="number" :class="{'ing':item.id === changingQtyItem}"
                     @click="judgeChangingQtyItem(item.id, item.qty)"
                     @blur="removeChangingQtyItem(), editProductQty(item, edit)"
-                    @keyup.enter="editProductQty(item, edit)"
-                  >
-                  <button class="qtyChange_btn"
-                    @click.prevent="editProductQty(item, 'plus')"
-                  >
+                    @keyup.enter="editProductQty(item, edit)">
+                  <button class="qtyChange_btn" @click.prevent="editProductQty(item, 'plus')">
                     ＋
                   </button>
                 </td>
@@ -118,9 +99,7 @@
                 </td>
                 <!-- 移除 -->
                 <td class="text-center">
-                  <button class="btn btn-outline-danger btn-sm"
-                    @click="openDeleteModal(item.id, item.product.title)"
-                  >
+                  <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(item.id, item.product.title)">
                     <i class="fas fa-times" />
                   </button>
                   <!-- 這邊要傳入 訂單id，也就是 item.id -->
@@ -133,20 +112,12 @@
       </div>
 
       <!-- 套用優惠碼相關部分 -->
-      <div v-if="cartItem.length != 0"
-        class="row"
-      >
+      <div v-if="cartItem.length != 0" class="row">
         <div class="col-12">
           <div class="input-group input-group-md mt-5">
-            <input v-model.trim="inputCouponCode"
-              type="text"
-              placeholder="請輸入 coupon 代碼"
-              class="form-control"
-            >
+            <input v-model.trim="inputCouponCode" type="text" placeholder="請輸入 coupon 代碼" class="form-control">
             <div class="input-group-append">
-              <button class="btn btn-primary"
-                @click="applyCoupon"
-              >
+              <button class="btn btn-primary" @click="applyCoupon">
                 套用 coupon
               </button>
             </div>
@@ -154,44 +125,31 @@
         </div>
         <div class="col-lg-5 d-none d-lg-block" />
 
-        <div v-if="usingCoupon.title !== ''"
-          class="col-12 col-sm-7 col-lg-4 my-3"
-        >
+        <div v-if="usingCoupon.title !== ''" class="col-12 col-sm-7 col-lg-4 my-3">
           已套用 coupon 名稱：{{ usingCoupon.title }}
           <br>
           已套用 coupon 代碼：{{ usingCoupon.code }}
         </div>
         <div v-if="usingCoupon.title !== ''"
-          class="col-12 col-sm-5 col-lg-3 d-flex justify-content-center justify-content-sm-end align-items-center "
-        >
-          <button class="btn btn-outline-danger btn-sm"
-            @click="cancelCoupon"
-          >
+          class="col-12 col-sm-5 col-lg-3 d-flex justify-content-center justify-content-sm-end align-items-center ">
+          <button class="btn btn-outline-danger btn-sm" @click="cancelCoupon">
             取消套用此 coupon
           </button>
         </div>
       </div>
 
       <!-- 訂單金額 -->
-      <div v-if="cartItem.length != 0"
-        class="row mt-5 cartTotal"
-      >
+      <div v-if="cartItem.length != 0" class="row mt-5 cartTotal">
         <div class="col-3 col-lg-5" />
         <div class="col-9 col-lg-7 d-flex justify-content-between">
           <h6>總計</h6>
-          <del v-if="total !== final_total"
-            class="h6 mr-1"
-          >{{ total | currency }}</del>
+          <del v-if="total !== final_total" class="h6 mr-1">{{ total | currency }}</del>
           <h6 v-else>
             {{ total | currency }}
           </h6>
         </div>
-        <div v-if="total !== final_total"
-          class="col-3 col-lg-5"
-        />
-        <div v-if="total !== final_total"
-          class="col-9 col-lg-7 d-flex justify-content-between align-items-center"
-        >
+        <div v-if="total !== final_total" class="col-3 col-lg-5" />
+        <div v-if="total !== final_total" class="col-9 col-lg-7 d-flex justify-content-between align-items-center">
           <h6 class="text-primary">
             折扣後價格
           </h6>
@@ -202,82 +160,50 @@
       </div>
 
       <!-- 客戶收件資料及聯絡資料 、 送出訂單 -->
-      <div v-if="cartItem.length != 0"
-        class="row my-5 justify-content-center"
-      >
+      <div v-if="cartItem.length != 0" class="row my-5 justify-content-center">
         <h5 class="col-12 text-center">
           訂購資訊
         </h5>
-        <validation-observer v-slot="{ invalid }"
-          class="col-md-6"
-        >
+        <validation-observer v-slot="{ invalid }" class="col-md-6">
           <form @submit.prevent="createOrder">
             <!-- 訂購人 email -->
-            <validation-provider v-slot="{ errors, classes }"
-              rules="required|email"
-            >
+            <validation-provider v-slot="{ errors, classes }" rules="required|email">
               <div class="form-group">
                 <!-- 輸入框 -->
                 <label for="userEmail">訂購人 email</label>
-                <input id="userEmail"
-                  v-model="form.user.email"
-                  type="email"
-                  name="訂購人 email"
-                  class="form-control"
-                  :class="classes"
-                >
+                <input id="userEmail" v-model="form.user.email" type="email" name="訂購人 email" class="form-control"
+                  :class="classes">
                 <!-- 錯誤訊息 -->
                 <span class="invalid-feedback">{{ errors[0] }}</span>
               </div>
             </validation-provider>
 
             <!-- 收件人姓名 -->
-            <validation-provider v-slot="{ errors, classes }"
-              rules="required"
-            >
+            <validation-provider v-slot="{ errors, classes }" rules="required">
               <div class="form-group">
                 <label for="userName">收件人姓名</label>
-                <input id="userName"
-                  v-model="form.user.name"
-                  type="text"
-                  name="收件人姓名"
-                  class="form-control"
-                  :class="classes"
-                >
+                <input id="userName" v-model="form.user.name" type="text" name="收件人姓名" class="form-control"
+                  :class="classes">
                 <span class="invalid-feedback">{{ errors[0] }}</span>
               </div>
             </validation-provider>
 
             <!-- 收件人電話 -->
-            <validation-provider v-slot="{ errors, classes }"
-              rules="required"
-            >
+            <validation-provider v-slot="{ errors, classes }" rules="required">
               <div class="form-group">
                 <label for="userTel">收件人電話</label>
-                <input id="userTel"
-                  v-model="form.user.tel"
-                  type="tel"
-                  name="收件人電話"
-                  class="form-control"
-                  :class="classes"
-                >
+                <input id="userTel" v-model="form.user.tel" type="tel" name="收件人電話" class="form-control"
+                  :class="classes">
                 <span class="invalid-feedback">{{ errors[0] }}</span>
               </div>
             </validation-provider>
 
             <!-- 收件人地址 -->
-            <validation-provider v-slot="{ errors, classes }"
-              rules="required"
-            >
+            <validation-provider v-slot="{ errors, classes }" rules="required">
               <div class="form-group">
                 <label for="userAddress">收件人地址</label>
-                <input id="userAddress"
-                  v-model="form.user.address"
-                  type="text"
-                  name="收件人地址"
-                  class="form-control"
-                  :class="classes"
-                >
+                <input id="userAddress" v-model="form.user.address" type="text" name="收件人地址" class="form-control"
+                  :class="classes">
                 <span class="invalid-feedback">{{ errors[0] }}</span>
               </div>
             </validation-provider>
@@ -285,20 +211,13 @@
             <!-- 訂單留言 -->
             <div class="form-group">
               <label for="comment">留言</label>
-              <textarea id="comment"
-                v-model="form.message"
-                class="form-control"
-                style="resize: none; height: 200px;"
-              />
+              <textarea id="comment" v-model="form.message" class="form-control" style="resize: none; height: 200px;" />
             </div>
 
 
             <!-- 送出訂單 -->
             <div class="text-right">
-              <button class="btn btn-danger"
-                :disabled="invalid"
-                @click.prevent="createOrder"
-              >
+              <button class="btn btn-danger" :disabled="invalid" @click.prevent="createOrder">
                 送出訂單
               </button>
             </div>
@@ -313,28 +232,15 @@
     </div>
 
     <!-- minus、移除 確認刪除用 Modal  -->
-    <div id="productDeleteModal"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog"
-        role="document"
-      >
+    <div id="productDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="exampleModalLabel"
-              class="modal-title"
-            >
+            <h5 id="exampleModalLabel" class="modal-title">
               欲移出購物車的商品名稱：
             </h5>
-            <button type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -344,16 +250,10 @@
           <div class="modal-footer">
             <div class="container">
               <div class="row">
-                <button type="button"
-                  class="btn btn-secondary col mr-1"
-                  data-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary col mr-1" data-dismiss="modal">
                   否，關閉此彈跳視窗
                 </button>
-                <button type="button"
-                  class="btn btn-danger col ml-1"
-                  @click="deleteCartItem('minus')"
-                >
+                <button type="button" class="btn btn-danger col ml-1" @click="deleteCartItem('minus')">
                   是，將此商品移出購物車
                 </button>
               </div>
@@ -364,31 +264,16 @@
     </div>
 
     <!-- edit 確認刪除用 Modal  -->
-    <div id="editDeleteModal"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog"
-        role="document"
-      >
+    <div id="editDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="exampleModalLabel"
-              class="modal-title"
-            >
+            <h5 id="exampleModalLabel" class="modal-title">
               欲移出購物車的商品名稱：
             </h5>
-            <button type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true"
-                @click="getCart"
-              >&times;</span>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" @click="getCart">&times;</span>
               <!-- 與 移除 確認刪除用 Modal 的差異在這裡 -->
               <!-- 這個點擊 X 之後會重新取得購物車資料，刪除用的不會 -->
             </button>
@@ -399,19 +284,12 @@
           <div class="modal-footer">
             <div class="container-fluid">
               <div class="row">
-                <button type="button"
-                  class="btn btn-secondary col mr-1"
-                  data-dismiss="modal"
-                  @click="getCart"
-                >
+                <button type="button" class="btn btn-secondary col mr-1" data-dismiss="modal" @click="getCart">
                   否，關閉此彈跳視窗
                 </button>
                 <!-- 與 移除 確認刪除用 Modal 的差異在這裡 -->
                 <!-- 這個點擊 X 之後會重新取得購物車資料，刪除用的不會 -->
-                <button type="button"
-                  class="btn btn-danger col ml-1"
-                  @click="deleteCartItem('edit')"
-                >
+                <button type="button" class="btn btn-danger col ml-1" @click="deleteCartItem('edit')">
                   是，將此商品移出購物車
                 </button>
               </div>
@@ -422,7 +300,7 @@
     </div>
 
     <FooterComponent />
-    
+
   </div>
 </template>
 
@@ -480,6 +358,51 @@
     },
 
     methods: {
+
+      ls_Set_Test() {
+        let userName = "Pony";
+        // let userName = "a";
+        localStorage.setItem("userName", userName);
+        // let a = localStorage.getItem("userName");
+        // console.log(a);
+      },
+
+      ls_Get_Test() {
+        let a = localStorage.getItem("userName");
+        console.log(a);
+      },
+
+      ls_Remove_Test() {
+        localStorage.removeItem("userName");
+      },
+
+      ls_addCartItem() {
+        const vm = this;
+        const cart = {
+          product_id:product_id,
+          // product_id,
+          // 也可以這樣寫
+          qty: vm.editingQty,
+        };
+        console.log(cart);
+
+
+        // ---------- 一次加入三項商品不同數量的商品到 LS 中 ----------
+        // 男士 西裝外套 灰
+        // "-MPseqW11lTu_HkgXL2j"
+        // 男士 西裝外套 藍
+        // "-MQgUVc77Cvr4Rxd4gCb"
+        // 嘻哈潮流帽
+        // "-MQfy1oYhE8j1LHtdwL1"
+      },
+
+      
+
+      // ----------------------------------------------------------------------------------------------------------------------------------------------------
+      // ----------  以上為測試區域  ----------------------------------------------------------------------------------------------------------------------------------
+      // ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
       // 從 server 取得購物車品項
       getCart() {
@@ -583,9 +506,10 @@
           // product_id:product_id;
           qty: vm.editingQty,
         };
+        console.log(cart);
 
         vm.$http.post(api, { data: cart }).then((response) => {
-        // this.$http.post(api, { data: cart }).then((response) => {
+          // this.$http.post(api, { data: cart }).then((response) => {
           // console.log(response);
           // vm.status.loadingItem = '';
         });

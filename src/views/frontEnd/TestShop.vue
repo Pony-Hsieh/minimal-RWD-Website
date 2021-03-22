@@ -106,7 +106,6 @@
       return {
 
         userLSCartArr: [],    // LS 購物車內容
-        // userLSCompareArr: [], // 用以比較是否有相同產品的陣列
         tempCart: {},
 
 

@@ -2,12 +2,10 @@
   <div>
 
 
-    <!-- <button type="button" class="btn btn-lg btn-outline-dark" @click="getLSAndSendOrder">getLSAndSendOrder</button> -->
-    <button type="button" class="btn btn-lg btn-outline-dark" @click="asyncTest">同步行為測試</button>
-    <!-- <button type="button" class="btn btn-lg btn-outline-dark" @click="LSToServerCart">送出資料至後端購物車</button> -->
-    <!-- <button type="button" class="btn btn-lg btn-outline-dark" @click="sendOrder">發送訂單至伺服器</button> -->
+    <button type="button" class="btn btn-lg btn-outline-dark" @click="asyncTest">發送訂單至伺服器 = 送資料到伺服器購物車 +
+      送出訂單至伺服器</button>
 
-    發送訂單至伺服器 = 送資料到伺服器購物車 + 送出訂單至伺服器
+
 
 
     <HeaderComponent />
@@ -650,59 +648,62 @@
 
       // 新增 LS 購物車內商品，數量 +1
       plusLSCart(nowProduct) {
+        const vm = this;
         let tempAddObj = {}; // 用以 暫存要加入購物車的資料
 
-        for (let i = 0; i < this.userLSCartArr.length; i++) { // 透過迴圈
-          if (nowProduct.product_id === this.userLSCartArr[i].product_id) { // 找相同的產品在哪
-            tempAddObj = this.userLSCartArr[i];
-            tempAddObj.qty = Number(this.userLSCartArr[i].qty) + 1;
-            // Object.assign(tempAddObj, { qty: Number(this.userLSCartArr[i].qty) + 1 }); // 這個寫法也 OK // 這個寫法應該比較適合用於一次修改大量物件屬性
-            this.userLSCartArr.splice(i, 1, tempAddObj); // 再將原本的資料刪除 // 並插入新的資料
+        for (let i = 0; i < vm.userLSCartArr.length; i++) { // 透過迴圈
+          if (nowProduct.product_id === vm.userLSCartArr[i].product_id) { // 找相同的產品在哪
+            tempAddObj = vm.userLSCartArr[i];
+            tempAddObj.qty = Number(vm.userLSCartArr[i].qty) + 1;
+            // Object.assign(tempAddObj, { qty: Number(vm.userLSCartArr[i].qty) + 1 }); // 這個寫法也 OK // 這個寫法應該比較適合用於一次修改大量物件屬性
+            vm.userLSCartArr.splice(i, 1, tempAddObj); // 再將原本的資料刪除 // 並插入新的資料
             break; // 終止迴圈 // .forEach() 無法終止迴圈
           }
         }
-        localStorage.setItem("userLSCart", JSON.stringify(this.userLSCartArr)); // 並送往 LS 
-        this.getLSCart(); // 重新取得 LS 資料
+        localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS 
+        vm.getLSCart(); // 重新取得 LS 資料
       },
 
 
       // 減少 LS 購物車內商品，數量 -1
       minusLSCart(nowProduct) {
+        const vm = this;
 
         // 先判斷目前的數量是否為 1
         // 是 → 跳出 modal 詢問使用者是否想要刪除此產品？
         if (nowProduct.qty === 1) {
           // console.log("是否想要移除此商品？");
-          this.deletingLSItem = nowProduct;
+          vm.deletingLSItem = nowProduct;
           $("#LSDeleteModal").modal("show");
         }
         // 否 → 調整 LS 數量
         else {
           let tempAddObj = {}; // 用以 暫存要加入購物車的資料
-          for (let i = 0; i < this.userLSCartArr.length; i++) { // 透過迴圈
-            if (nowProduct.product_id === this.userLSCartArr[i].product_id) { // 找相同的產品在哪
-              tempAddObj = this.userLSCartArr[i];
-              tempAddObj.qty = Number(this.userLSCartArr[i].qty) - 1;
-              this.userLSCartArr.splice(i, 1, tempAddObj); // 再將原本的資料刪除 // 並插入新的資料
+          for (let i = 0; i < vm.userLSCartArr.length; i++) { // 透過迴圈
+            if (nowProduct.product_id === vm.userLSCartArr[i].product_id) { // 找相同的產品在哪
+              tempAddObj = vm.userLSCartArr[i];
+              tempAddObj.qty = Number(vm.userLSCartArr[i].qty) - 1;
+              vm.userLSCartArr.splice(i, 1, tempAddObj); // 再將原本的資料刪除 // 並插入新的資料
               break; // 終止迴圈 // .forEach() 無法終止迴圈
             }
           }
-          localStorage.setItem("userLSCart", JSON.stringify(this.userLSCartArr)); // 並送往 LS 
-          this.getLSCart(); // 重新取得 LS 資料
+          localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS 
+          vm.getLSCart(); // 重新取得 LS 資料
         }
       },
 
 
       // 移除 LS 購物車內商品
       deleteLSCart(nowProduct) {
-        this.userLSCartArr.forEach((item, index) => { // 透過迴圈
+        const vm = this;
+        vm.userLSCartArr.forEach((item, index) => { // 透過迴圈
           if (nowProduct.product_id === item.product_id) { // 找到該產品在哪
-            this.userLSCartArr.splice(index, 1); // 將該產品刪除
+            vm.userLSCartArr.splice(index, 1); // 將該產品刪除
           }
         });
-        localStorage.setItem("userLSCart", JSON.stringify(this.userLSCartArr)); // 將更新的內容送往 LS
-        this.deletingLSItem = {}; // 清空 暫存 欲刪除商品的陣列
-        this.getLSCart(); // 重新取得 LS 資料
+        localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 將更新的內容送往 LS
+        vm.deletingLSItem = {}; // 清空 暫存 欲刪除商品的陣列
+        vm.getLSCart(); // 重新取得 LS 資料
         $("#LSDeleteModal").modal("hide");
       },
 
@@ -721,33 +722,34 @@
 
       // 直接編輯 LS 購物車內商品，數量自訂
       editLSCartQty(nowProduct) {
+        const vm = this;
         // 數量為 0
         if (nowProduct.qty === "0") { // 資料結構中的.qty 為 string 型別，因此如果使用 number 型別會無法正確判斷
           // 開啟確認刪除用的 modal
           // console.log("輸入數量為 0");
-          this.openLSDeleteModal(nowProduct);
+          vm.openLSDeleteModal(nowProduct);
           return;
         }
         // 維持原數量
-        else if (nowProduct.qty === this.editingLSOriginalQty) {
+        else if (nowProduct.qty === vm.editingLSOriginalQty) {
           // console.log("輸入數量 與 原本 一致");
           return;
         }
         // 數量不為 0
         else {
           let tempAddObj = {}; // 用以 暫存要加入購物車的資料
-          for (let i = 0; i < this.userLSCartArr.length; i++) { // 透過迴圈
-            if (nowProduct.product_id === this.userLSCartArr[i].product_id) { // 找相同的產品在哪
-              tempAddObj = this.userLSCartArr[i];
+          for (let i = 0; i < vm.userLSCartArr.length; i++) { // 透過迴圈
+            if (nowProduct.product_id === vm.userLSCartArr[i].product_id) { // 找相同的產品在哪
+              tempAddObj = vm.userLSCartArr[i];
               tempAddObj.qty = Number(nowProduct.qty);
-              this.userLSCartArr.splice(i, 1, tempAddObj); // 再將原本的資料刪除 // 並插入新的資料
+              vm.userLSCartArr.splice(i, 1, tempAddObj); // 再將原本的資料刪除 // 並插入新的資料
               break; // 終止迴圈 // .forEach() 無法終止迴圈
             }
           }
-          localStorage.setItem("userLSCart", JSON.stringify(this.userLSCartArr)); // 並送往 LS 
+          localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS 
           return;
         }
-        this.getLSCart(); // 重新取得 LS 資料
+        vm.getLSCart(); // 重新取得 LS 資料
       },
 
 
@@ -758,18 +760,15 @@
       },
 
 
+      // 這個有成功直接將 LS 的資料取出並發送訂單喔~
       asyncTest() {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-
-
 
         // 取得 LS 購物車內容
         let LSCart = JSON.parse(localStorage.getItem("userLSCart")); // 取出來會是 JSON 格式  // [{…}, {…}, {…}]
         let sendArr = [];
         let promiseArr = []; // 用以暫存 準備送出之 API 陣列 // let promiseArr = [vm.$http.post(api, { data: sendArr[i] }), vm.$http.post(api, { data: sendArr[i] })];
-
-
 
         LSCart.forEach((item) => { // 因為沒有終止迴圈的需求，所以可以使用 .forEacch() 
           let cart = {
@@ -830,82 +829,6 @@
 
 
 
-      // 將 LS 內容 送出至 伺服器內的購物車
-      LSToServerCart() {
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-
-        // 取得 LS 購物車內容
-        let LSCart = JSON.parse(localStorage.getItem("userLSCart")); // 取出來會是 JSON 格式  // [{…}, {…}, {…}]
-        let sendArr = [];
-
-        LSCart.forEach((item) => { // 因為沒有終止迴圈的需求，所以可以使用 .forEacch() 
-          let cart = {
-            product_id: item.product_id,
-            qty: item.qty,
-          };
-          sendArr.push(cart);
-        });
-
-        // 一筆一筆往 伺服器內的購物車 送出
-        for (let i = 0; i < sendArr.length; i++) {
-          if (i !== sendArr.length - 1) { // 不是最後一次迴圈
-            console.log(i);
-            vm.$http.post(api, { data: sendArr[i] }).then((response) => {
-              console.log(`sendArrItem${i}`, response);
-            });
-          }
-          else { // 最後一次迴圈
-            console.log(i);
-            vm.$http.post(api, { data: sendArr[i] }).then((response) => {
-              console.log(`sendArrItem${i}`, response);
-            }).then(() => {
-              console.log("準備發送訂單");
-            });
-          }
-        }
-        console.log("跑完 for loop 了");
-
-        // sendArr.forEach((item, index) => { // 由於需要使用到 async await，所以還是使用傳統的 for loop
-        //   vm.$http.post(api, { data: item }).then((response) => {
-        //     console.log("sendArrItem", response);
-
-        //     // if (index === sendArr.length - 1) { // 最後一次迴圈
-        //     //   console.log(sendArr[index]);
-        //     // }
-        //   });
-        // });
-        // localStorage.removeItem("userLSCart"); // 清空 LS
-        // this.getLSCart(); // 重新取得 LS 資料
-        // console.log("跑完迴圈了");
-      },
-
-      // 發送實際 API 訂單
-      sendOrder() {
-        console.log("準備發送訂單");
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        // vm.isLoading = true;
-
-        vm.$http.get(api).then((response) => {
-          console.log(response); // 確認從遠端撈回來的資料結構
-        });
-        // const vm = this;
-        // vm.LSToServerCart(); // 先將 LS 內容 送出至 伺服器內的購物車 
-
-        // const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
-        // const receiveInfo = vm.testUserData;
-
-        // vm.$http.post(api, { data: receiveInfo }).then((response) => { // 購物車的內容會直接抓當下伺服器購物車的內容 // 所以只需要再傳收件人資訊即可
-        //   console.log("訂單已送出", response); // 確認從遠端撈回來的資料結構
-        //   // if (response.data.success) {
-        //   //   vm.toSingleOrderPage(response.data.orderId)
-        //   // }
-        //   // else {
-        //   //   // console.log("訂購失敗QQ，請稍後再試一次");
-        //   // }
-        // });
-      },
 
 
 

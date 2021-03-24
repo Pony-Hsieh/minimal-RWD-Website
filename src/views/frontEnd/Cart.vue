@@ -6,6 +6,7 @@
     <button type="button" class="btn btn-lg btn-dark" @click="ls_Remove_Test">ls Remove Test</button> -->
     
     <button type="button" class="btn btn-lg btn-dark" @click="ls_addCartItem">ls_addCartItem</button>
+    <button type="button" class="btn btn-lg btn-dark" @click="getCart">取得伺服器購物車資料</button>
 
     
     
@@ -112,7 +113,8 @@
       </div>
 
       <!-- 套用優惠碼相關部分 -->
-      <div v-if="cartItem.length != 0" class="row">
+      <!-- <div v-if="cartItem.length != 0" class="row"> -->
+      <div class="row">
         <div class="col-12">
           <div class="input-group input-group-md mt-5">
             <input v-model.trim="inputCouponCode" type="text" placeholder="請輸入 coupon 代碼" class="form-control">
@@ -139,7 +141,8 @@
       </div>
 
       <!-- 訂單金額 -->
-      <div v-if="cartItem.length != 0" class="row mt-5 cartTotal">
+      <!-- <div v-if="cartItem.length != 0" class="row mt-5 cartTotal"> -->
+      <div  class="row mt-5 cartTotal">
         <div class="col-3 col-lg-5" />
         <div class="col-9 col-lg-7 d-flex justify-content-between">
           <h6>總計</h6>
@@ -411,7 +414,7 @@
         // vm.isLoading = true;
 
         vm.$http.get(api).then((response) => {
-          // console.log(response); // 確認從遠端撈回來的資料結構
+          console.log(response); // 確認從遠端撈回來的資料結構
           vm.cartItem = response.data.data.carts;          // 將購物車 各品項 存入 data return 中
           vm.cartItemNum = response.data.data.carts.length; // 將購物車 有幾樣商品 存入 data return 中
           vm.sendCartItemNum(); // 將更新後的數量送到 headerComponent 中進行更新
@@ -581,7 +584,7 @@
         };
 
         vm.$http.post(api, { data: coupon }).then((response) => {
-          // console.log("applyCoupon", response);
+          console.log("applyCoupon", response);
           if (response.data.success) {
             // console.log("成功套用優惠券！");
             vm.inputCouponCode = "";

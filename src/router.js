@@ -86,8 +86,8 @@ export default new Router({
 
     {
       // 下單後頁面、檢視單一訂單(兩者共用)
-      name: "singleOrder",
-      path: "/SingleOrder",
+      path: "/singleOrder",
+      name: "SingleOrder",
       component: () => import('@/views/frontEnd/SingleOrder.vue'),
     },
 

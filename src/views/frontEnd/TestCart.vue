@@ -1,43 +1,25 @@
 <template>
   <div>
 
-
-    <button type="button" class="btn btn-lg btn-outline-dark" @click="asyncTest">發送訂單至伺服器 = 送資料到伺服器購物車 +
-      送出訂單至伺服器</button>
-
-    <input v-model.lazy.trim="inputCouponCode" type="text" placeholder="請輸入 coupon 代碼" class="form-control">
-    inputCouponCode{{ inputCouponCode }}
-    <br />
-    infoMsg{{ infoMsg }}
-
-    <br />
-    <!-- calLSTotal -->
-    <button type="button" class="btn  btn-outline-primary" @click="calLSTotal">calLSTotal</button>
-    <br />
-    LSTotal {{LSTotal}}
-    <br />
-    LSFinal_total {{LSFinal_total}}
-
-
     <HeaderComponent />
 
-    <!-- 新版購物車內容 -->
     <div class="container">
+
+      <!-- 購物車品項 -->
       <div class="row">
         <div class="col">
           <h1 class="h3 text-center mt-4">
-            新版購物車
+            購物車
           </h1>
           <hr>
-
-          <!-- 如果購物車為空，則顯示此區塊 -->
+          <!-- 如果 LS 購物車為空，則顯示此區塊 -->
           <div v-if="userLSCartArr.length === 0" class="text-center my-5">
-            目前購物車內沒有商品喔，趕快ㄑ選購商品吧~~
+            目前購物車內沒有商品喔~~
             <router-link to="/shop">
               點我去選購商品，GOGOGO ！！！
             </router-link>
           </div>
-
+          <!-- 如果 LS 購物車有商品，則顯示此區塊 -->
           <table v-if="userLSCartArr.length !== 0" class="talbe mt-4 w-100 table-striped table-responsive-lg">
             <thead>
               <tr>
@@ -58,19 +40,21 @@
                 </th>
               </tr>
             </thead>
+
             <tbody>
-              <!-- <tr v-for="item in userLSCartArr" :key="item.product_id"> -->
               <tr v-for="item in showingCartArr" :key="item.product_id">
+
                 <!-- 商品圖片、商品名稱 -->
                 <td class="text-center py-2 py-sm-3">
-                  <img :src="item.imageUrl" width="70px" alt="" class="mb-sm-2">
+                  <img :src="item.imageUrl" width="70px" :alt="item.title+' 圖片'" class="mb-sm-2">
                   <br>
                   {{ item.title }}
                 </td>
+
                 <!-- 數量 -->
                 <td class="text-center editProductQty">
                   <!-- 減少 -->
-                  <button class="qtyChange_btn" @click.prevent="minusLSCart(item)">
+                  <button type="button" class="qtyChange_btn" @click.prevent="minusLSCart(item)">
                     －
                   </button>
                   <input v-model.lazy="item.qty" type="number"
@@ -78,84 +62,121 @@
                     @click="judgeLSEditingQtyItem(item)" @keyup.esc="removeLSEditingQtyItem()"
                     @blur="editLSCartQty(item), removeLSEditingQtyItem()"
                     @keyup.enter="editLSCartQty(item), removeLSEditingQtyItem()">
-                  <button class="qtyChange_btn" @click.prevent="plusLSCart(item)">
+                  <button type="button" class="qtyChange_btn" @click.prevent="plusLSCart(item)">
                     ＋
                   </button>
                 </td>
+
                 <!-- 單價 -->
                 <td class="text-right pr-3 d-none d-sm-table-cell">
-                  <!-- 如果原價和售價不同時，用刪除線顯示原價 -->
-                  <del v-if="item.origin_price !== item.price">
-                    {{ item.origin_price | currency }}
-                    <br>
-                  </del>
-                  <span>
-                    {{ item.price | currency }}
-                  </span>
-                  <!-- 有套用 coupon 時，顯示套用後的價格 -->
-                  <!-- <span v-if="item.product.price !== item.final_total">
-                    {{ item.final_total/item.qty | currency }}
-                    <br>
-                  </span>
-                  <span v-else>
-                    {{ item.product.price | currency }}
-                  </span> -->
+                  <!-- 依據是否套用 coupon 決定要顯示哪個套組 -->
+                  <!-- 沒有 coupon -->
+                  <div v-if="usingCoupon.percent === 100">
+                    <!-- 如果 原價 和 售價 不同時，用 刪除線 顯示 原價 -->
+                    <del v-if="item.origin_price !== item.price">
+                      {{ item.origin_price | currency }}
+                      <br>
+                    </del>
+                    <span>
+                      {{ item.price | currency }}
+                    </span>
+                  </div>
+                  <!-- 有使用 coupon -->
+                  <div v-if="usingCoupon.percent !== 100">
+                    <!-- 套用 coupon 的狀況下，直接使用 刪除線 顯示 原價 -->
+                    <del>
+                      {{ item.origin_price | currency }}
+                      <br>
+                    </del>
+                    <span>
+                      <!-- 但優惠價的計算，要使用 售價 再去折扣，而不是原價 -->
+                      {{ item.price * usingCoupon.percent / 100 | currency }}
+                    </span>
+                  </div>
                 </td>
+
                 <!-- 小計 -->
                 <td class="text-right pr-3">
                   <span v-if="item.final_total">
                     {{ item.final_total | currency }}
                   </span>
                   <span v-else>
-                    {{ item.price * item.qty | currency }}
+                    {{ item.price * item.qty * usingCoupon.percent / 100 | currency }}
                   </span>
                 </td>
+
                 <!-- 移除 -->
                 <td class="text-center">
-                  <button class="btn btn-outline-danger btn-sm" @click="openLSDeleteModal(item)">
+                  <button type="button" class="btn btn-outline-danger btn-sm" @click="openLSDeleteModal(item)">
                     <i class="fas fa-times" />
                   </button>
-                  <!-- 這邊要傳入 訂單id，也就是 item.id -->
-                  <!-- 如果想要傳入 商品id 的話，那就是 item.product_id -->
                 </td>
+
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- 套用優惠碼相關部分 -->
+      <!-- 套用 coupon 相關 -->
+      <div v-if="userLSCartArr.length !== 0" class="row">
+        <div class="col-12">
+          <div class="input-group input-group-md mt-5">
+            <input v-model.trim="inputCouponCode" type="text" placeholder="請輸入 coupon 代碼" class="form-control">
+            <div class="input-group-append">
+              <button type="button" class="btn btn-primary" @click="applyCoupon">
+                套用 coupon
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-none d-lg-block col-lg-5"></div>
+        <div v-if="usingCoupon.percent !== 100" class="col-12 col-sm-7 col-lg-4 my-3">
+          已套用 coupon 名稱：{{ usingCoupon.title }}
+          <br>
+          已套用 coupon 代碼：{{ usingCoupon.code }}
+        </div>
+        <div v-if="usingCoupon.percent !== 100"
+          class="col-12 col-sm-5 col-lg-3 d-flex justify-content-center justify-content-sm-end align-items-center ">
+          <button type="button" class="btn btn-outline-danger btn-sm" @click="cancelCoupon">
+            取消套用此 coupon
+          </button>
+        </div>
+      </div>
 
       <!-- 訂單金額 -->
-      <!-- <div v-if="cartItem.length != 0" class="row mt-5 cartTotal">
-                <div class="col-3 col-lg-5" />
-                <div class="col-9 col-lg-7 d-flex justify-content-between">
-                    <h6>總計</h6>
-                    <del v-if="total !== final_total" class="h6 mr-1">{{ total | currency }}</del>
-                    <h6 v-else>
-                        {{ total | currency }}
-                    </h6>
-                </div>
-                <div v-if="total !== final_total" class="col-3 col-lg-5" />
-                <div v-if="total !== final_total"
-                    class="col-9 col-lg-7 d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary">
-                        折扣後價格
-                    </h6>
-                    <h5 class="mr-1">
-                        {{ final_total | currency }}
-                    </h5>
-                </div>
-            </div> -->
+      <div class="row mt-5 cartTotal">
+        <div class="col-3 col-lg-5"></div>
+        <div class="col-9 col-lg-7 d-flex justify-content-between">
+          <h6>總計</h6>
+          <!-- 如果 LSTotal 與 LSFinal_total 不一樣 -->
+          <del v-if="LSTotal !== LSFinal_total" class="h6 mr-1">{{ LSTotal | currency }}</del>
+          <h6 v-else>
+            {{ LSFinal_total | currency }}
+          </h6>
+        </div>
+        <div v-if="LSTotal !== LSFinal_total" class="col-3 col-lg-5"></div>
+        <div v-if="LSTotal !== LSFinal_total" class="col-9 col-lg-7 d-flex justify-content-between align-items-center">
+          <h6 class="text-primary">
+            折扣後價格
+          </h6>
+          <h5 class="mr-1">
+            {{ LSFinal_total | currency }}
+          </h5>
+        </div>
+      </div>
 
       <!-- 客戶收件資料及聯絡資料 、 送出訂單 -->
-      <!-- <div v-if="cartItem.length != 0" class="row my-5 justify-content-center"> -->
-      <div class="row my-5 justify-content-center">
+      <div v-if="userLSCartArr.length !== 0" class="row my-5 justify-content-center">
         <h5 class="col-12 text-center">
           訂購資訊
         </h5>
         <validation-observer v-slot="{ invalid }" class="col-md-6">
-          <form @submit.prevent="createOrder">
+          <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
+          <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
+          <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
+          <form @submit.prevent="test">
             <!-- 訂購人 email -->
             <validation-provider v-slot="{ errors, classes }" rules="required|email">
               <div class="form-group">
@@ -204,53 +225,49 @@
               <textarea id="comment" v-model="form.message" class="form-control" style="resize: none; height: 200px;" />
             </div>
 
-
             <!-- 送出訂單 -->
             <div class="text-right">
-              <button class="btn btn-danger" :disabled="invalid" @click.prevent="createOrder">
+              <button type="submit" :class="['btn','btn-danger', {'cursorNotAllowed' : invalid}]" :disabled="invalid">
                 送出訂單
               </button>
             </div>
+
           </form>
         </validation-observer>
       </div>
+    </div>
 
-      <!-- minus、移除 確認刪除用 Modal  -->
-      <div id="LSDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 id="exampleModalLabel" class="modal-title">
-                欲移出購物車的商品名稱：
-              </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <span class="h5">{{ deletingLSItem.title }}</span>
-            </div>
-            <div class="modal-footer">
-              <div class="container">
-                <div class="row">
-                  <button type="button" class="btn btn-secondary col mr-1" data-dismiss="modal" @click="getLSCart">
-                    否，關閉此彈跳視窗
-                  </button>
-                  <button type="button" class="btn btn-danger col ml-1" @click="deleteLSCart(deletingLSItem)">
-                    <!-- <button type="button" class="btn btn-danger col ml-1" @click="deleteLSCart(this.deletingLSItem)"> -->
-                    是，將此商品移出購物車
-                  </button>
-                </div>
+    <!-- minus、移除 確認刪除用 Modal  -->
+    <div id="LSDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="exampleModalLabel" class="modal-title">
+              欲移出購物車的商品名稱：
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <span class="h5">{{ deletingLSItem.title }}</span>
+          </div>
+          <div class="modal-footer">
+            <div class="container">
+              <div class="row">
+                <button type="button" class="btn btn-secondary col mr-1" data-dismiss="modal" @click="getLSCart">
+                  否，關閉此彈跳視窗
+                </button>
+                <button type="button" class="btn btn-danger col ml-1" @click="deleteLSCart(deletingLSItem)">
+                  是，將此商品移出購物車
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-
     </div>
-
 
     <FooterComponent />
 
@@ -267,14 +284,14 @@
   import eventBus from '@/eventBus';
 
   export default {
+    
     components: {
       HeaderComponent,
-      FooterComponent
+      FooterComponent,
     },
 
-    data: function () {
+    data() {
       return {
-
         userLSCartArr: [],   // 暫存在 LS 中的購物車內容
         showingCartArr: [],
         LSTotal: 0,       // LS 購物車原價
@@ -282,15 +299,6 @@
 
         userLSCartArrNum: 0, // 暫存在 LS 中的購物車品項數量(有幾項不同種類的商品)
         userLSCompareArr: [],// 用以比對是否存在相同產品用的 array
-        // 單一商品必須的資料結構
-        // single: {
-        //   product_id: "", // 商品 id   // API 需要
-        //   qty: 1,         // 欲購買數量 // API 需要 
-        //   imageUrl: "",  // 圖片網址
-        //   title: "",     // 商品名稱
-        //   origin_price: 0, // 單價
-        //   price: 0,        // 折扣價(不包含 coupon 的折扣)
-        // },
 
         deletingLSItem: {}, // 暫存 欲刪除 的商品內容
         editingLSQtyItem: {},    // 暫存 編輯數量中 的商品內容
@@ -303,26 +311,6 @@
           code: "", // 優惠碼
           percent: 100, // 折數，80 代表 8折
         },
-        // couponData: {
-        //   code: "ALL_20_OFF",
-        //   due_date: 1641427200000,
-        //   due_date_rawdata: "2022-01-06",
-        //   id: "-MQLnAPEp4imvkTw-vc1",
-        //   is_enabled: 1,
-        //   num: "1",
-        //   percent: 80,
-        //   title: "全館 8 折  coupon",
-        // },
-
-        testUserData: { // 訂單測試用 使用者資料
-          user: {
-            name: "test",
-            email: "test@gmail.com",
-            tel: "0987654321",
-            address: "台灣台灣台灣台灣"
-          },
-          message: "這是留言這是留言這是留言這是留言這是留言"
-        },
 
         form: { // 用來暫存訂購人資訊、以及收件資訊
           user: {
@@ -334,32 +322,19 @@
           message: "",
         },
 
-
-
-        // 以下應該可刪 ↓↓↓↓↓↓↓↓↓↓
-        // 以下應該可刪 ↓↓↓↓↓↓↓↓↓↓
-        total: "",       // 購物車原價
-        final_total: "", // 購物車最終售價
-
-
         // isLoading: false,
-        // status: {
-        //   fileUploading: false,
-        // },
       };
     },
 
     watch: {
       "inputCouponCode": function () {
-        this.applyCoupon();
+        this.judgeCoupon();
       }
     },
 
     created() {
-      // this.getCart();
-      this.getLSCart();
-      this.getLSCoupon();
-      this.scrollTop();
+      this.getLSCart(); // 從 LS 中取得購物車資料
+      this.calLSTotal(); // 計算 LS 總金額
     },
 
     mounted() {
@@ -378,9 +353,29 @@
         this.userLSCartArrNum = this.userLSCartArr.length;
       },
 
-      // 從 LS 中取得 coupon 資料
-      getLSCoupon(){
-        this.usingCoupon = JSON.parse(localStorage.getItem("LSCoupon")) || [];
+      // 計算 LS 總金額
+      calLSTotal() {
+        const vm = this;
+
+        // 重撈 LS 的資料(購物車、coupon)，確保為最新狀態
+        vm.userLSCartArr = JSON.parse(localStorage.getItem("userLSCart")) || []; // 有機會可以嘗試使用 ?? (空位合併 Nullish Coalescing)
+
+        if (vm.userLSCartArr.length !== 0) { // 代表目前 LS 購物車內有商品  // 如果 === 0，表示 LS 購物車為空，兩者就直接沿用預設值 0 即可，不必再做其他事
+          if (JSON.parse(localStorage.getItem("LSCoupon")) !== null) {
+            vm.usingCoupon = JSON.parse(localStorage.getItem("LSCoupon")); // 如果 LS 內有資料，就用 LS 的，否則使用預設的(已經寫在 data return 中)
+          }
+          // 透過迴圈計算 LS 購物車總金額
+          // .reduce() 的寫法  // 如果使用 .reduce() ，就不用事先將金額歸 0
+          vm.LSTotal = vm.userLSCartArr.reduce((accumulator, item) => {
+            return accumulator + Number(item.price) * Number(item.qty);
+          }, 0);
+          // .forEach() 的寫法
+          // vm.LSTotal = 0; // 將金額歸 0
+          // vm.userLSCartArr.forEach((item) => {
+          //   vm.LSTotal += Number(item.price) * Number(item.qty);
+          // });
+          vm.LSFinal_total = vm.LSTotal * (Number(vm.usingCoupon.percent) / 100);
+        }
       },
 
       // 新增 LS 購物車內商品，數量 +1
@@ -461,10 +456,9 @@
       editLSCartQty(nowProduct) {
         const vm = this;
         // 數量為 0
-        if (nowProduct.qty === "0") { // 資料結構中的.qty 為 string 型別，因此如果使用 number 型別會無法正確判斷
-          // 開啟確認刪除用的 modal
+        if (Number(nowProduct.qty) === 0) { // 資料結構中的.qty 為 string 型別，因此要先轉換成 number 型別
           // console.log("輸入數量為 0");
-          vm.openLSDeleteModal(nowProduct);
+          vm.openLSDeleteModal(nowProduct); // 開啟確認刪除用的 modal
           return;
         }
         // 維持原數量
@@ -496,7 +490,9 @@
         this.editingLSOriginalQty = 1;
       },
 
-
+      test() {
+        console.log("發送資料~~~");
+      },
       // 這個有成功直接將 LS 的資料取出並發送訂單喔~
       // 目前是綁在 createOrder()
       asyncTest() {
@@ -521,8 +517,6 @@
           promiseArr.push(vm.$http.post(api, { data: item }))
         })
 
-        // -------------------------------------- 以上為前置作業 ----------------------------------------------------------
-        // -------------------------------------- 以上為前置作業 ----------------------------------------------------------
         // -------------------------------------- 以上為前置作業 ----------------------------------------------------------
 
         Promise.all(promiseArr).then((response) => { // 已經完成將 LS 加入伺服器購物車的行為 // console.log("加入購物車 response", response);
@@ -566,9 +560,7 @@
       },
 
 
-
-
-      // 判斷的話就不用撈 coupon 的詳細資料回來存在 LS 中 // 判斷的話就不用撈 coupon 的詳細資料回來存在 LS 中
+      // 判斷的話就不用撈 coupon 的詳細資料回來存在 LS 中
       judgeCoupon() {
         const vm = this;
         const couponApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
@@ -577,7 +569,7 @@
           code: vm.inputCouponCode,
         };
         vm.$http.post(couponApi, { data: coupon }).then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.success) {
             vm.infoMsg = "有效優惠券";
           }
@@ -588,7 +580,7 @@
       },
 
 
-      // 套用 coupon 
+      // 套用 coupon  // 實際行為只有將 coupon 資料存入 LSCoupon 中
       applyCoupon() {
         const vm = this;
         const couponApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
@@ -621,6 +613,7 @@
                   vm.usingCoupon.percent = response.data.data.carts[0].coupon.percent;
 
                   localStorage.setItem("LSCoupon", JSON.stringify(vm.usingCoupon)); // 將 coupon 資訊存入 LS
+                  vm.inputCouponCode = ""; // 資訊存入 LS 後將輸入欄位清空
 
                   const fakeCartID = response.data.data.carts[0].id; // cart ID 要留著，因為刪除要用到
                   const deleteApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${fakeCartID}`;
@@ -646,99 +639,18 @@
       },
 
 
-      // 取消套用 coupon // 這個還需要微調一下
+      // 取消套用 coupon
       cancelCoupon() {
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
-        const coupon = {
-          code: "0_OFF",
+        localStorage.removeItem("LSCoupon"); // 將重設後的 coupon 資訊存入 LS
+        this.usingCoupon = {
+          title: "",
+          code: "",
+          percent: 100,
         };
-        vm.$http.post(api, { data: coupon }).then((response) => {
-          if (response.data.success) {
-            // 重新計算 LS 購物車金額
-            // vm.getCart();
-          }
-          else {
-            vm.infoMsg = "取消套用 coupon 失敗，請稍後再嘗試一次，謝謝~~";
-          }
-        });
+        this.calLSTotal(); // 重新計算 LS 購物車金額
+        this.infoMsg = "已取消套用 coupon";
       },
 
-
-      // 計算 LS 總金額
-      calLSTotal() {
-        const vm = this;
-        vm.LSTotal = 0; // 將金額歸 0
-        vm.LSFinal_total = 0; // 將金額歸 0
-        
-        // 重撈 LS 的資料(購物車、coupon)，確保為最新狀態
-        vm.userLSCartArr = JSON.parse(localStorage.getItem("userLSCart")) || []; // 有機會可以嘗試使用 ?? (空位合併 Nullish Coalescing)
-        vm.getLSCoupon();
-
-        vm.userLSCartArr.forEach((item) => {
-          vm.LSTotal += Number(item.price) * Number(item.qty);
-        });
-        vm.userLSCartArr.forEach((item) => {
-          vm.LSFinal_total += Number(item.price) * Number(item.qty) * (Number(vm.usingCoupon.percent) / 100);
-        });
-
-      },
-
-
-      // ----------------------------------------------------------------------------------------------------------------------------------------------------
-      // ----------  以上為測試區域  ----------------------------------------------------------------------------------------------------------------------------------
-      // ----------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-      // 從 server 取得購物車品項 // 留著作為一開始進入頁面要執行哪些行為的參考
-      getCart() {
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        // vm.isLoading = true;
-
-        // vm.$http.get(api).then((response) => {
-        // console.log(response); // 確認從遠端撈回來的資料結構
-        // vm.cartItem = response.data.data.carts;          // 將購物車 各品項 存入 data return 中
-        // vm.cartItemNum = response.data.data.carts.length; // 將購物車 有幾樣商品 存入 data return 中
-        // vm.sendCartItemNum(); // 將更新後的數量送到 headerComponent 中進行更新
-        // vm.total = response.data.data.total;             // 將購物車 總價 存入 data return 中
-        // vm.final_total = response.data.data.final_total; // 將購物車 折扣後價格 存入 data return 中
-        // vm.judgeCoupon();
-        // vm.isLoading = false;
-        // });
-      },
-
-      // 不確定要不要刪，先留著
-      // judgeCoupon() {
-      //   const vm = this;
-      //   if (vm.cartItem.length !== 0) {
-      //     if (vm.cartItem[0].coupon.code !== "" && vm.cartItem[0].coupon.code !== "0_OFF") {
-      //       vm.usingCoupon.title = vm.cartItem[0].coupon.title;
-      //       vm.usingCoupon.code = vm.cartItem[0].coupon.code;
-      //       // console.log(vm.usingCoupon);
-      //     }
-      //     else {
-      //       vm.usingCoupon = {
-      //         title: "",
-      //         code: "",
-      //       };
-      //     }
-      //   }
-      // },
-
-
-
-
-      // 回到頁面頂部
-      scrollTop() {
-        // if ((document.body.clientWidth || document.documentElement.clientWidth) >= 992) {
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
-        // }
-        // else {
-        // document.body.scrollTop = document.documentElement.scrollTop = 35;
-        // }
-      },
 
       // 將更新後的數量送到 headerComponent 中進行更新
       sendCartItemNum() {
@@ -751,6 +663,7 @@
         this.$router.push({ path: '/singleOrder', query: { orderId: orderId } });
       },
     },
+
   };
 </script>
 
@@ -820,28 +733,8 @@
       height: 34px;
     }
   }
+
+  .cursorNotAllowed {
+    cursor: not-allowed;
+  }
 </style>
-
-
-
-
-
-<!-- 
-<pre>
-    雙擊(@dblclick)
-        將原始數量(item.qty)存入 data return (originalQty)
-    
-    移出焦點(@blur)
-    按下 enter 鍵(@keyup.enter)
-    按下 esc 鍵(@keyup.esc)
-        先判斷數量是否 >= 1
-            否
-                跳出提示告知使用者，數量至少需為 1
-                清除暫存資料(originalQty)
-            是
-                比對 編輯後的數量 與 原始數量 是否一致
-                    是 → 跳出迴圈
-                    否 → 先將原始數量刪除，再下單指定數量
-            
-</pre> 
--->

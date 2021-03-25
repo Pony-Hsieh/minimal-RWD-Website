@@ -4,12 +4,12 @@
     <!-- <button type="button" class="btn btn-lg btn-dark" @click="ls_Set_Test">ls Set Test</button>
     <button type="button" class="btn btn-lg btn-dark" @click="ls_Get_Test">ls Get Test</button>
     <button type="button" class="btn btn-lg btn-dark" @click="ls_Remove_Test">ls Remove Test</button> -->
-    
+
     <button type="button" class="btn btn-lg btn-dark" @click="ls_addCartItem">ls_addCartItem</button>
     <button type="button" class="btn btn-lg btn-dark" @click="getCart">取得伺服器購物車資料</button>
 
-    
-    
+
+
     <HeaderComponent />
 
     <div class="container">
@@ -142,7 +142,7 @@
 
       <!-- 訂單金額 -->
       <!-- <div v-if="cartItem.length != 0" class="row mt-5 cartTotal"> -->
-      <div  class="row mt-5 cartTotal">
+      <div class="row mt-5 cartTotal">
         <div class="col-3 col-lg-5" />
         <div class="col-9 col-lg-7 d-flex justify-content-between">
           <h6>總計</h6>
@@ -382,7 +382,7 @@
       ls_addCartItem() {
         const vm = this;
         const cart = {
-          product_id:product_id,
+          product_id: product_id,
           // product_id,
           // 也可以這樣寫
           qty: vm.editingQty,
@@ -399,7 +399,7 @@
         // "-MQfy1oYhE8j1LHtdwL1"
       },
 
-      
+
 
       // ----------------------------------------------------------------------------------------------------------------------------------------------------
       // ----------  以上為測試區域  ----------------------------------------------------------------------------------------------------------------------------------

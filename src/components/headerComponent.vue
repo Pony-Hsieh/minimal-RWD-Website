@@ -2,16 +2,12 @@
   <header class="container-fluid bg-white sticky-top shadow">
     <div class="row w-100 h-100">
       <!-- 漢堡選單按鈕 -->
-      <div class="col-2 d-flex d-lg-none justify-content-center align-items-center"
-        style="cursor: pointer;"
-        @click="toggleHeaderNavBurger"
-      >
+      <div class="col-2 d-flex d-lg-none justify-content-center align-items-center" style="cursor: pointer;"
+        @click="toggleHeaderNavBurger">
         <i class="fas fa-bars" />
       </div>
       <!-- 漢堡選單 -->
-      <nav class="headerNavBurger col-lg-8 order-lg-2"
-        :class="{'ing':headerNavBurgerStatus}"
-      >
+      <nav class="headerNavBurger col-lg-8 order-lg-2" :class="{'ing':headerNavBurgerStatus}">
         <ul class="list-unstyled">
           <li>
             <router-link to="/">
@@ -24,14 +20,10 @@
             </router-link>
           </li>
           <li>
-            <a href=""
-              @click.prevent="toggleDropdownNav"
-            >
+            <a href="" @click.prevent="toggleDropdownNav">
               會員&nbsp;&nbsp;<i class="fas fa-caret-down" />
             </a>
-            <ul class="list-unstyled dropdownNav"
-              :class="{'ing':dropdownNavStatus}"
-            >
+            <ul class="list-unstyled dropdownNav" :class="{'ing':dropdownNavStatus}">
               <li>
                 <router-link to="/login">
                   登入/登出
@@ -59,13 +51,8 @@
 
       <!-- LOGO -->
       <div class="col-8 col-lg-2 order-lg-1 logoArea">
-        <router-link to="/"
-          class="d-flex justify-content-center align-items-center"
-          style="width: 100%; height: 100%;"
-        >
-          <img src="https://preview.colorlib.com/theme/winter/img/logo.png"
-            alt=""
-          >
+        <router-link to="/" class="d-flex justify-content-center align-items-center" style="width: 100%; height: 100%;">
+          <img src="https://preview.colorlib.com/theme/winter/img/logo.png" alt="">
         </router-link>
       </div>
 
@@ -73,26 +60,18 @@
       <div class="col-2 order-lg-3 d-flex justify-content-center align-items-center iconArea">
         <router-link to="/cart">
           <i class="fas fa-shopping-cart" />
-          <div class="cartItemNum">
-            {{ cartItemNum }}
+          <div class="LSCartItemNum">
+            {{ LSCartItemNum }}
           </div>
         </router-link>
-        <i class="fas fa-search ml-2 ml-lg-4"
-          title="目前僅可點擊，但跳出的搜尋欄無搜尋功能"
-          @click.prevent="searchBarStatus = !searchBarStatus"
-        />
+        <i class="fas fa-search ml-2 ml-lg-4" title="目前僅可點擊，但跳出的搜尋欄無搜尋功能"
+          @click.prevent="searchBarStatus = !searchBarStatus" />
       </div>
 
       <!-- 搜尋欄 -->
-      <div class="searchBar"
-        :class="{'ing':searchBarStatus}"
-      >
-        <input type="text"
-          placeholder="Search Here"
-        >
-        <i class="fas fa-times"
-          @click.prevent="searchBarStatus = !searchBarStatus"
-        />
+      <div class="searchBar" :class="{'ing':searchBarStatus}">
+        <input type="text" placeholder="Search Here">
+        <i class="fas fa-times" @click.prevent="searchBarStatus = !searchBarStatus" />
       </div>
     </div>
   </header>
@@ -102,32 +81,16 @@
 <script>
   import $ from 'jquery';
 
-  import eventBus from '@/eventBus.js';
-
   export default {
-
-    // name: 'HeaderComponent', // 其實我也不確定這個到底要不要寫，因為拿掉好像也沒看到甚麼立即的影響
 
     data() {
       return {
         headerNavBurgerStatus: false,
         dropdownNavStatus: false,
         searchBarStatus: false,
-        cartItemNum: 0,
+        LSCartItemNum: 0,
       };
     },
-
-    // watch: {
-    //     '$route'(to, from) {
-    //         console.log("TO", to);
-    //         console.log("FROM", from);
-    //         // if (to.query !== from.query) {
-    //         //     this.judgeCategoryByRouterParam();
-    //         //     this.saveFilteredArray();
-    //         //     this.scrollTop();
-    //         // }
-    //     }
-    // },
 
     watch: {
       $route: {
@@ -140,30 +103,22 @@
     },
 
     created() {
-      this.getCartItemNum();
+      this.getLSCartItemNum();
     },
 
     mounted() {
-      // 接收其他元件傳入的 購物車商品數量 參數
-      eventBus.$on('cartItemNumEvent', (val) => {
-        this.cartItemNum = val;
+      const vm = this;
+      vm.$LSCartNum_Bus.$on("LSCartItemNumEvent", (param) => {
+        vm.LSCartItemNum = param;
       });
     },
 
     methods: {
-      // test() {
-      //   console.log(this.$route);
-      // },
 
-      // 從 server 取得購物車內有幾項商品
-      getCartItemNum() {
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-
-        vm.$http.get(api).then((response) => {
-          // console.log(response); // 確認從遠端撈回來的資料結構
-          vm.cartItemNum = response.data.data.carts.length; // 將購物車有幾項商品 存入資料結構中
-        });
+      // 取得 LS 購物車內有幾項商品
+      getLSCartItemNum() {
+        const LSCart = JSON.parse(localStorage.getItem("userLSCart")) || [];
+        this.LSCartItemNum = LSCart.length;
       },
 
       toggleHeaderNavBurger() {
@@ -386,7 +341,7 @@
     transform: scale(1.1);
   }
 
-  .cartItemNum {
+  .LSCartItemNum {
     width: 18px;
     height: 18px;
     font-size: 14px;

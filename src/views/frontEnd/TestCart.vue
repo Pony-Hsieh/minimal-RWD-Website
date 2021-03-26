@@ -281,10 +281,8 @@
   import HeaderComponent from '@/components/HeaderComponent.vue';
   import FooterComponent from '@/components/FooterComponent.vue';
 
-  import eventBus from '@/eventBus';
-
   export default {
-    
+
     components: {
       HeaderComponent,
       FooterComponent,
@@ -296,9 +294,6 @@
         showingCartArr: [],
         LSTotal: 0,       // LS 購物車原價
         LSFinal_total: 0, // LS 購物車最終售價 (可能是有套用 coupon 的價格)
-
-        userLSCartArrNum: 0, // 暫存在 LS 中的購物車品項數量(有幾項不同種類的商品)
-        userLSCompareArr: [],// 用以比對是否存在相同產品用的 array
 
         deletingLSItem: {}, // 暫存 欲刪除 的商品內容
         editingLSQtyItem: {},    // 暫存 編輯數量中 的商品內容
@@ -350,7 +345,7 @@
       getLSCart() {
         this.userLSCartArr = JSON.parse(localStorage.getItem("userLSCart")) || []; // 有機會可以嘗試使用 ?? (空位合併 Nullish Coalescing)
         this.showingCartArr = (JSON.parse(localStorage.getItem("userLSCart")) || []).reverse(); // 反轉陣列，這樣最後新增的商品會在最上方  // .reverse() 會修改原始陣列，因此不能寫 this.userLSCartArr.reverse()
-        this.userLSCartArrNum = this.userLSCartArr.length;
+        this.sendLSCartItemNum();
       },
 
       // 計算 LS 總金額
@@ -652,14 +647,14 @@
       },
 
 
-      // 將更新後的數量送到 headerComponent 中進行更新
-      sendCartItemNum() {
-        eventBus.$emit("cartItemNumEvent", this.cartItemNum)
+      // 將更新後的 LS 購物車數量 送到 HeaderComponent 中進行更新
+      sendLSCartItemNum() {
+        this.$LSCartNum_Bus.$emit("LSCartItemNumEvent", this.userLSCartArr.length);
       },
+
 
       // 前往單一訂單頁面
       toSingleOrderPage(orderId) {
-        // console.log(orderId);
         this.$router.push({ path: '/singleOrder', query: { orderId: orderId } });
       },
     },

@@ -1,15 +1,5 @@
 <template>
   <div>
-
-    <!-- <button type="button" class="btn btn-lg btn-dark" @click="ls_Set_Test">ls Set Test</button>
-    <button type="button" class="btn btn-lg btn-dark" @click="ls_Get_Test">ls Get Test</button>
-    <button type="button" class="btn btn-lg btn-dark" @click="ls_Remove_Test">ls Remove Test</button> -->
-
-    <button type="button" class="btn btn-lg btn-dark" @click="ls_addCartItem">ls_addCartItem</button>
-    <button type="button" class="btn btn-lg btn-dark" @click="getCart">取得伺服器購物車資料</button>
-
-
-
     <HeaderComponent />
 
     <div class="container">
@@ -18,6 +8,7 @@
           <h1 class="h3 text-center mt-4">
             購物車
           </h1>
+          <button type="button" @click="sendTest">sendTest</button>
           <hr>
 
           <!-- 如果購物車為空，則顯示此區塊 -->
@@ -113,8 +104,7 @@
       </div>
 
       <!-- 套用優惠碼相關部分 -->
-      <!-- <div v-if="cartItem.length != 0" class="row"> -->
-      <div class="row">
+      <div v-if="cartItem.length != 0" class="row">
         <div class="col-12">
           <div class="input-group input-group-md mt-5">
             <input v-model.trim="inputCouponCode" type="text" placeholder="請輸入 coupon 代碼" class="form-control">
@@ -141,8 +131,7 @@
       </div>
 
       <!-- 訂單金額 -->
-      <!-- <div v-if="cartItem.length != 0" class="row mt-5 cartTotal"> -->
-      <div class="row mt-5 cartTotal">
+      <div v-if="cartItem.length != 0" class="row mt-5 cartTotal">
         <div class="col-3 col-lg-5" />
         <div class="col-9 col-lg-7 d-flex justify-content-between">
           <h6>總計</h6>
@@ -303,7 +292,6 @@
     </div>
 
     <FooterComponent />
-
   </div>
 </template>
 
@@ -362,51 +350,6 @@
 
     methods: {
 
-      ls_Set_Test() {
-        let userName = "Pony";
-        // let userName = "a";
-        localStorage.setItem("userName", userName);
-        // let a = localStorage.getItem("userName");
-        // console.log(a);
-      },
-
-      ls_Get_Test() {
-        let a = localStorage.getItem("userName");
-        console.log(a);
-      },
-
-      ls_Remove_Test() {
-        localStorage.removeItem("userName");
-      },
-
-      ls_addCartItem() {
-        const vm = this;
-        const cart = {
-          product_id: product_id,
-          // product_id,
-          // 也可以這樣寫
-          qty: vm.editingQty,
-        };
-        console.log(cart);
-
-
-        // ---------- 一次加入三項商品不同數量的商品到 LS 中 ----------
-        // 男士 西裝外套 灰
-        // "-MPseqW11lTu_HkgXL2j"
-        // 男士 西裝外套 藍
-        // "-MQgUVc77Cvr4Rxd4gCb"
-        // 嘻哈潮流帽
-        // "-MQfy1oYhE8j1LHtdwL1"
-      },
-
-
-
-      // ----------------------------------------------------------------------------------------------------------------------------------------------------
-      // ----------  以上為測試區域  ----------------------------------------------------------------------------------------------------------------------------------
-      // ----------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
       // 從 server 取得購物車品項
       getCart() {
         const vm = this;
@@ -414,7 +357,7 @@
         // vm.isLoading = true;
 
         vm.$http.get(api).then((response) => {
-          console.log(response); // 確認從遠端撈回來的資料結構
+          // console.log(response); // 確認從遠端撈回來的資料結構
           vm.cartItem = response.data.data.carts;          // 將購物車 各品項 存入 data return 中
           vm.cartItemNum = response.data.data.carts.length; // 將購物車 有幾樣商品 存入 data return 中
           vm.sendCartItemNum(); // 將更新後的數量送到 headerComponent 中進行更新
@@ -509,7 +452,6 @@
           // product_id:product_id;
           qty: vm.editingQty,
         };
-        console.log(cart);
 
         vm.$http.post(api, { data: cart }).then((response) => {
           // this.$http.post(api, { data: cart }).then((response) => {
@@ -584,7 +526,7 @@
         };
 
         vm.$http.post(api, { data: coupon }).then((response) => {
-          console.log("applyCoupon", response);
+          // console.log("applyCoupon", response);
           if (response.data.success) {
             // console.log("成功套用優惠券！");
             vm.inputCouponCode = "";
@@ -650,6 +592,13 @@
       // 將更新後的數量送到 headerComponent 中進行更新
       sendCartItemNum() {
         eventBus.$emit("cartItemNumEvent", this.cartItemNum)
+        this.$LSCartNum_Bus.$emit("LSCartItemNumEvent", this.cartItemNum);
+      },
+
+      sendTest() {
+        console.log("開始 sendTest");
+        console.log("this.cartItemNum", this.cartItemNum);
+        this.$LSCartNum_Bus.$emit("LSCartItemNumEvent", this.cartItemNum);
       },
 
       // 前往單一訂單頁面

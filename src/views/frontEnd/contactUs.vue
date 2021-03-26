@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+
     <HeaderComponent />
 
     <div class="container py-5">
@@ -8,16 +8,7 @@
       <div class="my-3 d-none d-sm-block">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.814773352636!2d121.5100991150064!3d25.04035928396941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a90a870e5af1%3A0x180e1a442209d1c1!2zMTAw5Y-w5YyX5biC5Lit5q2j5Y2A6YeN5oW25Y2X6Lev5LiA5q61MTIy6Jmf!5e0!3m2!1szh-TW!2stw!4v1611559277975!5m2!1szh-TW!2stw"
-          frameborder="0"
-          style="border:0;"
-          allowfullscreen=""
-          aria-hidden="false"
-          tabindex="0"
-        />
-        <!-- <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.814773352636!2d121.5100991150064!3d25.04035928396941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a90a870e5af1%3A0x180e1a442209d1c1!2zMTAw5Y-w5YyX5biC5Lit5q2j5Y2A6YeN5oW25Y2X6Lev5LiA5q61MTIy6Jmf!5e0!3m2!1szh-TW!2stw!4v1611559277975!5m2!1szh-TW!2stw"
-            width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-            tabindex="0"></iframe> -->
+          frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
       </div>
 
       <h2 class="my-3 contactUs">
@@ -25,32 +16,20 @@
       </h2>
       <form>
         <div class="form-group">
-          <textarea class="form-control"
-            style="resize: none; height: 218px;"
-            placeholder="想表達的意見寫在這裡~~"
-          />
+          <textarea class="form-control" style="resize: none; height: 218px;" placeholder="想表達的意見寫在這裡~~" />
         </div>
 
         <!-- 個人資料 -->
         <div class="form-row">
           <div class="form-group col-12 col-sm-6">
-            <input type="text"
-              class="form-control"
-              placeholder="姓名"
-            >
+            <input type="text" class="form-control" placeholder="姓名">
           </div>
           <div class="form-group col-12 col-sm-6">
-            <input type="email"
-              class="form-control"
-              placeholder="你的 email"
-            >
+            <input type="email" class="form-control" placeholder="你的 email">
           </div>
         </div>
         <div class="form-row">
-          <button type="submit"
-            class="mx-auto"
-            @click.prevent
-          >
+          <button type="submit" class="mx-auto" @click.prevent>
             送出
           </button>
         </div>
@@ -102,18 +81,18 @@
   export default {
 
     // name: 'ContactUs',
-    
+
     components: {
       HeaderComponent,
       IgPost,
       FooterComponent,
     },
-    
+
     created() {
       // 回到頁面頂部
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
-    
+
   };
 </script>
 

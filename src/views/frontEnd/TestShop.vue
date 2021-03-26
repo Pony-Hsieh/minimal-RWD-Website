@@ -194,7 +194,6 @@
   import eventBus from '@/eventBus'
 
   export default {
-    // name: "Shop",
     components: {
       HeaderComponent,
       ShippingDescription,
@@ -237,7 +236,6 @@
         hoverProductId: "",
 
         userLSCartArr: [], // LS 購物車內容
-        userLSCartArrNum: 0, // LS 購物車內有幾項商品
       }
     },
 
@@ -389,7 +387,7 @@
       // 取得 LS 購物車內容
       getLSCart() {
         this.userLSCartArr = JSON.parse(localStorage.getItem("userLSCart")) || []; // 有機會可以嘗試使用 ?? (空位合併 Nullish Coalescing)
-        this.userLSCartArrNum = this.userLSCartArr.length;
+        this.sendLSCartItemNum();
       },
 
       // 將商品加入 LS 購物車
@@ -437,16 +435,18 @@
           vm.userLSCartArr.push(tempAddObj); // push 進 LS 陣列中
           localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS
         }
+
+        vm.getLSCart();
+      },
+
+      // 將更新後的 LS 購物車數量 送到 HeaderComponent 中進行更新
+      sendLSCartItemNum() {
+        this.$LSCartNum_Bus.$emit("LSCartItemNumEvent", this.userLSCartArr.length);
       },
 
       // 前往單一商品頁面
       toSingleProductPage(id) {
         this.$router.push({ path: '/singleProduct', query: { id: id } });
-      },
-
-      // 將更新後的數量送到 headerComponent 中進行更新
-      sendCartItemNum() {
-        eventBus.$emit("cartItemNumEvent", this.cartItemNum)
       },
 
       // 回到頁面頂部

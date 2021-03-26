@@ -24,6 +24,9 @@ import formatTime from '@/filters/formatTime';
 import couponFormatTime from '@/filters/couponFormatTime';
 import couponTransfer from '@/filters/couponTransfer';
 
+// 引入 eventBus
+import '@/allEventBus.js';
+
 // 好像是用以跨域存取用的
 axios.defaults.withCredentials = true;
 

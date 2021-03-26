@@ -1,30 +1,30 @@
 <template>
   <div>
-    
+
     <headerComponent />
 
     <div class="container">
       <main class="row product">
         <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-          <img :src="showProducts.imageUrl" alt="" class="img-fluid">
+          <img :src="showProduct.imageUrl" alt="" class="img-fluid">
         </div>
 
         <div class="col-12 col-lg-6 mainProductInfo">
           <div>
-            <h1>{{ showProducts.title }}</h1>
-            <a href="" title="將商品加入至收藏清單" @click.prevent>
+            <h1>{{ showProduct.title }}</h1>
+            <a href="#" title="將商品加入至收藏清單" @click.prevent>
               <i class="far fa-heart" />
             </a>
           </div>
-          <del v-if="showProducts.origin_price !== showProducts.price">
-            {{ showProducts.origin_price|currency }}
+          <del v-if="showProduct.origin_price !== showProduct.price">
+            {{ showProduct.origin_price|currency }}
           </del>
-          <h4>{{ showProducts.price|currency }}</h4>
+          <h4>{{ showProduct.price|currency }}</h4>
           <div>
             <h5 class="d-inline">
               類別&emsp;&emsp;&emsp;：
             </h5>
-            <a href="" @click.prevent="routerTo(showProducts.category)">{{ showProducts.category }}</a>
+            <a href="" @click.prevent="routerTo(showProduct.category)">{{ showProduct.category }}</a>
             <!-- 點擊連回商城，並套用該類別的過濾器 -->
           </div>
           <div>
@@ -32,24 +32,24 @@
               庫存狀態&emsp;：
             </h5>
             <!-- 如果是啟用狀態，則顯示有庫存 -->
-            <span v-if="showProducts.is_enabled">有貨</span>
+            <span v-if="showProduct.is_enabled">有貨</span>
             <span v-else class="text-secondary">已售完</span>
           </div>
           <hr>
-          <p>{{ showProducts.description }}</p>
+          <p>{{ showProduct.description }}</p>
 
           <div class="cartRelevant">
             <div class="cartCount">
-              <button @click="changeAddNum('minus')">
+              <button type="button" @click="changeAddNum('minus')">
                 &nbsp;&nbsp;－
               </button>
               <input v-model="addNum" type="number" class=" text-center">
-              <button @click="changeAddNum('plus')">
+              <button type="button" @click="changeAddNum('plus')">
                 ＋&nbsp;&nbsp;
               </button>
             </div>
             <div class="addToCartArea">
-              <button class="btn btn-primary" @click="addToCart(showProducts.id,showProducts.title)">
+              <button type="button" class="btn btn-primary" @click="addToLSCart">
                 加入購物車
               </button>
             </div>
@@ -76,105 +76,6 @@
           </div>
         </div>
       </main>
-
-      <!-- <div class="row customerReview">
-                <div class="col-12">
-                    <h5 @click="customerReviewTab = 'description'"> Description</h5>
-                    <h5 @click="customerReviewTab = 'specification'"> Specification </h5>
-                    <h5 @click="customerReviewTab = 'comments'"> Comments </h5>
-                    <h5 @click="customerReviewTab = 'reviews'"> Reviews </h5>
-                </div>
-                <div class="description col-12" v-show="customerReviewTab === 'description'">
-                    <p>
-                        Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women
-                        of
-                        all shapes and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually
-                        left Kendrick School in Reading at the age of 15, where she went to secretarial school and then
-                        into
-                        an insurance office. After moving to London and then Hampton, she eventually married her next
-                        door
-                        neighbour from Reading, John Cook. He was an officer in the Merchant Navy and after he left the
-                        sea
-                        in 1956, they bought a pub for a year before John took a job in Southern Rhodesia with a motor
-                        company. Beryl bought their young son a box of watercolours, and when showing him how to use it,
-                        she
-                        decided that she herself quite enjoyed painting. John subsequently bought her a child’s painting
-                        set
-                        for her birthday and it was with this that she produced her first significant work, a
-                        half-length
-                        portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was
-                        aptly
-                        named ‘Hangover’ by Beryl’s husband and
-
-                        It is often frustrating to attempt to plan meals that are designed for one. Despite this fact,
-                        we
-                        are seeing more and more recipe books and Internet websites that are dedicated to the act of
-                        cooking
-                        for one. Divorce and the death of spouses or grown children leaving for college are all reasons
-                        that
-                        someone accustomed to cooking for more than one would suddenly need to learn how to adjust all
-                        the
-                        cooking practices utilized before into a streamlined plan of cooking that is more efficient for
-                        one
-                        person creating less
-                    </p>
-                </div>
-                <div class="specification col-12" v-show="customerReviewTab === 'specification'">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Width</td>
-                                <td>128mm</td>
-                            </tr>
-                            <tr>
-                                <td>Height</td>
-                                <td>508mm</td>
-                            </tr>
-                            <tr>
-                                <td>Depth</td>
-                                <td>85mm</td>
-                            </tr>
-                            <tr>
-                                <td>Weight</td>
-                                <td>52gm</td>
-                            </tr>
-                            <tr>
-                                <td>Quality checking</td>
-                                <td>yes</td>
-                            </tr>
-                            <tr>
-                                <td>Freshness Duration</td>
-                                <td>3 days</td>
-                            </tr>
-                            <tr>
-                                <td>When packeting</td>
-                                <td>Without touch of hand</td>
-                            </tr>
-                            <tr>
-                                <td>Each Box contains</td>
-                                <td>60pcs</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="comments col-12" v-show="customerReviewTab === 'comments'">
-                    <div class="container-fulid">
-                        <div class="row">
-                            <div class="col-12 col-lg-6">
-                                123
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                456
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="reviews col-12" v-show="customerReviewTab === 'reviews'">
-
-
-                </div>
-            </div> -->
 
       <div class="row bestSellers">
         <div class="col-12">
@@ -207,7 +108,7 @@
               </a>
             </li>
             <li class="addCart">
-              <a href="#" title="加入購物車" @click.prevent="addToCart(item.id, item.title)">
+              <a href="#" title="加入購物車" @click.prevent="addToLSCart(item)">
                 <i class="fas fa-cart-plus" />
               </a>
             </li>
@@ -219,7 +120,7 @@
     <shippingDescription />
     <igPost />
     <footerComponent />
-    
+
   </div>
 </template>
 
@@ -229,8 +130,6 @@
   import ShippingDescription from '@/components/ShippingDescription.vue';
   import IgPost from '@/components/IgPost.vue';
   import FooterComponent from '@/components/FooterComponent.vue';
-
-  import eventBus from '@/eventBus'
 
   export default {
     components: {
@@ -242,17 +141,11 @@
 
     data() {
       return {
-        productId: "", // 這個頁面顯示的主要商品
         rawProducts: [],  // 所有商品資料
-        showProducts: [], // 要顯示的主要商品資料
-        addNum: 1, // 要加入購物車的主要商品數量
-        originalCart: [],   // 儲存原本的商品資料(因為要先刪除再重新加入新的商品數量)
-        originalCartNum: 0, // 儲存原本的商品資料(因為要先刪除再重新加入新的商品數量)
-        cartItemNum: 0, // 將更新後的數量送到 headerComponent 中進行更新
-        deletingOrderID: "",
-        buyingProductId: "",    // 要加入購物車的商品id(可能是主要的商品或 bestSellers)
-        buyingProductTitle: "", // 要加入購物車的商品title(可能是主要的商品或 bestSellers)
-        // customerReviewTab: "", // 用以判斷現在要顯示哪個客戶回饋的哪個部分
+        showProduct: [], // 要顯示的主要商品資料
+        productId: "", // 這個頁面顯示的主要商品  // 將傳入的參數(商品 id) 存在這個變數
+        userLSCartArr: [], // LS 購物車內容
+        addNum: 1, // 要加入 LS 購物車的主要商品數量
         bestSellers: [],
         hoverProductId: "",
       }
@@ -276,17 +169,18 @@
     created() {
       this.judgeProductByRouterParam();
       this.getRawProducts(); // 取得原始資料
+      this.getLSCart();
       this.scrollTop();
-      this.getCart();
     },
 
     methods: {
 
+      // 將傳入的參數(商品 id) 存入 data reutrn 中
       judgeProductByRouterParam() {
         this.productId = this.$route.query.id;
-        // console.log(this.productId);
       },
 
+      // 取得 所有商品資料
       getRawProducts() {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`; // 這個成功取回資料
@@ -294,23 +188,22 @@
         // vm.isLoading = true; // 讀取效果
 
         // 從遠端取回 產品 、 分頁 的資料
-        this.$http.get(api).then((response) => {
+        vm.$http.get(api).then((response) => {
           // console.log(response); // 確認遠端撈回來的資料結構
           vm.rawProducts = response.data.products;
-          vm.bestSellers = vm.rawProducts.slice(0, 4); // 將 best sellers 存入 data return // slice() 方法會回傳一個新陣列物件，為原陣列選擇之 begin 至 end（不含 end）部分的淺拷貝（shallow copy）
+          vm.bestSellers = vm.rawProducts.slice(0, 4); // 將 best sellers 存入 data return // slice() 方法會回傳一個新陣列物件，為原陣列選擇之 begin 至 end（不含 end）部分的淺拷貝（shallow copy） // .splice() 和 .slice() 不同喔XD，不要看錯了
           vm.getTheProduct();  // 比對資料，取得特定商品資料
           // vm.isLoading = false;  // 讀取效果
         });
       },
 
-      // 取得特定商品資料並存入 data reutrn 中
+      // 從 所有商品資料 中，找到 特定商品資料 並存入 data reutrn 中
       getTheProduct() {
         const vm = this;
-
-        let theProduct = vm.rawProducts.find(function (item) {
-          return item.id === vm.productId
+        let theProduct = vm.rawProducts.find((item) => {
+          return item.id === vm.productId;
         });
-        vm.showProducts = theProduct;
+        vm.showProduct = theProduct;
       },
 
       // 前往商城並套用特定類別
@@ -331,91 +224,83 @@
         this.$router.push({ path: '/shop', query: { category: sendCategory } });
       },
 
-      // 調整加入購物車的數量
+
+      // 取得 LS 購物車內容
+      getLSCart() {
+        this.userLSCartArr = JSON.parse(localStorage.getItem("userLSCart")) || []; // 有機會可以嘗試使用 ?? (空位合併 Nullish Coalescing)
+        this.sendLSCartItemNum();
+      },
+
+      // 調整加入 LS 購物車的數量
       changeAddNum(method) {
+        const vm = this;
         if (method === "minus") {
-          if (this.addNum === 1) {
-            console.log("加入購物車的數量不能少於 1 喔~");
+          if (vm.addNum === 1) {
+            alert("加入購物車的數量不能少於 1 喔~");
           }
           else {
-            this.addNum = this.addNum - 1;
+            vm.addNum = vm.addNum - 1;
           }
-        }
-        if (method === "plus") {
-          this.addNum = this.addNum + 1;
-        }
-      },
-
-      // 取得購物車內容
-      getCart() {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        const vm = this;
-        // vm.isLoading = true;
-        this.$http.get(api).then((response) => {
-          // console.log(response); // 確認從遠端撈回來的資料結構
-          vm.originalCart = response.data.data.carts;
-          vm.cartItemNum = response.data.data.carts.length; // 將購物車 有幾樣商品 存入 data return 中
-          vm.sendCartItemNum();
-          // vm.isLoading = false;
-        });
-      },
-
-      // 將商品加入購物車
-      addToCart(id = productId, title) {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        const vm = this;
-        let cart = {
-          product_id: id,
-          qty: Number(vm.addNum),
-        };
-
-        if (vm.addNum == 0) { // 這裡如果用 === 0 的話，好像會無法成功判斷，目前還不清楚原因
-          console.log("請至少添加一件商品至購物車~");
         }
         else {
-          // 如果發現這樣產品在購物車有商品了，那就先把取得原本的商品數量後，再把原本的刪掉，然後再加入新的數量
-          for (let i = 0; i < vm.originalCart.length; i++) {
-            // if (vm.originalCart[i].product_id === vm.productId) {
-            if (vm.originalCart[i].product_id === id) {
-              vm.originalCartNum = Number(vm.originalCart[i].qty); // 將原本的商品數量存入 data return
-              vm.deletingOrderID = vm.originalCart[i].id; // 將要刪掉的訂單存入 data return
-            }
-          }
-          vm.deleteCartItem(); // 刪掉原本在購物車內的商品
-
-          cart.qty = Number(vm.originalCartNum) + Number(vm.addNum);   // 調整要送出的商品數量
-          this.$http.post(api, { data: cart }).then((response) => {    // 重新下單指定數量
-            console.log(response);
-            if (response.data.success) {
-              alert(`成功加入 ${vm.addNum} 件 ${title} 至購物車！`);
-              vm.addNum = 1; // 將加入購物車的預設數值重設為 1
-              vm.getCart();
-            }
-          });
+          vm.addNum = vm.addNum + 1;
         }
       },
 
-      // 刪除購物車內商品 // 這裡要用 訂單id
-      deleteCartItem() {
+      // 將商品加入 LS 購物車
+      addToLSCart() {
         const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${vm.deletingOrderID}`;
-        this.$http.delete(api).then((response) => {
-          // console.log(response); // 確認從遠端撈回來的資料結構
-          if (response.data.success) {
-            vm.deletingOrderID = "";   // 清空暫存的資料
-            // vm.getCart(); // 重新取得購物車內容
-          }
-          else {
-            vm.deletingOrderID = "";   // 清空暫存的資料
-            // vm.getCart(); // 重新取得購物車內容
-          }
+        let compareArr = []; // 用以 比較是否有相同產品 用的陣列
+        let tempAddObj = {}; // 用以 暫存要加入購物車的資料
+
+        let addToLSObj = {
+          product_id: vm.showProduct.id, // 商品 id   // API 需要
+          qty: Number(vm.addNum), // 欲購買數量 // 預設購買 1 項商品 // API 需要 
+          imageUrl: vm.showProduct.imageUrl, // 圖片網址
+          title: vm.showProduct.title, // 商品名稱
+          origin_price: vm.showProduct.origin_price, // 單價
+          price: vm.showProduct.price, // 折扣價(不包含 coupon 的折扣)
+        };
+
+        // 取得 LS，並存入 data return 中
+        vm.userLSCartArr = JSON.parse(localStorage.getItem("userLSCart")) || []; // 有機會可以嘗試使用 ?? (空位合併 Nullish Coalescing)
+
+        // 將 LS 內的產品 id 取出，一一放入比較用的陣列中
+        vm.userLSCartArr.forEach((item) => {
+          compareArr.push(item.product_id);
         });
+
+        // 判斷 LS 內是否有相同產品
+        if (compareArr.indexOf(vm.showProduct.id) === -1) { // LS內 無 相同產品  // 直接加入(1項)該商品於陣列中，並送往 LS  // indexOf === -1 代表這個值不存在於陣列中
+          vm.userLSCartArr.push(addToLSObj);
+          localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr));
+        }
+        else { // LS內 已經有 相同產品  // 再跑一次迴圈，去找相同的產品在哪；加入新的數量於陣列末端；再將原本的資料刪除，並送往 LS
+          vm.userLSCartArr.forEach((item, index) => { // 透過迴圈
+            if (vm.showProduct.id === item.product_id) { // 找相同的產品在哪
+              tempAddObj = { // 將資料暫存起來
+                product_id: item.product_id,
+                qty: Number(item.qty) + Number(vm.addNum),
+                imageUrl: item.imageUrl,
+                title: item.title,
+                origin_price: item.origin_price,
+                price: item.price,
+              };
+              vm.userLSCartArr.splice(index, 1); // 再將原本的資料刪除
+            }
+          });
+          vm.userLSCartArr.push(tempAddObj); // push 進 LS 陣列中
+          localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS
+        }
+        vm.addNum = 1;
+        vm.getLSCart();
       },
 
-      // 將更新後的數量送到 headerComponent 中進行更新
-      sendCartItemNum() {
-        eventBus.$emit("cartItemNumEvent", this.cartItemNum)
+      // 將更新後的 LS 購物車數量 送到 HeaderComponent 中進行更新
+      sendLSCartItemNum() {
+        this.$LSCartNum_Bus.$emit("LSCartItemNumEvent", this.userLSCartArr.length);
       },
+
 
       // 前往單一商品頁面
       toSingleProductPage(id) {
@@ -429,7 +314,6 @@
 
       // hover 移入 行為
       addHoverProduct(productId) {
-        // console.log(productId);
         if (productId === this.hoverProductId) {
           return
         }
@@ -437,6 +321,7 @@
           this.hoverProductId = productId;
         }
       },
+
       // hover 移出 行為
       removeHoverProduct() {
         this.hoverProductId = "";

@@ -346,6 +346,7 @@
         this.userLSCartArr = JSON.parse(localStorage.getItem("userLSCart")) || []; // 有機會可以嘗試使用 ?? (空位合併 Nullish Coalescing)
         this.showingCartArr = (JSON.parse(localStorage.getItem("userLSCart")) || []).reverse(); // 反轉陣列，這樣最後新增的商品會在最上方  // .reverse() 會修改原始陣列，因此不能寫 this.userLSCartArr.reverse()
         this.sendLSCartItemNum();
+        this.calLSTotal();
       },
 
       // 計算 LS 總金額
@@ -473,7 +474,7 @@
             }
           }
           localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS 
-          return;
+          // return;  // return 會直接跳出 editLSCartQty 函式，所以不為 0 的行為不能在最後加 return
         }
         vm.getLSCart(); // 重新取得 LS 資料
       },

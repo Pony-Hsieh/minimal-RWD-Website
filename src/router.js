@@ -4,18 +4,9 @@ import Router from 'vue-router';
 import Home from '@/views/frontEnd/Home.vue';
 import Admin_Dashboard from '@/views/backEnd/Admin_Dashboard.vue';
 
-// // 後台
-// import admin_Dashboard from '@/components/pages/admin_Dashboard';
-// // import adminSimulatedOrder from '@/components/pages/adminSimulatedOrder';
-// import adminHome from '@/components/pages/adminHome'; // 管理員首頁
-// import adminLogin from '@/components/pages/adminLogin'; // 管理員登入頁面
-// import adminProducts from '@/components/pages/adminProducts'; // 管理產品
-// import adminCoupon from '@/components/pages/adminCoupon'; // 管理 coupon
-// import adminOrder from '@/components/pages/adminOrder'; // 管理訂單
-// // import test from '@/components/pages/test';
-
-
 Vue.use(Router);
+
+
 
 export default new Router({
   routes: [
@@ -102,31 +93,6 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import('@/views/frontEnd/ContactUs.vue'),
     },
-
-
-
-
-
-
-
-    // 測試用頁面
-    // 測試用頁面
-    // 測試用頁面
-    // ----------------------------------------------------------------------------------------
-
-    {
-      // 會員 - 購物車 -- 排版測試用 頁面 具有完整功能
-      path: "/testCart",
-      name: "TestCart",
-      component: () => import('@/views/frontEnd/TestCart.vue'),
-    },
-
-    // ----------------------------------------------------------------------------------------
-
-
-
-
-
 
 
     // 客服人員端 後台

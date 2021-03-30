@@ -1,43 +1,51 @@
 <template>
-    <div>
+  <div>
+    <HeaderComponent />
 
-        <HeaderComponent />
+    <div class="container all">
+      <div class="row pt-5">
+        <!-- 套用 filter 區塊-->
+        <div class="col-12 col-lg-3">
+          <!-- 類別 filter -->
+          <div class="filterCard">
+            <h5>依據 類別 篩選</h5>
+            <ul class="list-unstyled categoryList">
+              <li>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'all'}"
+                  @click.prevent="showCategory = 'all', saveFilteredArray()"
+                >全部</a>
+              </li>
+              <li>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'rawMen'}"
+                  @click.prevent="showCategory = 'rawMen', saveFilteredArray()"
+                >男士</a>
+              </li>
+              <li>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'rawWomen'}"
+                  @click.prevent="showCategory = 'rawWomen', saveFilteredArray()"
+                >女士</a>
+              </li>
+              <li>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'rawShoes'}"
+                  @click.prevent="showCategory = 'rawShoes', saveFilteredArray()"
+                >鞋類</a>
+              </li>
+              <li>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'rawSports'}"
+                  @click.prevent="showCategory = 'rawSports', saveFilteredArray()"
+                >運動</a>
+              </li>
+            </ul>
+          </div>
 
-        <div class="container all">
-            <div class="row pt-5">
-
-                <!-- 套用 filter 區塊-->
-                <div class="col-12 col-lg-3">
-                    <!-- 類別 filter -->
-                    <div class="filterCard">
-                        <h5>依據 類別 篩選</h5>
-                        <ul class="list-unstyled categoryList">
-                            <li>
-                                <a href="#" @click.prevent="showCategory = 'all', saveFilteredArray()"
-                                    :class="{'nowCategory':showCategory === 'all'}">全部</a>
-                            </li>
-                            <li>
-                                <a href="#" @click.prevent="showCategory = 'rawMen', saveFilteredArray()"
-                                    :class="{'nowCategory':showCategory === 'rawMen'}">男士</a>
-                            </li>
-                            <li>
-                                <a href="#" @click.prevent="showCategory = 'rawWomen', saveFilteredArray()"
-                                    :class="{'nowCategory':showCategory === 'rawWomen'}">女士</a>
-                            </li>
-                            <li>
-                                <a href="#" @click.prevent="showCategory = 'rawShoes', saveFilteredArray()"
-                                    :class="{'nowCategory':showCategory === 'rawShoes'}">鞋類</a>
-                            </li>
-                            <li>
-                                <a href="#" @click.prevent="showCategory = 'rawSports', saveFilteredArray()"
-                                    :class="{'nowCategory':showCategory === 'rawSports'}">運動</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- 紅字來源XD -->
-                    <!-- 金額 filter -->
-                    <!-- <div class="filterCard priceFilter mt-5">
+          <!-- 紅字來源XD -->
+          <!-- 金額 filter -->
+          <!-- <div class="filterCard priceFilter mt-5">
               <h5>依據 金額 篩選</h5>
               <div class="priceFilterInfo">
                 <vue-slider v-model="priceRange" dot-size="20" max="10000" interval="100" :lazy="true" />
@@ -55,140 +63,186 @@
                 </div>
               </div>
             </div> -->
-                </div>
-
-                <main class="col-12 col-lg-9">
-                    <div class="container-fluid">
-
-                        <!-- 顯示類別、該類別有幾項商品 -->
-                        <div class="row">
-                            <div class="col-12 col-lg-6 p-0 pl-lg-4">
-                                <h3 class="h4" style="line-height: 42px;">
-                                    {{ showString[showCategory] }}
-                                    ({{ filteredArray.length }})
-                                </h3>
-                            </div>
-                            <!-- <div class="col-12 col-lg-6 p-0 pr-lg-4 filterDropDown"
-                              style="margin-top:20px; margin-bottom: 40px;"> -->
-                            <div class="col-12 col-lg-6 p-0 pr-lg-4 filterDropDown">
-                                <!-- 依據類別篩選 -->
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col p-0 mr-1">
-                                            <select v-model="showCategory" class="w-100" style="height: 42px;"
-                                                @change="saveFilteredArray">
-                                                <option value="all" disabled>
-                                                    選擇類別
-                                                </option>
-                                                <option value="all">
-                                                    全部
-                                                </option>
-                                                <option value="rawMen">
-                                                    男士
-                                                </option>
-                                                <option value="rawWomen">
-                                                    女士
-                                                </option>
-                                                <option value="rawShoes">
-                                                    鞋類
-                                                </option>
-                                                <option value="rawSports">
-                                                    運動
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col p-0 ml-1">
-                                            <!-- 每頁顯示幾項商品 -->
-                                            <select v-model="pageUnit" class="w-100" style="height: 42px;"
-                                                @change="getPage">
-                                                <option value="9" default>
-                                                    每頁顯示 9 樣商品
-                                                </option>
-                                                <option value="6">
-                                                    每頁顯示 6 樣商品
-                                                </option>
-                                                <option value="3">
-                                                    每頁顯示 3 樣商品
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 顯示商品 -->
-                        <div class="row productInfo">
-                            <div v-for=" (item, index) in showProducts" :key="index"
-                                class="col-12 col-sm-6 col-lg-4 singleProductInfo">
-                                <div style="cursor: pointer;" @mouseover="addHoverProduct(item.id)"
-                                    @mouseleave="removeHoverProduct" @click.prevent="toSingleProductPage(item.id)">
-                                    <img :src="item.imageUrl" alt="">
-                                </div>
-                                <h4 style="cursor: pointer;" @click.prevent="toSingleProductPage(item.id)">
-                                    {{ item.title }}
-                                </h4>
-                                <div class="d-flex flex-column" style="height: 80px;cursor: pointer;"
-                                    @click.prevent="toSingleProductPage(item.id)">
-                                    <del v-if="item.origin_price !== item.price">{{ item.origin_price|currency }}</del>
-                                    <h5>{{ item.price|currency }}</h5>
-                                </div>
-
-                                <ul class="list-unstyled hoverWidget" :class="{'ing': hoverProductId === item.id}"
-                                    @mouseover="addHoverProduct(item.id)" @mouseleave="removeHoverProduct">
-                                    <li class="like">
-                                        <a href="#" title="收藏此商品" @click.prevent>
-                                            <i class="far fa-heart" />
-                                        </a>
-                                    </li>
-                                    <li class="addCart">
-                                        <a href="#" title="加入購物車" @click.prevent="addToLSCart(item)">
-                                            <i class="fas fa-cart-plus" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- 分頁功能 -->
-                        <nav aria-label="Page navigation example" class="my-4">
-                            <ul class="pagination justify-content-center">
-                                <!-- 上一頁 -->
-                                <li class="page-item" :class="{'disabled' : currentPageNumber === 1}">
-                                    <a class="page-link" href="#" aria-label="Previous"
-                                        @click.prevent="updateCurrentPageNumber(currentPageNumber - 1)">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <!-- 各分頁 -->
-                                <li v-for="pageNum in totalPageNumber" :key="pageNum" class="page-item"
-                                    :class="{ 'active' : currentPageNumber === pageNum }">
-                                    <a class="page-link" href="#" @click.prevent="updateCurrentPageNumber(pageNum)">{{
-                                        pageNum }}</a>
-                                </li>
-                                <!-- 下一頁 -->
-                                <li class="page-item" :class="{'disabled' : currentPageNumber === totalPageNumber}">
-                                    <a class="page-link" href="#" aria-label="Next"
-                                        @click.prevent="updateCurrentPageNumber(currentPageNumber + 1)">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-
-                    </div>
-                </main>
-
-            </div>
         </div>
 
-        <ShippingDescription />
-        <IgPost />
-        <FooterComponent />
+        <main class="col-12 col-lg-9">
+          <div class="container-fluid">
+            <!-- 顯示類別、該類別有幾項商品 -->
+            <div class="row">
+              <div class="col-12 col-lg-6 p-0 pl-lg-4">
+                <h3 class="h4"
+                  style="line-height: 42px;"
+                >
+                  {{ showString[showCategory] }}
+                  ({{ filteredArray.length }})
+                </h3>
+              </div>
+              <!-- <div class="col-12 col-lg-6 p-0 pr-lg-4 filterDropDown"
+                              style="margin-top:20px; margin-bottom: 40px;"> -->
+              <div class="col-12 col-lg-6 p-0 pr-lg-4 filterDropDown">
+                <!-- 依據類別篩選 -->
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col p-0 mr-1">
+                      <select v-model="showCategory"
+                        class="w-100"
+                        style="height: 42px;"
+                        @change="saveFilteredArray"
+                      >
+                        <option value="all"
+                          disabled
+                        >
+                          選擇類別
+                        </option>
+                        <option value="all">
+                          全部
+                        </option>
+                        <option value="rawMen">
+                          男士
+                        </option>
+                        <option value="rawWomen">
+                          女士
+                        </option>
+                        <option value="rawShoes">
+                          鞋類
+                        </option>
+                        <option value="rawSports">
+                          運動
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col p-0 ml-1">
+                      <!-- 每頁顯示幾項商品 -->
+                      <select v-model="pageUnit"
+                        class="w-100"
+                        style="height: 42px;"
+                        @change="getPage"
+                      >
+                        <option value="9"
+                          default
+                        >
+                          每頁顯示 9 樣商品
+                        </option>
+                        <option value="6">
+                          每頁顯示 6 樣商品
+                        </option>
+                        <option value="3">
+                          每頁顯示 3 樣商品
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <!-- 顯示商品 -->
+            <div class="row productInfo">
+              <div v-for=" (item, index) in showProducts"
+                :key="index"
+                class="col-12 col-sm-6 col-lg-4 singleProductInfo"
+              >
+                <div style="cursor: pointer;"
+                  @mouseover="addHoverProduct(item.id)"
+                  @mouseleave="removeHoverProduct"
+                  @click.prevent="toSingleProductPage(item.id)"
+                >
+                  <img :src="item.imageUrl"
+                    alt=""
+                  >
+                </div>
+                <h4 style="cursor: pointer;"
+                  @click.prevent="toSingleProductPage(item.id)"
+                >
+                  {{ item.title }}
+                </h4>
+                <div class="d-flex flex-column"
+                  style="height: 80px;cursor: pointer;"
+                  @click.prevent="toSingleProductPage(item.id)"
+                >
+                  <del v-if="item.origin_price !== item.price">{{ item.origin_price|currency }}</del>
+                  <h5>{{ item.price|currency }}</h5>
+                </div>
+
+                <ul class="list-unstyled hoverWidget"
+                  :class="{'ing': hoverProductId === item.id}"
+                  @mouseover="addHoverProduct(item.id)"
+                  @mouseleave="removeHoverProduct"
+                >
+                  <li class="like">
+                    <a href="#"
+                      title="收藏此商品"
+                      @click.prevent
+                    >
+                      <i class="far fa-heart" />
+                    </a>
+                  </li>
+                  <li class="addCart">
+                    <a href="#"
+                      title="加入購物車"
+                      @click.prevent="addToLSCart(item)"
+                    >
+                      <i class="fas fa-cart-plus" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 分頁功能 -->
+            <nav aria-label="Page navigation example"
+              class="my-4"
+            >
+              <ul class="pagination justify-content-center">
+                <!-- 上一頁 -->
+                <li class="page-item"
+                  :class="{'disabled' : currentPageNumber === 1}"
+                >
+                  <a class="page-link"
+                    href="#"
+                    aria-label="Previous"
+                    @click.prevent="updateCurrentPageNumber(currentPageNumber - 1)"
+                  >
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <!-- 各分頁 -->
+                <li v-for="pageNum in totalPageNumber"
+                  :key="pageNum"
+                  class="page-item"
+                  :class="{ 'active' : currentPageNumber === pageNum }"
+                >
+                  <a class="page-link"
+                    href="#"
+                    @click.prevent="updateCurrentPageNumber(pageNum)"
+                  >{{
+                    pageNum }}</a>
+                </li>
+                <!-- 下一頁 -->
+                <li class="page-item"
+                  :class="{'disabled' : currentPageNumber === totalPageNumber}"
+                >
+                  <a class="page-link"
+                    href="#"
+                    aria-label="Next"
+                    @click.prevent="updateCurrentPageNumber(currentPageNumber + 1)"
+                  >
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </main>
+      </div>
     </div>
+
+    <ShippingDescription />
+    <IgPost />
+    <FooterComponent />
+  </div>
 </template>
 
 

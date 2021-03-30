@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <headerComponent />
 
     <div class="container">
@@ -120,7 +119,6 @@
     <shippingDescription />
     <igPost />
     <footerComponent />
-
   </div>
 </template>
 

@@ -156,7 +156,7 @@
       axios.post(api).then((response) => {
         // console.log(response);
         if (response.data.success) { // 代表使用者為登入狀態
-          next({ path: "/logout" });
+          next({ path: "/member/logout" });
           // 這樣寫也可以
           // next({ name: "logout" });
         }

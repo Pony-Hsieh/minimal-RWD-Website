@@ -24,56 +24,74 @@ export default new Router({
     {
       // 客戶端首頁
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Home,
     },
 
+
+    // 商城
     {
-      // 商城 - 所有產品
       path: "/shop",
-      name: "Shop",
-      component: () => import('@/views/frontEnd/Shop.vue'),
-    },
-    {
-      // 商城 - 單一商品頁面
-      path: "/singleProduct",
-      name: "SingleProduct",
-      component: () => import('@/views/frontEnd/SingleProduct.vue'),
+      component: () => import('@/views/frontEnd/ShopFrame.vue'),
+      children: [
+        {
+          // 所有產品
+          path: "",
+          name: "Shop",
+          component: () => import('@/views/frontEnd/Shop.vue'),
+        },
+        {
+          // 單一產品頁面
+          path: "singleProduct",
+          name: "SingleProduct",
+          component: () => import('@/views/frontEnd/SingleProduct.vue'),
+        },
+      ]
     },
 
+
+    // 會員
     {
-      // 會員 - 登入頁面
-      path: "/login",
-      name: "Login",
-      component: () => import('@/views/frontEnd/Login.vue'),
-      // meta: { requiresAuth: true }, // 須驗證登入 // 經由測試，meta 內的屬性可自定義名稱
+      path: "/member",
+      component: () => import('@/views/frontEnd/Member.vue'),
+      children: [
+        {
+          // 會員 - 登入頁面
+          path: "login",
+          name: "Login",
+          component: () => import('@/views/frontEnd/Login.vue'),
+        },
+        {
+          // 會員 - 登出頁面
+          path: "logout",
+          name: "Logout",
+          component: () => import('@/views/frontEnd/Logout.vue'),
+          // meta: { requiresAuth: true }, // 須驗證登入
+        },
+        {
+          // 會員 - 檢視所有訂單
+          path: "order",
+          name: "Order",
+          component: () => import('@/views/frontEnd/Order.vue'),
+          // meta: { requiresAuth: true }, // 須驗證登入
+        },
+        {
+          // 會員 - 購物車(無須登入即可使用)
+          path: "cart",
+          name: "Cart",
+          component: () => import('@/views/frontEnd/Cart.vue'),
+        },
+      ]
     },
-    {
-      // 會員 - 登出頁面
-      path: "/logout",
-      name: "Logout",
-      component: () => import('@/views/frontEnd/Logout.vue'),
-      // meta: { requiresAuth: true }, // 須驗證登入
-    },
-    {
-      // 會員 - 檢視訂單
-      path: "/order",
-      name: "Order",
-      component: () => import('@/views/frontEnd/Order.vue'),
-      // meta: { requiresAuth: true }, // 須驗證登入
-    },
-    {
-      // 會員 - 購物車
-      path: "/cart",
-      name: "Cart",
-      component: () => import('@/views/frontEnd/Cart.vue'),
-    },
+
+
     {
       // 下單後頁面、檢視單一訂單(兩者共用)
       path: "/singleOrder",
       name: "SingleOrder",
       component: () => import('@/views/frontEnd/SingleOrder.vue'),
     },
+
 
     {
       // 聯繫我們
@@ -84,6 +102,31 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import('@/views/frontEnd/ContactUs.vue'),
     },
+
+
+
+
+
+
+
+    // 測試用頁面
+    // 測試用頁面
+    // 測試用頁面
+    // ----------------------------------------------------------------------------------------
+
+    {
+      // 會員 - 購物車 -- 排版測試用 頁面 具有完整功能
+      path: "/testCart",
+      name: "TestCart",
+      component: () => import('@/views/frontEnd/TestCart.vue'),
+    },
+
+    // ----------------------------------------------------------------------------------------
+
+
+
+
+
 
 
     // 客服人員端 後台

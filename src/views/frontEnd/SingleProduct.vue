@@ -308,7 +308,7 @@
           this.scrollTop();
         }
         else {
-          this.$router.push({ path: '/singleProduct', query: { id: id } });
+          this.$router.push({ path: '/shop/singleProduct', query: { id: id } });
         }
       },
 

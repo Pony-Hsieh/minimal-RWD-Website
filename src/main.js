@@ -19,10 +19,10 @@ import TW from 'vee-validate/dist/locale/zh_TW.json';
 import * as rules from 'vee-validate/dist/rules';
 
 // 引入 filter
-import currencyFilter from '@/filters/currency';
-import formatTime from '@/filters/formatTime';
-import couponFormatTime from '@/filters/couponFormatTime';
-import couponTransfer from '@/filters/couponTransfer';
+import currencyFilter from '@/filters/currency.js';
+import formatTime from '@/filters/formatTime.js';
+import couponFormatTime from '@/filters/couponFormatTime.js';
+import couponTransfer from '@/filters/couponTransfer.js';
 
 // 引入 eventBus
 import '@/allEventBus.js';
@@ -84,7 +84,7 @@ router.beforeEach((to, from, next) => {
 			else {
 				alert("請先登入~");
 				next({
-					path: "/login",
+					path: "/member/login",
 				});
 			}
 		});

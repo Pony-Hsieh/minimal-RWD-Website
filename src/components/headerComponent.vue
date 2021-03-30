@@ -10,39 +10,42 @@
       <nav class="headerNavBurger col-lg-8 order-lg-2" :class="{'ing':headerNavBurgerStatus}">
         <ul class="list-unstyled">
           <li>
-            <router-link to="/">
+            <router-link to="/" :class="{'nowMainPage':nowMainPage === ''}">
               首頁
             </router-link>
           </li>
           <li>
-            <router-link to="/shop">
+            <router-link to="/shop" :class="{'nowMainPage':nowMainPage === '/shop'}">
               商城
             </router-link>
           </li>
           <li>
-            <a href="" @click.prevent="toggleDropdownNav">
+            <a href="#" @click.prevent="toggleDropdownNav" :class="{'nowMainPage':nowMainPage === '/member'}">
               會員&nbsp;&nbsp;<i class="fas fa-caret-down" />
             </a>
             <ul class="list-unstyled dropdownNav" :class="{'ing':dropdownNavStatus}">
               <li>
-                <router-link to="/login">
+                <!-- <router-link to="/member/login"> -->
+                <router-link to="/member/login" :class="{'nowSubPage':navLogStatus}">
                   登入/登出
                 </router-link>
               </li>
               <li>
-                <router-link to="/order">
+                <!-- <router-link to="/member/order"> -->
+                <router-link to="/member/order" :class="{'nowSubPage':nowSubPage === '/member/order'}">
                   檢視訂單
                 </router-link>
               </li>
               <li>
-                <router-link to="/cart">
+                <!-- <router-link to="/member/cart"> -->
+                <router-link to="/member/cart" :class="{'nowSubPage':nowSubPage === '/member/cart'}">
                   購物車
                 </router-link>
               </li>
             </ul>
           </li>
           <li :class="{'ing':dropdownNavStatus}">
-            <router-link to="/contactUs">
+            <router-link to="/contactUs" :class="{'nowMainPage':nowMainPage === '/contactUs'}">
               聯繫我們
             </router-link>
           </li>
@@ -58,7 +61,7 @@
 
       <!-- iconArea -->
       <div class="col-2 order-lg-3 d-flex justify-content-center align-items-center iconArea">
-        <router-link to="/cart">
+        <router-link to="/member/cart">
           <i class="fas fa-shopping-cart" />
           <div class="LSCartItemNum">
             {{ LSCartItemNum }}
@@ -87,23 +90,37 @@
       return {
         headerNavBurgerStatus: false,
         dropdownNavStatus: false,
+        clientWidth: 0,
+        nowMainPage: "",
+        nowSubPage: "",
+        navLogStatus: false,
         searchBarStatus: false,
         LSCartItemNum: 0,
       };
     },
 
     watch: {
-      $route: {
-        handler(val, oldVal) {
-          // console.log(val);
+      "clientWidth": {
+        handler: function (val) {
+          if (val < 992) {
+            // 避免在螢幕尺寸切換時，造成 burger menu 破版
+            this.dropdownNavStatus = false;
+            this.headerNavBurgerStatus = false;
+          }
         },
-        // 深度觀察監聽
-        deep: true,
       },
     },
 
     created() {
-      this.getLSCartItemNum();
+      const vm = this;
+      vm.getLSCartItemNum();
+      vm.nowMainPage = vm.$route.matched[0].path;
+      if (vm.$route.matched.length > 1) {
+        vm.nowSubPage = vm.$route.matched[1].path;
+      }
+      if (vm.nowMainPage === "/member") {
+        vm.navLogStatus = (vm.nowSubPage === '/member/login' || vm.nowSubPage === '/member/logout' || false);
+      }
     },
 
     mounted() {
@@ -111,6 +128,11 @@
       vm.$LSCartNum_Bus.$on("LSCartItemNumEvent", (param) => {
         vm.LSCartItemNum = param;
       });
+
+      vm.clientWidth = document.body.clientWidth;
+      window.onresize = function () {
+        vm.clientWidth = document.body.clientWidth;
+      };
     },
 
     methods: {
@@ -146,6 +168,19 @@
 
 
 <style scoped>
+  a.nowMainPage {
+    /* color: aqua !important; */
+    background-color: #316aff;
+    /* background-color: #2f7dfc; */
+    color: #fff !important;
+  }
+
+  a.nowSubPage {
+    background-color: #fff !important;
+    /* color: #2f7dfc !important; */
+    color: #316aff !important;
+  }
+
   /* 通用樣式 */
   .container-fluid {
     height: 60px;
@@ -303,6 +338,11 @@
     color: #fff;
   }
 
+  .dropdownNav a.nowSubPage {
+    background-color: #2f7dfc !important;
+    color: #fff !important;
+  }
+
   @media (min-width: 992px) {
     .dropdownNav {
       transition: ease-in-out 0.8s;
@@ -322,6 +362,11 @@
     .dropdownNav a:hover {
       background-color: #fff;
       color: #2f7dfc;
+    }
+
+    .dropdownNav a.nowSubPage {
+      background-color: #fff !important;
+      color: #2f7dfc !important;
     }
 
   }

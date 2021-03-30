@@ -1,6 +1,11 @@
 export default function (couponNum) {
-  if (couponNum === 100) {
+  if (Number(couponNum) === 100) {
     return '無折扣';
   }
-  return `${couponNum / 10}折`;
+  else if (Number(couponNum) % 10 === 0) {
+    return `${couponNum / 10} 折`;
+  }
+  else {
+    return `${couponNum} 折`;
+  }
 }

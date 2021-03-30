@@ -1,17 +1,30 @@
 <template>
-    <div>
+    <div class="wrapper">
 
         <HeaderComponent />
 
-        <div class="container">
+        <div class="container my-5">
 
-            <!-- 購物車品項 -->
+            <!-- LS 購物車 為空 -->
+            <div>
+                <h1 class="h2 text-center">
+                    購物車
+                </h1>
+                <div class="d-flex justify-content-center align-items-center position-relative">
+                    <div class="position-absolute" style="right: calc(50% + 10px);">共計 {{ userLSCartArr.length }}
+                        種商品</div>
+                    <div style="overflow:hidden; width:0; border-left: 1.5px solid #212529;">|</div>
+                    <div class="position-absolute" style="left: calc(50% + 10px);"> {{ LSFinal_total | currency }}
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <!-- LS 購物車 有商品 -->
             <div class="row">
-                <div class="col">
-                    <h1 class="h3 text-center mt-4">
-                        購物車
-                    </h1>
-                    <hr>
+
+                <!-- 購物車品項 -->
+                <div class="col-12 col-lg-8">
                     <!-- 如果 LS 購物車為空，則顯示此區塊 -->
                     <div v-if="userLSCartArr.length === 0" class="text-center my-5">
                         目前購物車內沒有商品喔~~
@@ -20,10 +33,11 @@
                         </router-link>
                     </div>
                     <!-- 如果 LS 購物車有商品，則顯示此區塊 -->
+                    <h4 class="text-center">購買商品資訊</h4>
                     <table v-if="userLSCartArr.length !== 0" class="talbe mt-4 w-100 table-striped table-responsive-lg">
                         <thead>
                             <tr>
-                                <th width="120px" class="text-center py-3">
+                                <th width="150px" class="text-center py-3">
                                     商品
                                 </th>
                                 <th width="200PX" class="text-center">
@@ -35,7 +49,7 @@
                                 <th width="120px" class="text-center">
                                     小計
                                 </th>
-                                <th width="100px" class="text-center">
+                                <th width="180px" class="text-center">
                                     移除
                                 </th>
                             </tr>
@@ -117,129 +131,192 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
 
-            <!-- 套用 coupon 相關 -->
-            <div v-if="userLSCartArr.length !== 0" class="row">
-                <div class="col-12">
-                    <div class="input-group input-group-md mt-5">
-                        <input v-model.trim="inputCouponCode" type="text" placeholder="請輸入 coupon 代碼"
-                            class="form-control">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-primary" @click="applyCoupon">
-                                套用 coupon
-                            </button>
+
+                <!-- 其餘資訊 -->
+                <div class="col-12 col-lg-4 pt-3 otherCartInfo">
+
+                    <h4 class="text-center">訂購資訊</h4>
+
+                    <!-- 訂單金額 -->
+                    <div class="row orderTotalArea">
+
+                        <!-- 小計 -->
+                        <div class="col-12 d-flex justify-content-between">
+                            <h6>小計</h6>
+                            <h6 class="mr-1">{{ LSTotal | currency }}</h6>
                         </div>
+
+                        <!-- 套用 coupon -->
+                        <!-- 相等代表目前沒有套用 coupon -->
+                        <div v-if="LSTotal === LSFinal_total" class="col-12">
+                            <!-- <div v-if="LSTotal === LSFinal_total" class="col-10 col-lg-12 d-flex justify-content-between"> -->
+                            <div class="input-group input-group-sm">
+                                <input v-model.trim="inputCouponCode" type="text" placeholder="請輸入 coupon"
+                                    class="form-control" @keyup.enter="applyCoupon">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" @click="applyCoupon">
+                                        套用 coupon
+                                    </button>
+                                </div>
+                            </div>
+                            <div v-if="couponVerify === true" class="text-success">有效優惠券</div>
+                            <div v-if="couponVerify === false">
+                                <div class="text-danger">抱歉，目前無法使用此優惠券。 </div>
+                                <div> 請嘗試其他優惠券，或聯繫客服人員，</div>
+                                <div> 謝謝~~</div>
+                            </div>
+                            <!-- // vm.couponVerify = "有效優惠券"; -->
+
+                            <!-- // vm.couponVerify = "抱歉，目前無法使用此優惠券。請嘗試其他優惠券，或聯繫客服人員，謝謝~~"; -->
+
+                            <!--  -->
+                        </div>
+
+                        <!-- 折抵 -->
+                        <div v-if="LSTotal !== LSFinal_total"
+                            class="col-10 col-lg-12 d-flex justify-content-between align-items-center">
+                            <h6>
+                                折抵
+                            </h6>
+                            <h6 class="mr-1">
+                                - {{ LSTotal - LSFinal_total | currency }}
+                            </h6>
+                        </div>
+                        <div v-if="usingCoupon.percent !== 100"
+                            class="col-10 col-lg-12 d-flex justify-content-between align-items-center"
+                            style="margin-top: 14px; font-size: 15px;">
+                            <div>
+                                已套用 coupon 名稱：{{ usingCoupon.title }}
+                                <br>
+                                已套用 coupon 代碼：{{ usingCoupon.code }}
+                                <br>
+                                已套用 coupon 優惠：{{ usingCoupon.percent | couponTransfer }}
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-outline-danger btn-sm" @click="cancelCoupon">
+                                    <i class="fas fa-times" />
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <!-- 總計 -->
+                        <div class="col-10 col-lg-12 d-flex justify-content-between align-items-center mt-3">
+                            <h6 class="font-weight-bold">
+                                總計
+                            </h6>
+                            <h6 class="mr-1 font-weight-bold">
+                                {{ LSFinal_total | currency }}
+                            </h6>
+                        </div>
+                    </div>
+
+
+                    <!-- 套用 coupon 相關 -->
+                    <div v-if="userLSCartArr.length !== 0" class="couponArea">
+                        <!-- <div class="input-group input-group-sm">
+                            <input v-model.trim="inputCouponCode" type="text" placeholder="請輸入 coupon"
+                                class="form-control" @keyup.enter="applyCoupon">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary" @click="applyCoupon">
+                                    套用 coupon
+                                </button>
+                            </div>
+                        </div> -->
+
+                        <!-- <div v-if="usingCoupon.percent !== 100"
+                            class="d-flex justify-content-between align-items-center" style="margin-top: 14px;">
+                            <div>
+                                已套用 coupon 名稱：{{ usingCoupon.title }}
+                                <br>
+                                已套用 coupon 代碼：{{ usingCoupon.code }}
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-outline-danger btn-sm" @click="cancelCoupon">
+                                    <i class="fas fa-times" />
+                                </button>
+                            </div>
+                        </div> -->
+                    </div>
+
+
+                    <!-- 客戶收件資料及聯絡資料 、 送出訂單 -->
+                    <div v-if="userLSCartArr.length !== 0" class="receiverInfoArea">
+                        <h5 class="text-center">
+                            收件資訊
+                        </h5>
+                        <div class="text-center">* 表示必填</div>
+                        <validation-observer v-slot="{ invalid }">
+                            <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
+                            <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
+                            <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
+                            <form @submit.prevent="test">
+                                <!-- 訂購人 email -->
+                                <validation-provider v-slot="{ errors, classes }" rules="required|email">
+                                    <div class="form-group">
+                                        <!-- 輸入框 -->
+                                        <label for="userEmail">* 訂購人 email</label>
+                                        <input id="userEmail" v-model="form.user.email" type="email" name="訂購人 email"
+                                            class="form-control" :class="classes">
+                                        <!-- 錯誤訊息 -->
+                                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                                    </div>
+                                </validation-provider>
+
+                                <!-- 收件人姓名 -->
+                                <validation-provider v-slot="{ errors, classes }" rules="required">
+                                    <div class="form-group">
+                                        <label for="userName">* 收件人姓名</label>
+                                        <input id="userName" v-model="form.user.name" type="text" name="收件人姓名"
+                                            class="form-control" :class="classes">
+                                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                                    </div>
+                                </validation-provider>
+
+                                <!-- 收件人電話 -->
+                                <validation-provider v-slot="{ errors, classes }" rules="required">
+                                    <div class="form-group">
+                                        <label for="userTel">* 收件人電話</label>
+                                        <input id="userTel" v-model="form.user.tel" type="tel" name="收件人電話"
+                                            class="form-control" :class="classes">
+                                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                                    </div>
+                                </validation-provider>
+
+                                <!-- 收件人地址 -->
+                                <validation-provider v-slot="{ errors, classes }" rules="required">
+                                    <div class="form-group">
+                                        <label for="userAddress">* 收件人地址</label>
+                                        <input id="userAddress" v-model="form.user.address" type="text" name="收件人地址"
+                                            class="form-control" :class="classes">
+                                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                                    </div>
+                                </validation-provider>
+
+                                <!-- 訂單留言 -->
+                                <div class="form-group">
+                                    <label for="comment">留言</label>
+                                    <textarea id="comment" v-model="form.message" class="form-control"
+                                        style="resize: none; height: 200px;" />
+                                </div>
+
+                                <!-- 送出訂單 -->
+                                <div class="my-5">
+                                    <button type="submit"
+                                        :class="['btn', 'btn-primary', 'btn-block', {'cursorNotAllowed' : invalid}]"
+                                        :disabled="invalid">
+                                        送出訂單
+                                    </button>
+                                </div>
+
+                            </form>
+                        </validation-observer>
                     </div>
                 </div>
 
-                <div class="d-none d-lg-block col-lg-5"></div>
-                <div v-if="usingCoupon.percent !== 100" class="col-12 col-sm-7 col-lg-4 my-3">
-                    已套用 coupon 名稱：{{ usingCoupon.title }}
-                    <br>
-                    已套用 coupon 代碼：{{ usingCoupon.code }}
-                </div>
-                <div v-if="usingCoupon.percent !== 100"
-                    class="col-12 col-sm-5 col-lg-3 d-flex justify-content-center justify-content-sm-end align-items-center ">
-                    <button type="button" class="btn btn-outline-danger btn-sm" @click="cancelCoupon">
-                        取消套用此 coupon
-                    </button>
-                </div>
             </div>
 
-            <!-- 訂單金額 -->
-            <div class="row mt-5 cartTotal">
-                <div class="col-3 col-lg-5"></div>
-                <div class="col-9 col-lg-7 d-flex justify-content-between">
-                    <h6>總計</h6>
-                    <!-- 如果 LSTotal 與 LSFinal_total 不一樣 -->
-                    <del v-if="LSTotal !== LSFinal_total" class="h6 mr-1">{{ LSTotal | currency }}</del>
-                    <h6 v-else>
-                        {{ LSFinal_total | currency }}
-                    </h6>
-                </div>
-                <div v-if="LSTotal !== LSFinal_total" class="col-3 col-lg-5"></div>
-                <div v-if="LSTotal !== LSFinal_total"
-                    class="col-9 col-lg-7 d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary">
-                        折扣後價格
-                    </h6>
-                    <h5 class="mr-1">
-                        {{ LSFinal_total | currency }}
-                    </h5>
-                </div>
-            </div>
-
-            <!-- 客戶收件資料及聯絡資料 、 送出訂單 -->
-            <div v-if="userLSCartArr.length !== 0" class="row my-5 justify-content-center">
-                <h5 class="col-12 text-center">
-                    訂購資訊
-                </h5>
-                <validation-observer v-slot="{ invalid }" class="col-md-6">
-                    <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
-                    <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
-                    <!-- 訂購行為 form @submit.prevent 的綁定函式要調整！！！！！ -->
-                    <form @submit.prevent="test">
-                        <!-- 訂購人 email -->
-                        <validation-provider v-slot="{ errors, classes }" rules="required|email">
-                            <div class="form-group">
-                                <!-- 輸入框 -->
-                                <label for="userEmail">訂購人 email</label>
-                                <input id="userEmail" v-model="form.user.email" type="email" name="訂購人 email"
-                                    class="form-control" :class="classes">
-                                <!-- 錯誤訊息 -->
-                                <span class="invalid-feedback">{{ errors[0] }}</span>
-                            </div>
-                        </validation-provider>
-
-                        <!-- 收件人姓名 -->
-                        <validation-provider v-slot="{ errors, classes }" rules="required">
-                            <div class="form-group">
-                                <label for="userName">收件人姓名</label>
-                                <input id="userName" v-model="form.user.name" type="text" name="收件人姓名"
-                                    class="form-control" :class="classes">
-                                <span class="invalid-feedback">{{ errors[0] }}</span>
-                            </div>
-                        </validation-provider>
-
-                        <!-- 收件人電話 -->
-                        <validation-provider v-slot="{ errors, classes }" rules="required">
-                            <div class="form-group">
-                                <label for="userTel">收件人電話</label>
-                                <input id="userTel" v-model="form.user.tel" type="tel" name="收件人電話" class="form-control"
-                                    :class="classes">
-                                <span class="invalid-feedback">{{ errors[0] }}</span>
-                            </div>
-                        </validation-provider>
-
-                        <!-- 收件人地址 -->
-                        <validation-provider v-slot="{ errors, classes }" rules="required">
-                            <div class="form-group">
-                                <label for="userAddress">收件人地址</label>
-                                <input id="userAddress" v-model="form.user.address" type="text" name="收件人地址"
-                                    class="form-control" :class="classes">
-                                <span class="invalid-feedback">{{ errors[0] }}</span>
-                            </div>
-                        </validation-provider>
-
-                        <!-- 訂單留言 -->
-                        <div class="form-group">
-                            <label for="comment">留言</label>
-                            <textarea id="comment" v-model="form.message" class="form-control"
-                                style="resize: none; height: 200px;" />
-                        </div>
-
-                        <!-- 送出訂單 -->
-                        <div class="text-right">
-                            <button type="submit" :class="['btn','btn-danger', {'cursorNotAllowed' : invalid}]"
-                                :disabled="invalid">
-                                送出訂單
-                            </button>
-                        </div>
-
-                    </form>
-                </validation-observer>
-            </div>
         </div>
 
         <!-- minus、移除 確認刪除用 Modal  -->
@@ -307,7 +384,9 @@
                 editingLSOriginalQty: 1, // 暫存 編輯數量中商品的 原始數量
 
                 inputCouponCode: "", // 使用者輸入的 coupon code
-                infoMsg: "", // 提示消費者這個 coupon 可否使用
+                infoMsg: "",
+                couponVerify: "",  // 提示消費者這個 coupon 可否使用
+
                 usingCoupon: { // 已經套用 的 coupon
                     title: "", // coupon 名稱
                     code: "", // 優惠碼
@@ -574,10 +653,10 @@
                 vm.$http.post(couponApi, { data: coupon }).then((response) => {
                     // console.log(response);
                     if (response.data.success) {
-                        vm.infoMsg = "有效優惠券";
+                        vm.couponVerify = true;
                     }
                     else {
-                        vm.infoMsg = "抱歉，目前無法使用此優惠券。請嘗試其他優惠券，或聯繫客服人員，謝謝~~";
+                        vm.couponVerify = false;
                     }
                 });
             },
@@ -599,13 +678,11 @@
                 // 發送虛假購物車內容
                 vm.$http.post(cartApi, { data: fakeCart }).then((response) => {
 
-                    // console.log("發送虛假購物車內容", response);
-
                     vm.$http.post(couponApi, { data: coupon }).then((response) => {
 
                         if (response.data.success) {
                             // console.log("套用 coupon 的 response", response);
-                            vm.infoMsg = "成功套用優惠券！";
+                            // vm.infoMsg = "成功套用優惠券！";
 
                             setTimeout(() => {
                                 // console.log("準備取得 fake cart");
@@ -634,7 +711,7 @@
                         }
 
                         else {
-                            vm.infoMsg = "抱歉，目前無法使用此優惠券。請嘗試其他優惠券，或聯繫客服人員，謝謝~~";
+                            // vm.infoMsg = "抱歉，目前無法使用此優惠券。請嘗試其他優惠券，或聯繫客服人員，謝謝~~";
                         }
 
                     });
@@ -651,7 +728,7 @@
                     percent: 100,
                 };
                 this.calLSTotal(); // 重新計算 LS 購物車金額
-                this.infoMsg = "已取消套用 coupon";
+                // this.infoMsg = "已取消套用 coupon";
             },
 
 
@@ -672,8 +749,16 @@
 
 
 <style scoped>
+    .wrapper {
+        background-color: #e1e4e9;
+    }
+
     a {
         text-decoration: none;
+    }
+
+    .cursorNotAllowed {
+        cursor: not-allowed;
     }
 
     .editProductQty {
@@ -737,7 +822,25 @@
         }
     }
 
-    .cursorNotAllowed {
-        cursor: not-allowed;
+    .orderTotalArea {
+        margin-top: 47px;
+    }
+
+    .couponArea {
+        margin-top: 14px;
+    }
+
+    .receiverInfoArea {
+        margin-top: 108px;
+    }
+
+
+    @media (min-width: 992px) {
+        .otherCartInfo {
+            /* background-color: #f2f2f2; */
+            background-color: #343b4d;
+            color: #e1e4e9;
+            border-radius: 15px;
+        }
     }
 </style>

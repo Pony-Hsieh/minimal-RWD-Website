@@ -145,8 +145,8 @@
 
 <style scoped>
   .container-fluid {
-    background-color: #000;
-    color: #fff;
+    background-color: #343b4d;
+    color: #e1e4e9;
   }
 
   .container {

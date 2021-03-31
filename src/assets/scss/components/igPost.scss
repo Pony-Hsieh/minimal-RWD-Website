@@ -1,0 +1,70 @@
+@import "@/assets/scss/_selfVariables"; // 自定義變數
+
+.wrapper {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.singleIgPost {
+  position: relative;
+  flex: 19.5% 0 0;
+}
+
+.singleIgPost img.ing {
+  z-index: 1;
+}
+
+.filter {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $accent-color;
+  opacity: 0;
+  transition: 1s;
+}
+
+.filter.ing {
+  opacity: 0.7;
+  z-index: 2;
+  transition: 1s;
+}
+
+.singleIgPost .igIcon {
+  width: 100%;
+  height: 100%;
+  @extend %allFlexCenter;
+  text-decoration: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: 1s;
+}
+
+.singleIgPost .igIcon.ing {
+  opacity: 1;
+  z-index: 3;
+  transition: 1s;
+}
+
+.igIcon i {
+  color: #fff;
+  font-size: 50px;
+  opacity: 1;
+}
+
+@media (max-width: 576px) {
+  .wrapper {
+    justify-content: space-around;
+    padding: 0 -15px;
+  }
+
+  .singleIgPost {
+    flex: 33% 0 0;
+    margin-bottom: 15px;
+  }
+}

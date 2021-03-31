@@ -47,32 +47,6 @@
   };
 </script>
 
-<style scoped>
-  .container {
-    padding-top: 70px;
-    padding-bottom: 70px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  @media (min-width: 992px) {
-    .container {
-      padding-top: 100px;
-      padding-bottom: 100px;
-    }
-  }
-
-  .singleShippingDetail {
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
-
-  .singleShippingDetail h4 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-top: 15px;
-    margin-bottom: 5px;
-  }
+<style scoped lang="scss">
+  @import "@/assets/scss/components/shippingDescription.scss";
 </style>

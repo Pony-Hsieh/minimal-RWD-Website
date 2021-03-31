@@ -4,15 +4,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <div class="newMember">
-            <img src="https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png"
-              alt=""
-              height="50px"
-            >
+          <div class="logoutArea">
+            <img src="https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png" alt="使用者大頭貼"
+              height="50px">
             <h3>user name</h3>
-            <a href=""
-              @click.prevent="signout"
-            >登出</a>
+            <a href="#" @click.prevent="signout">登出</a>
           </div>
         </div>
       </div>
@@ -70,92 +66,6 @@
 </script>
 
 
-<style scoped>
-  .container-fluid .row {
-    padding: 15px 0;
-  }
-
-  .newMember {
-    height: calc(100vh - 60px - 30px);
-    padding: 80px 70px;
-  }
-
-  .newMember {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-    background: rgb(0, 255, 165);
-    background: -moz-linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
-    background: -webkit-linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
-    background: linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00ffa5", endColorstr="#00aacc", GradientType=1);
-  }
-
-  .newMember h3 {
-    font-size: 24px;
-    font-weight: 700;
-  }
-
-  .newMember p {
-    font-size: 15px;
-    margin-top: 17px;
-    margin-bottom: 0;
-    /* 覆寫掉 _reboot.scss 中　p 的 margin-bottom 設定 */
-  }
-
-  .newMember a {
-    width: 226.43px;
-    height: 40.667px;
-    margin-top: 28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #c2ffef;
-    border-radius: 50px;
-    background-color: transparent;
-    font-size: 14px;
-    text-decoration: none;
-    color: #000;
-    color: #fff;
-  }
-
-  .newMember a:hover {
-    background-color: #fff;
-    color: #2f7dfc;
-  }
-
-  .newMember a:active {
-    font-size: 15px;
-  }
-
-  @media(min-width: 992px) {
-    .newMember {
-      height: calc(100vh - 78px - 30px);
-      padding: 80px 70px;
-    }
-  }
-
-
-  /* @media(max-width: 991px) {
-
-        .newMember {
-            height: 400px;
-            padding: 0 15px;
-        }
-    } */
-
-  /* @media(min-width: 992px) {
-        .container .row {
-            padding: 100px 15px;
-        }
-    }
-
-    @media(min-width: 1200px) {
-        .container .row {
-            padding: 140px 15px;
-        }
-    } */
+<style scoped lang="scss">
+  @import "@/assets/scss/frontEnd/logout.scss";
 </style>

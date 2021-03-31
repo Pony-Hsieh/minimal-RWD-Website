@@ -1,0 +1,303 @@
+@import "@/assets/scss/_selfVariables"; // 自定義變數
+
+a.nowMainPage {
+  /* color: aqua !important; */
+  background-color: $accent-color;
+  /* background-color: $accent-color; */
+  color: #fff !important;
+}
+
+a.nowSubPage {
+  background-color: #fff !important;
+  /* color: $accent-color !important; */
+  color: $accent-color !important;
+}
+
+/* 通用樣式 */
+.container-fluid {
+  height: 60px;
+}
+
+@media (min-width: 992px) {
+  .container-fluid {
+    height: 78px;
+  }
+}
+
+.headerNavBurger {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  padding: 0 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 1s;
+}
+
+.headerNavBurger.ing {
+  opacity: 1;
+  visibility: visible;
+  position: absolute;
+  top: 80px;
+  width: 100%;
+  padding: 0 15px;
+  z-index: 0;
+}
+
+.headerNavBurger > ul {
+  background-color: #fff;
+}
+
+.headerNavBurger > ul li {
+  height: 42px;
+  line-height: 42px;
+  /* 垂直置中 */
+}
+
+.headerNavBurger a {
+  display: block;
+  width: 100%;
+  padding: 0 15px;
+  text-decoration: none;
+  color: black;
+  color: $black;
+}
+
+.headerNavBurger a:hover {
+  background-color: $accent-color;
+  color: #fff;
+}
+
+.headerNavBurger a:active {
+  transform: scale(1.01);
+}
+
+.headerNavBurger li:nth-of-type(3) {
+  position: relative;
+}
+
+.headerNavBurger li:nth-of-type(4) {
+  transition: 1s;
+  margin-top: 0;
+}
+
+.headerNavBurger li:nth-of-type(4).ing {
+  transition: 0.8s;
+  margin-top: 156px;
+}
+
+@media (min-width: 992px) {
+  .logoArea {
+    height: 78px;
+  }
+
+  .iconArea {
+    height: 78px;
+  }
+
+  .headerNavBurger {
+    height: 78px;
+  }
+
+  .headerNavBurger {
+    position: static;
+    z-index: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .headerNavBurger > ul {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .headerNavBurger > ul > li {
+    height: 78px;
+    width: 25%;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .headerNavBurger a {
+    height: 100%;
+    // media query 內好像無法使用 @extend (如果硬要使用， Vue 會無法編譯)
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  .headerNavBurger li:nth-of-type(4) {
+    transition: 0s;
+  }
+
+  .headerNavBurger li:nth-of-type(4).ing {
+    transition: 0s;
+    margin-top: 0px;
+  }
+}
+
+.dropdownNav {
+  opacity: 0;
+  visibility: hidden;
+  width: 95%;
+  position: absolute;
+  top: 0;
+  left: 2.5%;
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.dropdownNav.ing {
+  opacity: 1;
+  visibility: visible;
+  position: absolute;
+  top: 42px;
+  transition: 0.8s;
+  z-index: 0;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 15px 10px;
+}
+
+.dropdownNav a {
+  border-radius: 5px;
+}
+
+.dropdownNav a:hover {
+  background-color: $accent-color;
+  color: #fff;
+}
+
+.dropdownNav a.nowSubPage {
+  background-color: $accent-color !important;
+  color: #fff !important;
+}
+
+@media (min-width: 992px) {
+  .dropdownNav {
+    transition: ease-in-out 0.8s;
+    padding: 15px;
+  }
+
+  .dropdownNav.ing {
+    top: 78px;
+    transition: ease-in-out 0.8s;
+    background-color: $accent-color;
+  }
+
+  .dropdownNav a {
+    color: #fff;
+  }
+
+  .dropdownNav a:hover {
+    background-color: #fff;
+    color: $accent-color;
+  }
+
+  .dropdownNav a.nowSubPage {
+    background-color: #fff !important;
+    color: $accent-color !important;
+  }
+}
+
+.iconArea i {
+  font-size: 20px;
+}
+
+/* 購物車 icon */
+.iconArea > a {
+  position: relative;
+  color: #000;
+}
+
+.iconArea > a:active {
+  transform: scale(1.1);
+}
+
+.LSCartItemNum {
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
+  background-color: $accent-color;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  top: -9px;
+  right: -9px;
+}
+
+/* 搜尋 icon */
+.iconArea i:hover {
+  cursor: pointer;
+}
+
+.iconArea .fa-search {
+  color: #000;
+}
+
+/* 搜尋欄 */
+.searchBar {
+  width: 100%;
+  height: 46.5px;
+  background-color: $accent-color;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 12.5%;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.8s;
+}
+
+.searchBar.ing {
+  top: 70px;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.8s;
+}
+
+.searchBar input {
+  width: 95%;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: #fff;
+  /* input 內的游標顏色可透過 color 調整 */
+}
+
+.searchBar i {
+  font-size: 30px;
+  color: #fff;
+}
+
+.searchBar i:hover {
+  cursor: pointer;
+}
+
+/* 以下四項為調整 placeholder 文字顏色 */
+/*webkit瀏覽器專用*/
+.searchBar input::-webkit-input-placeholder {
+  color: #fff;
+}
+
+/*Firefox 4-18瀏覽器專用*/
+.searchBar input::-moz-placeholder {
+  color: #fff;
+}
+
+/*Firefox 19+瀏覽器專用*/
+.searchBar input::-moz-placeholder {
+  color: #fff;
+}
+
+/*IE10瀏覽器專用*/
+.searchBar:-ms-input-placeholder {
+  color: #fff;
+}

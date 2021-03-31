@@ -1,0 +1,93 @@
+@import "@/assets/scss/_selfVariables"; // 自定義變數
+
+.wrapper {
+  background-color: $dominant-color;
+}
+
+a {
+  text-decoration: none;
+}
+
+.cursorNotAllowed {
+  cursor: not-allowed;
+}
+
+.editProductQty {
+  vertical-align: middle;
+}
+
+.qtyChange_btn {
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid grey;
+  border-radius: 0.2rem;
+  outline: none;
+  background: transparent;
+}
+
+.qtyChange_btn:active {
+  background-color: $accent-color;
+  color: $dominant-color;
+  border: none;
+}
+
+.editProductQty input::-webkit-outer-spin-button,
+.editProductQty input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  /* 拿掉數字輸入欄位的箭頭 */
+}
+
+.editProductQty input[type="number"] {
+  -moz-appearance: textfield;
+  /* 拿掉數字輸入欄位的箭頭 */
+}
+
+.editProductQty input {
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  outline: none;
+  border: none;
+  text-align: center;
+}
+
+.editProductQty input.ing {
+  outline: none;
+  border: 1.5px solid $accent-color;
+  border-radius: 0.2rem;
+}
+
+@media (min-width: 576px) {
+  .qtyChange_btn {
+    width: 34px;
+    height: 34px;
+    display: inline;
+  }
+
+  .editProductQty input {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.orderTotalArea {
+  margin-top: 47px;
+}
+
+.couponArea {
+  margin-top: 14px;
+}
+
+.receiverInfoArea {
+  margin-top: 108px;
+}
+
+@media (min-width: 992px) {
+  .otherCartInfo {
+    background-color: $second-color;
+    color: $dominant-color;
+    border-radius: 15px;
+  }
+}

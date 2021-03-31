@@ -1,0 +1,124 @@
+@import "@/assets/scss/_selfVariables"; // 自定義變數
+
+.container-fluid {
+  background-color: $second-color;
+  color: #fff;
+}
+
+.container {
+  padding: 70px 0 25px 0;
+}
+
+.singleFooterPart h5 {
+  color: $dominant-color;
+  margin-bottom: 16px;
+}
+
+.singleFooterPart li {
+  margin-bottom: 14px;
+  display: block;
+}
+
+.singleFooterPart li a {
+  text-decoration: none;
+  color: #fff;
+  transition: 0.5s;
+}
+
+.singleFooterPart li a:hover {
+  text-decoration: none;
+  color: $accent-color;
+  transition: 0.5s;
+}
+
+.singleFooterPart li span {
+  color: #fff;
+  transition: 0.5s;
+}
+
+.singleFooterPart li span:hover {
+  color: $accent-color;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.subscribe form {
+  width: 100%;
+}
+
+.subscribe input {
+  width: 80%;
+  padding: 14px 15px;
+  font-size: 14px;
+  border: 1px solid $accent-color;
+  background-color: transparent;
+  color: #fff;
+  outline: none;
+}
+
+.subscribe button {
+  height: 52px;
+  background-color: $accent-color;
+  color: #fff;
+  text-align: center;
+  line-height: 12px;
+  border: 2px solid $accent-color;
+  padding: 14px 20px;
+  outline: none;
+}
+
+.subscribe button:active {
+  background-color: #fff;
+  color: $accent-color;
+}
+
+.subscribe ::placeholder {
+  /* CSS 3 標準 */
+  color: #fff;
+}
+
+.subscribe ::-webkit-input-placeholder {
+  /* Chrome, Safari */
+  color: #fff;
+}
+
+.subscribe :-ms-input-placeholder {
+  /* IE 10+ */
+  color: #fff;
+}
+
+.subscribe ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff;
+  opacity: 1;
+}
+
+.socialMedia {
+  display: flex;
+  margin-top: 20px;
+}
+
+.socialMedia a {
+  @extend %allFlexCenter;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: $black;
+  text-decoration: none;
+  color: #fff;
+  margin-right: 10px;
+  transition: 0.5s;
+}
+
+.socialMedia a:hover {
+  color: $black;
+  background-color: #fff;
+  transition: 0.5s;
+}
+
+.copyright {
+  color: $dominant-color;
+  margin-top: 20px;
+  border-top: 1px solid #777;
+  padding-top: 20px;
+}

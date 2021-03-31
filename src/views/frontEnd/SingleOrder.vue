@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid p-0">
+  <div class="container-fluid p-0 wrapper">
     <HeaderComponent />
 
     <div class="container orderData">
@@ -195,73 +195,6 @@
 </script>
 
 
-<style scoped>
-  .orderData {
-    max-width: 510px;
-  }
-
-  .orderData .row {
-    /* .row 本身就有 display: flex; 的屬性了 */
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .orderData h3 {
-    /* 左邊標題 */
-    font-size: 1rem;
-    margin: 0;
-  }
-
-  .orderData h4 {
-    /* 左邊次標題 */
-    font-size: 0.875rem;
-    line-height: 0.875rem;
-  }
-
-  .orderData p {
-    /* 右邊內容 */
-    margin: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    /* 內容水平靠右、垂直置中 */
-  }
-
-  .orderProduct .col-8>div {
-    /* 訂購商品細項資訊 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .orderProduct img {
-    /* 商品圖片 */
-    width: 100px;
-  }
-
-  /* 訂購資訊 */
-  .userData .col-8>div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .userData .col-8 h4 {
-    width: 90px;
-    margin: 0;
-    white-space: nowrap;
-    /* 強制不換行 */
-  }
-
-  .userData .col-8 p {
-    word-break: break-all;
-  }
-
-  /* 訂單留言 */
-  .userMessage p {
-    word-break: break-all;
-    /* 只有這個要靠左，所以改回預設，其餘的都用 flex-end */
-    justify-content: flex-start;
-  }
+<style scoped lang="scss">
+  @import "@/assets/scss/frontEnd/singleOrder.scss";
 </style>

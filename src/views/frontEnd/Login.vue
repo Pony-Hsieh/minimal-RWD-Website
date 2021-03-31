@@ -2,61 +2,47 @@
   <div>
     <HeaderComponent />
 
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-6 ">
-          <div class="newMember">
-            <h3>New to our Shop?</h3>
-            <p>
-              There are advances being made in science and technology everyday, and a good example of this
-              is the
-            </p>
-            <a href=""
-              @click.prevent
-            >CREATE AN ACCOUNT</a>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 oldMember">
-          <h3>
-            Welcome Back !
-            <br>
-            Please Sign in now
-          </h3>
-          <form action=""
-            @submit.prevent="signin"
-          >
-            <input v-model="user.username"
-              type="email"
-              placeholder="Username"
-              required
-            >
-            <input v-model="user.password"
-              type="password"
-              placeholder="Password"
-              required
-            >
-            <div>
-              <label for="rememberMe">記住我的帳號</label>
-              <input id="rememberMe"
-                type="checkbox"
-              >
-              <button type="submit">
-                LOG IN
-              </button>
-              <!-- <button @click="signin">LOG IN</button> -->
-              <!-- 在 form 寫了 @submit ，這個 button 就不用再綁一次事件了，如果再綁一次，就會觸發兩次事件  -->
-              <a href="#"
-                @click.prevent
-              >
-                忘記密碼？
-              </a>
+    <div class="wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 ">
+            <div class="newMember">
+              <h3>New to our Shop?</h3>
+              <p>
+                There are advances being made in science and technology everyday, and a good example of this
+                is the
+              </p>
+              <a href="" @click.prevent>CREATE AN ACCOUNT</a>
             </div>
-          </form>
+          </div>
+
+          <div class="col-12 col-md-6 oldMember">
+            <h3>
+              Welcome Back !
+              <br>
+              Please Sign in now
+            </h3>
+            <form action="" @submit.prevent="signin">
+              <input v-model="user.username" type="email" placeholder="Username" required>
+              <input v-model="user.password" type="password" placeholder="Password" required>
+              <div>
+                <label for="rememberMe">記住我的帳號</label>
+                <input id="rememberMe" type="checkbox">
+                <button type="submit">
+                  LOG IN
+                </button>
+                <!-- <button @click="signin">LOG IN</button> -->
+                <!-- 在 form 寫了 @submit ，這個 button 就不用再綁一次事件了，如果再綁一次，就會觸發兩次事件  -->
+                <a href="#" @click.prevent>
+                  忘記密碼？
+                </a>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-
+    
     <IgPost />
     <FooterComponent />
   </div>
@@ -171,152 +157,6 @@
 </script>
 
 
-<style scoped>
-  .container .row {
-    padding: 70px 0;
-  }
-
-  .newMember,
-  .oldMember {
-    height: 600px;
-    padding: 80px 70px;
-  }
-
-  .newMember {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-    background: rgb(255, 0, 90);
-    background: -moz-linear-gradient(16deg, rgba(255, 0, 90, 1) 0%, rgba(255, 85, 51, 1) 100%);
-    background: -webkit-linear-gradient(16deg, rgba(255, 0, 90, 1) 0%, rgba(255, 85, 51, 1) 100%);
-    background: linear-gradient(16deg, rgba(255, 0, 90, 1) 0%, rgba(255, 85, 51, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff005a", endColorstr="#ff5533", GradientType=1);
-  }
-
-  .newMember h3 {
-    font-size: 24px;
-    font-weight: 700;
-  }
-
-  .newMember p {
-    font-size: 15px;
-    margin-top: 17px;
-    margin-bottom: 0;
-    /* 覆寫掉 _reboot.scss 中　p 的 margin-bottom 設定 */
-  }
-
-  .newMember a {
-    width: 226.43px;
-    height: 40.667px;
-    margin-top: 28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ffc2d2;
-    border-radius: 50px;
-    background-color: transparent;
-    font-size: 14px;
-    text-decoration: none;
-    color: #fff;
-  }
-
-  .newMember a:hover {
-    background-color: #fff;
-    color: #2f7dfc;
-  }
-
-  .newMember a:active {
-    font-size: 15px;
-  }
-
-  .oldMember {
-    font-size: 1rem;
-  }
-
-  .oldMember h3 {
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 36px;
-    margin-bottom: 20px;
-  }
-
-  .oldMember form {
-    margin-bottom: 20px;
-  }
-
-  .oldMember form>input {
-    display: block;
-    width: 100%;
-    outline: none;
-    margin-bottom: 1rem;
-    padding: 12px 6px;
-    border: 0px solid transparent;
-    border-bottom: 1px solid #dddddd;
-    border-radius: 0;
-  }
-
-  .oldMember button {
-    width: 100%;
-    height: 40px;
-    outline: none;
-    border: none;
-    border-radius: 50px;
-    background-color: #2f7dfc;
-    color: #fff;
-    margin: 30px 0 17px 0;
-    transition: 0.5s;
-  }
-
-  .oldMember button:hover {
-    background-color: red;
-    transition: 0.5s;
-  }
-
-  .oldMember form div label {
-    font-size: 14px;
-    color: #777;
-  }
-
-  .oldMember form div a {
-    display: block;
-    text-align: right;
-    font-size: 14px;
-    text-decoration: none;
-    color: #777;
-  }
-
-
-  @media(max-width: 991px) {
-
-    .newMember,
-    .oldMember {
-      height: 400px;
-      padding: 0 15px;
-    }
-
-    .oldMember {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-  }
-
-  @media(min-width: 992px) {
-    .container .row {
-      padding: 100px 15px;
-    }
-  }
-
-  @media(min-width: 1200px) {
-    .container .row {
-      padding: 140px 15px;
-    }
-
-    .oldMember h3 {
-      margin-bottom: 80px;
-    }
-  }
+<style scoped lang="scss">
+  @import "@/assets/scss/frontEnd/login.scss";
 </style>

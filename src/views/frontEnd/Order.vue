@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="wrapper">
+    
     <HeaderComponent />
 
     <h2 class="text-center mt-4">
@@ -7,108 +8,73 @@
     </h2>
 
     <div class="container">
-      <p v-if="rawData.length == 0"
-        class="h5 text-center my-5"
-      >
+      <p v-if="rawData.length == 0" class="h5 text-center my-5">
         目前沒有訂單喔~
       </p>
 
       <!-- 訂單詳細資料 -->
-      <table v-if="rawData.length != 0"
-        class="table table-bordered table-striped table-responsive-xl mt-4 mw-100"
-      >
+      <table v-if="rawData.length != 0" class="table table-bordered table-striped table-responsive-xl mt-4 mw-100">
         <thead class="thead-dark">
           <tr>
             <!-- id -->
-            <th width="80px"
-              class="text-center align-middle"
-            >
+            <th width="80px" class="text-center align-middle">
               訂單 id
             </th>
             <!-- create_at -->
-            <th width="100px"
-              class="text-center align-middle"
-            >
+            <th width="100px" class="text-center align-middle">
               下單時間
             </th>
             <!-- is_paid -->
-            <th width="100px"
-              class="text-center align-middle"
-            >
+            <th width="100px" class="text-center align-middle">
               付款狀態
             </th>
             <!-- products -->
-            <th width="250px"
-              class="text-center align-middle"
-            >
+            <th width="250px" class="text-center align-middle">
               購買商品
             </th>
             <!-- total -->
-            <th width="120px"
-              class="text-center align-middle"
-            >
+            <th width="120px" class="text-center align-middle">
               訂單金額
             </th>
             <!-- message -->
             <!-- <th width="120px" class="text-center align-middle">訂單留言</th> -->
-            <th width="20%"
-              class="text-center align-middle"
-            >
+            <th width="20%" class="text-center align-middle">
               訂單留言
             </th>
             <!-- user: Object -->
             <!-- <th class="w-auto text-center align-middle">收件者資料</th> -->
-            <th width="120px"
-              class="text-center align-middle"
-            >
+            <th width="120px" class="text-center align-middle">
               收件者資料
             </th>
           </tr>
         </thead>
 
         <tbody>
-          <tr v-for="(order,index) in rawData"
-            :key="index"
-          >
+          <tr v-for="(order,index) in rawData" :key="index">
             <!-- 訂單 id -->
-            <td class="align-middle"
-              style="word-break: break-all;"
-            >
+            <td class="align-middle" style="word-break: break-all;">
               {{ order.id }}
             </td>
             <!-- 下單時間 -->
-            <td class="text-center align-middle"
-              style="word-break: keep-all;"
-            >
+            <td class="text-center align-middle" style="word-break: keep-all;">
               {{ order.create_at|formatTime }}
             </td>
             <!-- 付款狀態 -->
             <td class="text-center align-middle">
-              <span v-if="order.is_paid"
-                class="text-success"
-              >已付</span>
-              <span v-if="!order.is_paid"
-                class="text-danger"
-              >未付</span>
-              <button v-if="!order.is_paid"
-                class="btn btn-sm btn-primary mt-1"
-                @click="payOrder(order.id)"
-              >
+              <span v-if="order.is_paid" class="text-success">已付</span>
+              <span v-if="!order.is_paid" class="text-danger">未付</span>
+              <button v-if="!order.is_paid" class="btn btn-sm btn-primary mt-1" @click="payOrder(order.id)">
                 付款
               </button>
             </td>
             <!-- 購買商品 -->
             <td class="align-middle">
               <div v-for="item in order.products"
-                class="d-flex flex-column justify-content-center align-items-center py-2"
-              >
+                class="d-flex flex-column justify-content-center align-items-center py-2">
                 <div class="d-flex justify-content-center align-items-center">
                   <!-- 商品圖片、商品名稱 -->
                   <div>
-                    <img :src="item.product.imageUrl"
-                      alt=""
-                      style="width: 100px;"
-                    >
+                    <img :src="item.product.imageUrl" alt="" style="width: 100px;">
                     <br>
                     <div class="text-center mt-1">
                       {{ item.product.title }}
@@ -156,40 +122,21 @@
       </table>
 
       <!-- 分頁功能 -->
-      <nav v-if="rawData.length != 0"
-        aria-label="Page navigation example"
-        class="mt-5 mb-4"
-      >
+      <nav v-if="rawData.length != 0" aria-label="Page navigation example" class="mt-5 mb-4">
         <ul class="pagination justify-content-center">
-          <li class="page-item"
-            :class="{'disabled' : !pagination.has_pre }"
-          >
-            <a class="page-link"
-              href="#"
-              aria-label="Previous"
-            >
+          <li class="page-item" :class="{'disabled' : !pagination.has_pre }">
+            <a class="page-link" href="#" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
               <span class="sr-only">Previous</span>
               <!-- sr-only 全稱是 screen reader only，意為：（僅供）屏幕閱讀器，這個 class 主要用於增強 accessbility（可訪問性）。 -->
             </a>
           </li>
-          <li v-for="page in pagination.total_pages"
-            :key="page"
-            class="page-item"
-            :class="{ 'active' : pagination.current_page === page }"
-          >
-            <a class="page-link"
-              href="#"
-              @click.prevent="getProducts(page)"
-            >{{ page }}</a>
+          <li v-for="page in pagination.total_pages" :key="page" class="page-item"
+            :class="{ 'active' : pagination.current_page === page }">
+            <a class="page-link" href="#" @click.prevent="getProducts(page)">{{ page }}</a>
           </li>
-          <li class="page-item"
-            :class="{'disabled' : !pagination.has_next }"
-          >
-            <a class="page-link"
-              href="#"
-              aria-label="Next"
-            >
+          <li class="page-item" :class="{'disabled' : !pagination.has_next }">
+            <a class="page-link" href="#" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
               <span class="sr-only">Next</span>
             </a>
@@ -197,8 +144,9 @@
         </ul>
       </nav>
     </div>
-
+    
     <FooterComponent />
+    
   </div>
 </template>
 
@@ -263,3 +211,9 @@
     },
   }
 </script>
+
+<style scoped>
+  .wrapper {
+    background-color: #e1e4e9;
+  }
+</style>

@@ -1,0 +1,286 @@
+@import "@/assets/scss/_selfVariables"; // 自定義變數
+
+.wrapper {
+  background-color: $dominant-color;
+}
+
+a {
+  text-decoration: none;
+}
+
+.product {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2a2a2a;
+}
+
+.product h4 {
+  font-size: 24px;
+  font-weight: 700;
+  color: $accent-color;
+}
+
+.mainProductInfo {
+  margin-top: 30px;
+}
+
+.mainProductInfo > div:first-of-type {
+  display: flex;
+  align-items: center;
+}
+
+.mainProductInfo > div:first-of-type a {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #7f7f7f;
+  text-align: center;
+  @extend %allFlexCenter;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  box-shadow: -14.142px 14.142px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.mainProductInfo > div:first-of-type a:hover {
+  background-color: $accent-color;
+  color: #fff;
+}
+
+.mainProductInfo > div:first-of-type a:active {
+  transform: scale(1.05);
+}
+
+.mainProductInfo > div:first-of-type i {
+  font-size: 24px;
+}
+
+.mainProductInfo del {
+  color: #606060;
+}
+
+.mainProductInfo a {
+  /* color: #606060; */
+  font-size: 14px;
+}
+
+.mainProductInfo span {
+  font-size: 14px;
+}
+
+.product h5 {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@media (min-width: 992px) {
+  .product {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+.cartRelevant {
+  margin-top: 40px;
+}
+
+.cartCount {
+  width: 150px;
+  height: 50px;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.cartCount button {
+  /* width: 25%; */
+  width: 50%;
+  height: 48px;
+  /* margin-top: 0px; */
+  /* margin-bottom: -3px; */
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  background-color: transparent;
+}
+
+.cartCount button:hover {
+  cursor: pointer;
+}
+
+.cartCount button:active {
+  background-color: $accent-color;
+  color: #fff;
+}
+
+.cartCount button:first-of-type {
+  text-align: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.cartCount button:last-of-type {
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.cartCount input {
+  width: 50%;
+  height: 48px;
+  /* background-color: transparent; */
+  outline: none;
+  border: none;
+  z-index: 2;
+}
+
+.cartCount input::-webkit-outer-spin-button,
+.cartCount input::-webkit-inner-spin-button {
+  /* 拿掉數字輸入框的上下箭頭 */
+  -webkit-appearance: none;
+}
+
+.cartCount input[type="number"] {
+  /* 拿掉數字輸入框的上下箭頭 */
+  -moz-appearance: textfield;
+}
+
+.cartRelevant > button:active {
+  transform: scale(1.05);
+}
+
+.addToCartArea {
+  @extend %allFlexCenter;
+  margin-top: -10px;
+}
+
+.socialMedia > ul {
+  width: 180px;
+  margin: 0 auto;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.socialMedia li {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: 0.5s;
+}
+
+.socialMedia li:hover {
+  background-color: $accent-color;
+  transition: 0.5s;
+}
+
+.socialMedia li a {
+  font-size: 18px;
+  height: 100%;
+  text-decoration: none;
+  color: #fff;
+  @extend %allFlexCenter;
+}
+
+.socialMedia .facebook {
+  background-color: #3b5998;
+}
+
+.socialMedia .twitter {
+  background-color: #55acee;
+}
+
+.socialMedia .linkedin {
+  background-color: #0077b5;
+}
+
+.singleBestSeller {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* align-items: flex-end; */
+}
+
+.singleBestSeller h4 {
+  margin-top: 15px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.singleBestSeller del {
+  color: #606060;
+}
+
+.singleBestSeller h5 {
+  font-size: 18px;
+  text-align: center;
+}
+
+.bestSellers img {
+  position: relative;
+}
+
+/* hover 小工具 */
+.bestSellers .hoverWidget {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 60px;
+  right: 35px;
+  right: 10px;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.bestSellers .hoverWidget.ing {
+  right: 35px;
+  opacity: 1;
+  transition: 0.5s;
+}
+
+.hoverWidget li {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $accent-color;
+  font-size: 16px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.hoverWidget li a {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: #fff;
+  outline: none;
+}
+
+.hoverWidget li a:hover {
+  background-color: #fff;
+  color: $accent-color;
+  border-radius: 50%;
+  border: 1.5px solid $accent-color;
+}
+
+.hoverWidget li a:active {
+  transform: scale(1.1);
+}
+
+.hoverWidget .like {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,30 @@
+.message-alert {
+  position: fixed;
+  top: 60px + 5px; // 60px 為 Navbar 的高度
+  right: 20px;
+  max-width: 50%;
+  z-index: 1100;
+}
+@media (min-width: 576px) {
+  .message-alert {
+    max-width: 30%;
+  }
+}
+@media (min-width: 992px) {
+  .message-alert {
+    height: 78px + 5px; // 78px 為 Navbar 的高度
+    max-width: 20%;
+  }
+}
+
+.alert {
+  padding: 0.75rem 1.15rem;
+}
+
+.alert-dismissible {
+  padding-right: 2rem;
+  .close {
+    padding: 0.5rem 1.25rem;
+    right: -10px;
+  }
+}

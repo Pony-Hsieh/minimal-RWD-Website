@@ -53,10 +53,8 @@
       </nav>
 
       <!-- LOGO -->
-      <div class="col-8 col-lg-2 order-lg-1 logoArea">
-        <router-link to="/" class="d-flex justify-content-center align-items-center" style="width: 100%; height: 100%;">
-          <img src="https://preview.colorlib.com/theme/winter/img/logo.png" alt="">
-        </router-link>
+      <div class="col-8 col-lg-2 order-lg-1 d-flex justify-content-center align-items-center logoArea">
+        <img src="@/assets/img/squareIconWithoutWord.png" alt="minimal Logo">
       </div>
 
       <!-- iconArea -->

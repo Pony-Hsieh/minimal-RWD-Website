@@ -1,6 +1,6 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
-.wrapper{
+.wrapper {
   background-color: $dominant-color;
 }
 
@@ -15,42 +15,43 @@ h2 {
 }
 
 button {
-  width: 165px;
-  height: 42px;
-  border-radius: 21px;
+  width: 164px;
+  height: 44px;
+  border-radius: 22px;
   outline: none;
   border: none;
   background-color: $accent-color;
-  color: $dominant-color;
+  color: #fff;
 }
 
 button:active {
   border: 1.5px solid $accent-color;
-  background-color: $dominant-color;
+  background-color: #fff;
   color: $accent-color;
 }
 
 .companyInfo {
   margin-top: 30px;
+  margin-left: 4px;
 }
 
 .companyInfo > div {
-  margin-bottom: 25px;
+  margin-bottom: 32px;
   display: flex;
   align-items: center;
 }
 
 /* 放 icon */
 .companyInfo > div > div:first-of-type {
-  width: 27px;
-  height: 27px;
+  width: 28px;
+  height: 28px;
   text-align: center;
-  line-height: 27px;
+  line-height: 28px;
 }
 
 .companyInfo i {
   color: #8f9195;
-  font-size: 27px;
+  font-size: 28px;
 }
 
 /* 放聯絡資訊 */
@@ -59,15 +60,14 @@ button:active {
 }
 
 .companyInfo h3 {
-  color: #2a2a2a;
   color: $black;
-  font-size: 16px;
+  font-size: 18px;
   margin: 0;
 }
 
 .companyInfo p {
-  color: #8a8a8a;
-  font-size: 15px;
+  color: $black;
+  font-size: 16px;
   margin: 0;
-  margin-top: 5px;
+  margin-top: 4px;
 }

@@ -202,6 +202,19 @@ a.nowSubPage {
   }
 }
 
+.logoArea img{
+  width: 40px;
+  // height: 40px;
+}
+@media (min-width: 992px) {
+  .logoArea img{
+    width: 48px;
+    // height: 45px;
+  }
+}
+
+
+
 .iconArea i {
   font-size: 20px;
 }

@@ -1,6 +1,16 @@
 <template>
   <div class="wrapper">
 
+    <loading :active.sync="isLoading">
+      <div class="loadingio-spinner-eclipse-qd52l2xe1a">
+        <div class="ldio-zf9gth3n7r">
+          <div></div>
+        </div>
+      </div>
+    </loading>
+
+    <AlertMsg />
+
     <HeaderComponent />
 
     <div class="container all">
@@ -36,7 +46,7 @@
 
           <!-- 紅字來源XD -->
           <!-- 金額 filter -->
-          <div class="filterCard priceFilter mt-5">
+          <!-- <div class="filterCard priceFilter mt-5">
             <h5>依據 金額 篩選</h5>
             <div class="priceFilterInfo">
               <vue-slider v-model="priceRange" dot-size="20" max="10000" interval="100" :lazy="true" />
@@ -53,7 +63,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <main class="col-12 col-lg-9">
@@ -191,6 +201,7 @@
   import ShippingDescription from '@/components/ShippingDescription.vue';
   import IgPost from '@/components/IgPost.vue';
   import FooterComponent from '@/components/FooterComponent.vue';
+  import AlertMsg from '@/components/AlertMsg.vue';
 
   export default {
     components: {
@@ -198,10 +209,12 @@
       ShippingDescription,
       IgPost,
       FooterComponent,
+      AlertMsg,
     },
 
     data() {
       return {
+        isLoading: false,
 
         rawProducts: [],  // 所有商品資料
         rawCategoryProducts: {
@@ -222,8 +235,9 @@
         },
         categoryFilterArray: [],  // 使用 類別過濾器 過濾後的陣列
 
-        priceRange: [0, 10000],   // 用以暫存商品售價範圍
-        priceFilterArray: [],     // 使用 金額過濾器 過濾後的陣列
+        priceRange: [0, 10000],    // 用以暫存商品售價範圍
+        priceRawRange: [0, 10000],    // 用以暫存商品售價範圍
+        priceFilterArray: [],      // 使用 金額過濾器 過濾後的陣列
 
         filteredArray: [], // 套用 類別 金額 過濾器之後的產品列表
         showProducts: [],  // 套用分頁功能後，要渲染出來的產品資料列表
@@ -239,7 +253,7 @@
     },
 
     watch: { // 如果沒有監控 router 變化的話，就會造成使用 footerComponent 切換類別時無效的狀況
-      '$route'(to, from) {
+      "$route"(to, from) {
         // console.log("TO", to);
         // console.log("FROM", from);
         if (to.query !== from.query) {
@@ -247,7 +261,7 @@
           this.saveFilteredArray();
           this.scrollTop();
         }
-      }
+      },
     },
 
     created() {
@@ -257,8 +271,6 @@
     },
 
     methods: {
-
-
 
       // 依據 router 傳入的參數，判斷是否有需要預先套用 category filter
       judgeCategoryByRouterParam() {
@@ -281,6 +293,7 @@
       getRawProducts() {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`; // 這個成功取回資料
+        vm.isLoading = true;
 
         // 從遠端取回 產品 、 分頁 的資料
         vm.$http.get(api).then((response) => {
@@ -293,6 +306,7 @@
           vm.getPage();
           vm.saveFilteredArray();
           vm.judgeShowProductsByPage();
+          vm.isLoading = false;
         });
       },
 
@@ -404,6 +418,7 @@
           title: nowProduct.title, // 商品名稱
           origin_price: nowProduct.origin_price, // 單價
           price: nowProduct.price, // 折扣價(不包含 coupon 的折扣)
+          unit: nowProduct.unit, // 計量單位 (alertMsg 需要)
         };
 
         // 取得 LS，並存入 data return 中
@@ -429,6 +444,7 @@
                 title: item.title,
                 origin_price: item.origin_price,
                 price: item.price,
+                unit: item.unit, // 計量單位 (alertMsg 需要)
               };
               vm.userLSCartArr.splice(index, 1); // 再將原本的資料刪除
             }
@@ -436,7 +452,10 @@
           vm.userLSCartArr.push(tempAddObj); // push 進 LS 陣列中
           localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS
         }
-
+        vm.$alertMsg_Bus.$emit("alertMsgEvent", nowProduct.title, 1, nowProduct.unit, "success");
+        // 使用 $emit 傳遞多參數時，不可加上小括號，否則會導致接收端($on)無法正確接收。
+        // 錯誤範例：
+        // vm.$alertMsg_Bus.$emit("alertMsgEvent", (nowProduct.title, 1, nowProduct.unit, "success"));
         vm.getLSCart();
       },
 

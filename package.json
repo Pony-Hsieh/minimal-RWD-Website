@@ -16,6 +16,7 @@
     "vee-validate": "^3.4.5",
     "vue": "^2.6.10",
     "vue-axios": "^3.2.4",
+    "vue-loading-overlay": "^3.4.2",
     "vue-router": "^3.5.1",
     "vue-slider-component": "^3.2.11"
   },

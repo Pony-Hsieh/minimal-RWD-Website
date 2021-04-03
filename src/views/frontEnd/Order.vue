@@ -1,6 +1,14 @@
 <template>
   <div class="wrapper">
-    
+
+    <loading :active.sync="isLoading">
+      <div class="loadingio-spinner-eclipse-qd52l2xe1a">
+        <div class="ldio-zf9gth3n7r">
+          <div></div>
+        </div>
+      </div>
+    </loading>
+
     <HeaderComponent />
 
     <h2 class="text-center mt-4">
@@ -144,9 +152,9 @@
         </ul>
       </nav>
     </div>
-    
+
     <FooterComponent />
-    
+
   </div>
 </template>
 
@@ -167,6 +175,7 @@
 
     data() {
       return {
+        isLoading: false,
         rawData: [],
         pagination: {},
         tempOrder: {
@@ -185,12 +194,14 @@
       getRawData(page = 1) {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/orders?page=${page}`;
+        vm.isLoading = true;
 
         // 從遠端取回 訂單 、 分頁 的資料
         vm.$http.get(api).then((response) => {
           // console.log("response", response); // 確認遠端撈回來的資料結構
           vm.rawData = response.data.orders;
           vm.pagination = response.data.pagination;
+          vm.isLoading = false;
         });
       },
 

@@ -1,5 +1,8 @@
 <template>
   <div class="wrapper">
+
+    <AlertMsg />
+
     <headerComponent />
 
     <div class="container">
@@ -128,6 +131,7 @@
   import ShippingDescription from '@/components/ShippingDescription.vue';
   import IgPost from '@/components/IgPost.vue';
   import FooterComponent from '@/components/FooterComponent.vue';
+  import AlertMsg from '@/components/AlertMsg.vue';
 
   export default {
     components: {
@@ -135,6 +139,7 @@
       ShippingDescription,
       IgPost,
       FooterComponent,
+      AlertMsg,
     },
 
     data() {
@@ -258,6 +263,7 @@
           title: vm.showProduct.title, // 商品名稱
           origin_price: vm.showProduct.origin_price, // 單價
           price: vm.showProduct.price, // 折扣價(不包含 coupon 的折扣)
+          unit: vm.showProduct.unit, // 計量單位 (alertMsg 需要)
         };
 
         // 取得 LS，並存入 data return 中
@@ -283,6 +289,7 @@
                 title: item.title,
                 origin_price: item.origin_price,
                 price: item.price,
+                unit: item.unit, // 計量單位 (alertMsg 需要)
               };
               vm.userLSCartArr.splice(index, 1); // 再將原本的資料刪除
             }
@@ -290,7 +297,8 @@
           vm.userLSCartArr.push(tempAddObj); // push 進 LS 陣列中
           localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS
         }
-        vm.addNum = 1;
+        vm.$alertMsg_Bus.$emit("alertMsgEvent", vm.showProduct.title, vm.addNum, vm.showProduct.unit, "success");
+        vm.addNum = 1; // 重置加入購物車數量為預設數量 
         vm.getLSCart();
       },
 

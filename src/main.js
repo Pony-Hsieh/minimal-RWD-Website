@@ -9,6 +9,10 @@ import 'bootstrap';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
+// 引入 vue-loading-overlay 套件
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 // 引入 vue-slider 套件
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/default.css';
@@ -30,8 +34,9 @@ import '@/allEventBus.js';
 // 好像是用以跨域存取用的
 axios.defaults.withCredentials = true;
 
-// 啟用 套件
+// 啟用套件
 Vue.use(VueAxios, axios); // 啟用 VueAxios 套件
+Vue.component('loading', Loading); // 啟用 vue-loading-overlay 套件
 Vue.component('VueSlider', VueSlider); // 啟用 vue-slider 套件
 
 
@@ -65,8 +70,8 @@ Vue.config.productionTip = false;
 
 
 new Vue({
-  router,
-  render: h => h(App),
+	router,
+	render: h => h(App),
 }).$mount('#app');
 
 
@@ -105,6 +110,6 @@ router.beforeEach((to, from, next) => {
 	// 	});
 	// }
 	// else {
-		next();
+	next();
 	// }
 });

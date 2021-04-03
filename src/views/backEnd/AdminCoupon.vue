@@ -1,5 +1,14 @@
 <template>
   <div>
+
+    <loading :active.sync="isLoading">
+      <div class="loadingio-spinner-eclipse-qd52l2xe1a">
+        <div class="ldio-zf9gth3n7r">
+          <div></div>
+        </div>
+      </div>
+    </loading>
+
     <div class="container">
       <h2 class="text-center mt-4">
         優惠券管理
@@ -7,16 +16,12 @@
 
       <div class="text-right">
         <!-- <button class="btn btn-outline-dark" @click="openCouponModal(true)">新增 coupon</button> -->
-        <button class="btn btn-outline-primary"
-          @click="openCouponModal(true)"
-        >
+        <button class="btn btn-outline-primary" @click="openCouponModal(true)">
           新增 coupon
         </button>
       </div>
 
-      <p v-if="coupons.length == 0"
-        class="h5 text-center mt-5"
-      >
+      <p v-if="coupons.length == 0" class="h5 text-center mt-5">
         目前沒有優惠券喔~
       </p>
 
@@ -48,22 +53,16 @@
               使用截止期限
             </th>
 
-            <th width="100px"
-              class="text-center align-middle"
-            >
+            <th width="100px" class="text-center align-middle">
               編輯
             </th>
-            <th width="100px"
-              class="text-center align-middle"
-            >
+            <th width="100px" class="text-center align-middle">
               刪除
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in coupons"
-            :key="item.id"
-          >
+          <tr v-for="item in coupons" :key="item.id">
             <!-- <td>{{item}}</td> -->
             <!-- coupon 名稱 -->
             <td class="text-center align-middle">
@@ -79,30 +78,22 @@
             </td>
             <!-- 是否啟用 -->
             <td class="text-center align-middle">
-              <span v-if="item.is_enabled"
-                class="text-success"
-              >啟用</span>
-              <span v-else
-                class="text-secondary"
-              >停用</span>
+              <span v-if="item.is_enabled" class="text-success">啟用</span>
+              <span v-else class="text-secondary">停用</span>
             </td>
             <!-- 使用截止期限 -->
             <td class="text-center align-middle">
               {{ item.due_date|couponFormatTime }}
             </td>
             <td class="text-center align-middle">
-              <button class="btn btn-outline-info btn-sm"
-                @click="openCouponModal(false, item)"
-              >
+              <button class="btn btn-outline-info btn-sm" @click="openCouponModal(false, item)">
                 編輯
               </button>
               <!-- <button class="btn btn-outline-primary btn-sm"
                                 @click="openCouponModal(false, item)">編輯</button> -->
             </td>
             <td class="text-center align-middle">
-              <button class="btn btn-outline-danger btn-sm"
-                @click="openDeleteModal(item.id, item.title)"
-              >
+              <button class="btn btn-outline-danger btn-sm" @click="openDeleteModal(item.id, item.title)">
                 刪除
               </button>
             </td>
@@ -112,39 +103,19 @@
     </div>
 
     <!-- 顯示分頁 -->
-    <nav aria-label="Page navigation example"
-      class="mt-5 mb-4"
-    >
+    <nav aria-label="Page navigation example" class="mt-5 mb-4">
       <ul class="pagination justify-content-center">
-        <li class="page-item"
-          :class="{'disabled' : !pagination.has_pre }"
-        >
-          <a class="page-link"
-            href="#"
-            aria-label="Previous"
-            @click.prevent="getProducts(pagination.current_page - 1)"
-          >
+        <li class="page-item" :class="{'disabled' : !pagination.has_pre }">
+          <a class="page-link" href="#" aria-label="Previous" @click.prevent="getProducts(pagination.current_page - 1)">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-        <li v-for="page in pagination.total_pages"
-          :key="page"
-          class="page-item"
-          :class="{ 'active' : pagination.current_page === page }"
-        >
-          <a class="page-link"
-            href="#"
-            @click.prevent="getProducts(page)"
-          >{{ page }}</a>
+        <li v-for="page in pagination.total_pages" :key="page" class="page-item"
+          :class="{ 'active' : pagination.current_page === page }">
+          <a class="page-link" href="#" @click.prevent="getProducts(page)">{{ page }}</a>
         </li>
-        <li class="page-item"
-          :class="{'disabled' : !pagination.has_next }"
-        >
-          <a class="page-link"
-            href="#"
-            aria-label="Next"
-            @click.prevent="getProducts(pagination.current_page + 1)"
-          >
+        <li class="page-item" :class="{'disabled' : !pagination.has_next }">
+          <a class="page-link" href="#" aria-label="Next" @click.prevent="getProducts(pagination.current_page + 1)">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
@@ -153,29 +124,16 @@
 
 
     <!-- 新增、修改 coupon Modal -->
-    <div id="couponModal"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog"
-        role="document"
-      >
+    <div id="couponModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="exampleModalLabel"
-              class="modal-title"
-            >
+            <h5 id="exampleModalLabel" class="modal-title">
               <span v-if="modalTitle">新增優惠券</span>
               <span v-else>編輯優惠券</span>
             </h5>
-            <button type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -184,73 +142,37 @@
             <div>
               <div class="form-group">
                 <label for="title">coupon 名稱</label>
-                <input id="title"
-                  v-model="tempCoupon.title"
-                  type="text"
-                  class="form-control"
-                >
+                <input id="title" v-model="tempCoupon.title" type="text" class="form-control">
               </div>
               <div class="form-group">
                 <label for="code">coupon 序號</label>
-                <input id="code"
-                  v-model="tempCoupon.code"
-                  type="text"
-                  class="form-control"
-                >
+                <input id="code" v-model="tempCoupon.code" type="text" class="form-control">
               </div>
               <div class="form-group">
                 <label for="percent">優惠折數<br>(9折請輸入"90"，8折請輸入"80"，依此類推~)</label>
-                <input id="percent"
-                  v-model="tempCoupon.percent"
-                  type="number"
-                  max="100"
-                  min="0"
-                  class="form-control"
-                >
+                <input id="percent" v-model="tempCoupon.percent" type="number" max="100" min="0" class="form-control">
               </div>
               <div class="form-group">
                 <label for="due_date">使用截止期限</label>
-                <input id="due_date"
-                  v-model="tempCoupon.due_date"
-                  type="date"
-                  class="form-control"
-                >
+                <input id="due_date" v-model="tempCoupon.due_date" type="date" class="form-control">
               </div>
               <div class="form-group">
                 <div class="form-check">
-                  <input id="is_enabled"
-                    v-model="tempCoupon.is_enabled"
-                    class="form-check-input"
-                    type="checkbox"
-                    :true-value="1"
-                    :false-value="0"
-                  >
-                  <label class="form-check-label"
-                    for="is_enabled"
-                  >啟用狀態</label>
+                  <input id="is_enabled" v-model="tempCoupon.is_enabled" class="form-check-input" type="checkbox"
+                    :true-value="1" :false-value="0">
+                  <label class="form-check-label" for="is_enabled">啟用狀態</label>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer border-top-0">
-            <button type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
               關閉
             </button>
-            <button v-if="isNew"
-              type="button"
-              class="btn btn-primary"
-              @click="updateCoupon"
-            >
+            <button v-if="isNew" type="button" class="btn btn-primary" @click="updateCoupon">
               確定新增
             </button>
-            <button v-else
-              type="button"
-              class="btn btn-primary"
-              @click="updateCoupon"
-            >
+            <button v-else type="button" class="btn btn-primary" @click="updateCoupon">
               確定修改
             </button>
             <!-- <button type="button" class="btn btn-success" @click="testData">測試資料結構</button> -->
@@ -260,28 +182,15 @@
     </div>
 
     <!-- 確認刪除用 Modal  -->
-    <div id="couponDeleteModal"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog"
-        role="document"
-      >
+    <div id="couponDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="exampleModalLabel"
-              class="modal-title"
-            >
+            <h5 id="exampleModalLabel" class="modal-title">
               欲刪除 coupon 名稱：
             </h5>
-            <button type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -291,17 +200,11 @@
           <div class="modal-footer">
             <div class="container-fluid">
               <div class="row">
-                <button type="button"
-                  class="btn btn-secondary col mr-1"
-                  data-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary col mr-1" data-dismiss="modal">
                   否，關閉此彈跳視窗
                 </button>
                 <!-- <div class="col-2 d-sm-none"></div> -->
-                <button type="button"
-                  class="btn btn-danger col ml-1"
-                  @click="deleteCoupon"
-                >
+                <button type="button" class="btn btn-danger col ml-1" @click="deleteCoupon">
                   是，刪除此
                   coupon
                 </button>
@@ -320,6 +223,7 @@
   export default {
     data: function () {
       return {
+        isLoading: false,
         coupons: {},  // 儲存從遠端撈回來，之前上傳的 coupon 資料
         pagination: {}, // 作為分頁功能使用
         tempCoupon: {}, // 儲存彈跳 Modal 的資料
@@ -338,14 +242,14 @@
       getCouponList(page = 1) {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
-        // vm.isLoading = true;
+        vm.isLoading = true;
 
         // 從遠端取回 產品 、 分頁 的資料
         vm.$http.get(api).then((response) => {
           // console.log(response);  // 確認資料結構
           vm.coupons = response.data.coupons;
           vm.pagination = response.data.pagination;  // 作為分頁功能使用
-          // vm.isLoading = false;
+          vm.isLoading = false;
         });
       },
 

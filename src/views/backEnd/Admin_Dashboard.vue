@@ -3,46 +3,32 @@
     <!-- 選單 -->
     <!-- 等同前台的 headerComponent -->
     <div class="container-fluid bg-white sticky-top shadow">
-      <div class="row"
-        style="height: 60px;"
-      >
+      <div class="row" style="height: 60px;">
         <!-- 漢堡選單按鈕 -->
-        <div class="col-3 d-flex d-lg-none justify-content-center align-items-center"
-          style="cursor: pointer;"
-          @click="headerNavBurgerStatus = !headerNavBurgerStatus"
-        >
+        <div class="col-3 d-flex d-lg-none justify-content-center align-items-center" style="cursor: pointer;"
+          @click="headerNavBurgerStatus = !headerNavBurgerStatus">
           <i class="fas fa-bars" />
         </div>
         <!-- 選單 -->
-        <nav class="col-lg-6 order-lg-3 headerNavBurger"
-          :class="{'ing':headerNavBurgerStatus}"
-        >
+        <nav class="col-lg-6 order-lg-3 headerNavBurger" :class="{'ing':headerNavBurgerStatus}">
           <ul class="list-unstyled">
             <li>
-              <router-link to="/admin_Dashboard"
-                exact-active-class="active"
-              >
+              <router-link to="/admin_Dashboard" exact-active-class="active">
                 管理員首頁
               </router-link>
             </li>
             <li>
-              <router-link to="/admin_Dashboard/adminProducts"
-                exact-active-class="active"
-              >
+              <router-link to="/admin_Dashboard/adminProducts" exact-active-class="active">
                 產品管理
               </router-link>
             </li>
             <li>
-              <router-link to="/admin_Dashboard/adminCoupon"
-                exact-active-class="active"
-              >
+              <router-link to="/admin_Dashboard/adminCoupon" exact-active-class="active">
                 優惠券管理
               </router-link>
             </li>
             <li>
-              <router-link to="/admin_Dashboard/adminOrder"
-                exact-active-class="active"
-              >
+              <router-link to="/admin_Dashboard/adminOrder" exact-active-class="active">
                 訂單管理
               </router-link>
             </li>
@@ -51,28 +37,18 @@
 
         <!-- LOGO -->
         <div class="col-6 col-lg-3 order-lg-1 logoArea">
-          <router-link to="/admin_Dashboard"
-            class="d-flex justify-content-center align-items-center"
-            style="width: 100%; height: 100%;"
-          >
-            <img src="https://preview.colorlib.com/theme/winter/img/logo.png"
-              alt=""
-            >
+          <router-link to="/admin_Dashboard" class="d-flex justify-content-center align-items-center"
+            style="width: 100%; height: 100%;">
+            <img src="https://preview.colorlib.com/theme/winter/img/logo.png" alt="">
           </router-link>
         </div>
 
         <!-- 登入登出 -->
         <div class="col-3 order-lg-3 p-0 d-flex justify-content-center align-items-center loginArea">
-          <button v-if="!loginStatus"
-            class="btn btn-outline-primary btn-sm"
-            @click.prevent="toAdminLogInPage"
-          >
+          <button v-if="!loginStatus" class="btn btn-outline-primary btn-sm" @click.prevent="toAdminLogInPage">
             登入
           </button>
-          <button v-else
-            class="btn btn-outline-primary btn-sm"
-            @click.prevent="signout"
-          >
+          <button v-else class="btn btn-outline-primary btn-sm" @click.prevent="signout">
             登出
           </button>
         </div>

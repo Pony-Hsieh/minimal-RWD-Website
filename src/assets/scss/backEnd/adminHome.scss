@@ -1,0 +1,12 @@
+@import "@/assets/scss/_selfVariables"; // 自定義變數
+
+h1 {
+  height: calc(100vh - 69px);
+  @extend %allFlexCenter;
+}
+
+@media (min-width: 992px) {
+  h1 {
+    height: calc(100vh - 90px);
+  }
+}

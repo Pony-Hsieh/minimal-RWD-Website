@@ -39,7 +39,7 @@
         <div class="col-6 col-lg-3 order-lg-1 logoArea">
           <router-link to="/admin_Dashboard" class="d-flex justify-content-center align-items-center"
             style="width: 100%; height: 100%;">
-            <img src="https://preview.colorlib.com/theme/winter/img/logo.png" alt="">
+            <img src="@/assets/img/squareIconWithoutWord.png" alt="minimal Logo">
           </router-link>
         </div>
 
@@ -84,18 +84,28 @@
       return {
         headerNavBurgerStatus: false,
         loginStatus: false,
+        clientWidth: 0,
       }
     },
 
     watch: {
-      '$route'(to, from) {
+      "$route"(to, from) {
         // console.log("TO", to);
         // console.log("FROM", from);
         if (to.fullPath !== from.fullPath) {
           this.headerNavBurgerStatus = false; // 收起選單
           this.judgeLoginStatus(); // 判斷右上角是登入或登出按鈕
         }
-      }
+      },
+      "clientWidth": {
+        handler: function (val) {
+          if (val < 992) {
+            // 避免在螢幕尺寸切換時，造成 burger menu 破版
+            // this.dropdownNavStatus = false;
+            this.headerNavBurgerStatus = false;
+          }
+        },
+      },
     },
 
     created() {
@@ -155,134 +165,6 @@
 </script>
 
 
-<style scoped>
-  .container-fluid:first-child {
-    height: 60px;
-  }
-
-  @media (min-width: 992px) {
-    .container-fluid:first-child {
-      height: 78px;
-    }
-  }
-
-  .headerNavBurger {
-    position: absolute;
-    top: 0;
-    z-index: -1;
-    width: 100%;
-    padding: 0 15px;
-    opacity: 0;
-    visibility: hidden;
-    transition: 1s;
-  }
-
-  .headerNavBurger.ing {
-    opacity: 1;
-    visibility: visible;
-    position: absolute;
-    top: 80px;
-    width: 100%;
-    padding: 0 15px;
-    z-index: 0;
-  }
-
-  .headerNavBurger>ul {
-    outline: 1px solid #aaa;
-    background-color: #fff;
-  }
-
-  .headerNavBurger>ul li {
-    height: 42px;
-    line-height: 42px;
-    /* 垂直置中 */
-  }
-
-  .headerNavBurger a {
-    display: block;
-    width: 100%;
-    border-radius: 5px;
-    padding: 0 15px;
-    text-decoration: none;
-    color: black;
-  }
-
-  .headerNavBurger a:hover {
-    background-color: #2f7dfc;
-    border-radius: 5px;
-    color: #fff;
-  }
-
-  .headerNavBurger a.active {
-    /* .active 是在 router index 那裏設定的 */
-    background-color: #2f7dfc;
-    color: #fff;
-  }
-
-  .headerNavBurger a:active {
-    transform: scale(1.01);
-  }
-
-  .headerNavBurger li:nth-of-type(3) {
-    position: relative;
-  }
-
-  .headerNavBurger li:nth-of-type(4) {
-    transition: 1s;
-    margin-top: 0;
-  }
-
-  .headerNavBurger li:nth-of-type(4).ing {
-    transition: 0.8s;
-    margin-top: 156px;
-  }
-
-  @media (min-width: 992px) {
-
-    .logoArea,
-    .iconArea {
-      height: 78px;
-    }
-
-    .headerNavBurger {
-      height: 78px;
-    }
-
-    .headerNavBurger {
-      position: static;
-      z-index: 0;
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .headerNavBurger>ul {
-      outline: none;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .headerNavBurger>ul>li {
-      height: 78px;
-      width: 25%;
-      text-align: center;
-      padding: 8px;
-    }
-
-    .headerNavBurger a {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 5px;
-    }
-
-    .headerNavBurger li:nth-of-type(4) {
-      transition: 0s;
-    }
-
-    .headerNavBurger li:nth-of-type(4).ing {
-      transition: 0s;
-      margin-top: 0px;
-    }
-  }
+<style scoped lang="scss">
+  @import "@/assets/scss/backEnd/admin_Dashboard.scss";
 </style>

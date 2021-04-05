@@ -7,61 +7,61 @@
             <h5>Category</h5>
             <ul class="list-unstyled">
               <li>
-                <a href="#" @click.prevent="routerTo('Men')">Male</a>
+                <a href="#" @click.prevent="routerTo('Men')">男士</a>
               </li>
               <li>
-                <a href="#" @click.prevent="routerTo('Women')">Female</a>
+                <a href="#" @click.prevent="routerTo('Women')">女士</a>
               </li>
               <li>
-                <a href="#" @click.prevent="routerTo('Sports')">Sports</a>
+                <a href="#" @click.prevent="routerTo('Sports')">運動</a>
               </li>
               <li>
-                <a href="#" @click.prevent="routerTo('Shoes')">Shoes</a>
+                <a href="#" @click.prevent="routerTo('Shoes')">鞋類</a>
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-lg-2">
+        <div class="col-12 col-sm-6 col-lg-2 mt-3 mt-sm-0">
           <div class="singleFooterPart">
             <h5>Company</h5>
             <ul class="list-unstyled">
               <li>
-                <a href="#" @click.prevent>About</a>
+                <a href="#" @click.prevent>關於我們</a>
               </li>
               <li>
-                <a href="#" @click.prevent>News</a>
+                <a href="#" @click.prevent>新聞報導</a>
               </li>
               <li>
-                <a href="#" @click.prevent>FAQ</a>
+                <a href="#" @click.prevent>常見問答</a>
               </li>
               <li>
-                <a href="#" @click.prevent>Contact</a>
+                <a href="#" @click.prevent>產地證明</a>
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-4 mt-3 mt-sm-0">
           <div class="singleFooterPart">
-            <h5>Address</h5>
+            <h5>Contact</h5>
             <ul class="list-unstyled">
               <li>
-                <span>200, Green block, NewYork</span>
+                <span>台北市中正區重慶南路一段122號</span>
               </li>
               <li>
-                <span>+10 456 267 1678</span>
+                <span>02-2320-6239</span>
               </li>
               <li>
-                <span>contact89@winter.com</span>
+                <span>public_web@oop.gov.tw</span>
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-lg-4">
+        <div class="col-12 col-sm-6 col-lg-4 mt-3 mt-sm-0">
           <div class="singleFooterPart">
             <h5>Newsletter</h5>
             <div class="subscribe">
               <form action="" class="d-flex" @submit.prevent>
-                <input type="email" placeholder="Email Address">
+                <input type="email" placeholder="e-mail">
                 <button type="submit">
                   Subscribe
                 </button>
@@ -91,11 +91,11 @@
 
 <script>
   export default {
-    name: 'FooterComponent',
+    // name: 'FooterComponent',
 
     data() {
       return {
-        copyrightYear: '',
+        copyrightYear: "",
       };
     },
 
@@ -109,7 +109,7 @@
       },
 
       routerTo(categoryName) {
-        this.$router.push({ path: '/shop', query: { category: categoryName } });
+        this.$router.push({ path: "/shop", query: { category: categoryName } });
       },
     },
   };

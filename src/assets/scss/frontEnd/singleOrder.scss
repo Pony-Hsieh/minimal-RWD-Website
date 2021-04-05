@@ -1,67 +1,87 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
-.wrapper{
+.wrapper {
   background-color: $dominant-color;
 }
 
+.simpleInfo {
+  background-color: $second-color;
+  color: $dominant-color;
+  border-radius: 8px;
+  padding: 16px 0;
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  h3 {
+    line-height: 28px;
+  }
+}
+
 .orderData {
-  max-width: 510px;
+  max-width: 600px;
+  margin-top: 60px;
+
+  .row {
+    /* .row 本身就有 display: flex; 的屬性了 */
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2px;
+  }
+
+  h3 {
+    /* 左邊標題 */
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  h4 {
+    /* 左邊次標題 */
+    font-size: 0.875rem;
+    line-height: 0.875rem;
+  }
+
+  p {
+    /* 右邊內容 */
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* 內容水平靠右、垂直置中 */
+  }
 }
 
-.orderData .row {
-  /* .row 本身就有 display: flex; 的屬性了 */
-  justify-content: space-between;
-  align-items: center;
-}
+.orderProduct {
+  .col-8 > div {
+    /* 訂購商品細項資訊 */
+    @extend %allFlexCenter;
+    flex-direction: column;
+  }
 
-.orderData h3 {
-  /* 左邊標題 */
-  font-size: 1rem;
-  margin: 0;
-}
-
-.orderData h4 {
-  /* 左邊次標題 */
-  font-size: 0.875rem;
-  line-height: 0.875rem;
-}
-
-.orderData p {
-  /* 右邊內容 */
-  margin: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  /* 內容水平靠右、垂直置中 */
-}
-
-.orderProduct .col-8 > div {
-  /* 訂購商品細項資訊 */
-  @extend %allFlexCenter;
-  flex-direction: column;
-}
-
-.orderProduct img {
-  /* 商品圖片 */
-  width: 100px;
+  img {
+    /* 商品圖片 */
+    max-width: 100px;
+    border-radius: 4px;
+  }
 }
 
 /* 訂購資訊 */
-.userData .col-8 > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+.userData .col-8 {
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.userData .col-8 h4 {
-  width: 90px;
-  margin: 0;
-  white-space: nowrap;
-  /* 強制不換行 */
-}
+  h4 {
+    width: 90px;
+    margin: 0;
+    white-space: nowrap;
+    /* 強制不換行 */
+  }
 
-.userData .col-8 p {
-  word-break: break-all;
+  p {
+    word-break: break-all;
+  }
 }
 
 /* 訂單留言 */
@@ -69,4 +89,21 @@
   word-break: break-all;
   /* 只有這個要靠左，所以改回預設，其餘的都用 flex-end */
   justify-content: flex-start;
+}
+
+.continueShopping {
+  height: 60px;
+  margin-top: 60px;
+  margin-bottom: 80px;
+  @extend %allFlexCenter;
+  font-size: 20px;
+
+  a {
+    font-size: 18px;
+    text-decoration: none;
+
+    &:active {
+      transform: scale(1.05);
+    }
+  }
 }

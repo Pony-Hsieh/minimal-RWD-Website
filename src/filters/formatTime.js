@@ -5,9 +5,12 @@ export default function (unixTimeStamp) {
   const dates = new Date(unixTimeStamp * 1000);
   const year = dates.getFullYear();
   const month = dates.getMonth() + 1;
-  const date = dates.getDate() + 1;
+  const date = dates.getDate();
   const hours = dates.getHours();
-  const minutes = dates.getMinutes();
+  let minutes = dates.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`
+  }
 
   return `${year}/${month}/${date} ${hours}:${minutes}`;
 }

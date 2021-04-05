@@ -88,28 +88,29 @@ router.beforeEach((to, from, next) => {
 			}
 			else {
 				alert("請先登入~");
+				// 此時 Vue 實體尚未被創建，因此無法調用掛載在 Vue 實體下的 $alertMsg_Bus
 				next({
 					path: "/member/login",
 				});
 			}
 		});
 	}
-	// else if (to.meta.requiresAdminAuth) { // 如果頁面有需要驗證(管理員)
-	// 	const api = `${process.env.VUE_APP_APIPATH}/api/user/check`;
-	// 	axios.post(api).then((response) => {
-	// 		// console.log(response);
-	// 		if (response.data.success) { // 代表使用者為登入狀態
-	// 			next();
-	// 		}
-	// 		else {
-	// 			alert("請先登入~")
-	// 			next({
-	// 				path: "/admin_Dashboard/adminLogin",
-	// 			});
-	// 		}
-	// 	});
-	// }
-	// else {
-	next();
-	// }
+	else if (to.meta.requiresAdminAuth) { // 如果頁面有需要驗證(管理員)
+		const api = `${process.env.VUE_APP_APIPATH}/api/user/check`;
+		axios.post(api).then((response) => {
+			// console.log(response);
+			if (response.data.success) { // 代表使用者為登入狀態
+				next();
+			}
+			else {
+				alert("請先登入~")
+				next({
+					path: "/admin_Dashboard/adminLogin",
+				});
+			}
+		});
+	}
+	else {
+		next();
+	}
 });

@@ -1,38 +1,9 @@
 <template>
   <section class="container">
     <div class="row">
-      <div class="singleShippingDetail col-12 col-sm-6 col-lg-3">
+      <div v-for="(item, i) in image" :key="i" class="singleShippingDetail col-12 col-sm-6 col-lg-3">
         <div class="my-auto">
-          <img src="https://preview.colorlib.com/theme/winter/img/icon/icon_1.png"
-            alt=""
-          >
-        </div>
-        <h4>Free shipping</h4>
-        <p>Divided face for bearing the divide unto seed winged divided light Forth.</p>
-      </div>
-      <div class="singleShippingDetail col-12 col-sm-6 col-lg-3">
-        <div class="my-auto">
-          <img src="https://preview.colorlib.com/theme/winter/img/icon/icon_2.png"
-            alt=""
-          >
-        </div>
-        <h4>Free shipping</h4>
-        <p>Divided face for bearing the divide unto seed winged divided light Forth.</p>
-      </div>
-      <div class="singleShippingDetail col-12 col-sm-6 col-lg-3">
-        <div class="my-auto">
-          <img src="https://preview.colorlib.com/theme/winter/img/icon/icon_3.png"
-            alt=""
-          >
-        </div>
-        <h4>Free shipping</h4>
-        <p>Divided face for bearing the divide unto seed winged divided light Forth.</p>
-      </div>
-      <div class="singleShippingDetail col-12 col-sm-6 col-lg-3">
-        <div class="my-auto">
-          <img src="https://preview.colorlib.com/theme/winter/img/icon/icon_4.png"
-            alt=""
-          >
+          <img :src="item" alt="示意 icon">
         </div>
         <h4>Free shipping</h4>
         <p>Divided face for bearing the divide unto seed winged divided light Forth.</p>
@@ -43,7 +14,18 @@
 
 <script>
   export default {
-    name: 'ShippingDescription',
+    // name: 'ShippingDescription',
+
+    data() {
+      return {
+        image: [
+          "https://preview.colorlib.com/theme/winter/img/icon/icon_1.png",
+          "https://preview.colorlib.com/theme/winter/img/icon/icon_2.png",
+          "https://preview.colorlib.com/theme/winter/img/icon/icon_3.png",
+          "https://preview.colorlib.com/theme/winter/img/icon/icon_4.png",
+        ],
+      }
+    }
   };
 </script>
 

@@ -8,7 +8,7 @@
     <div class="container">
       <main class="row product">
         <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-          <img :src="showProduct.imageUrl" alt="" class="img-fluid">
+          <img :src="showProduct.imageUrl" :alt="showProduct.title + ' 商品圖片'" class="img-fluid">
         </div>
 
         <div class="col-12 col-lg-6 mainProductInfo">
@@ -26,7 +26,7 @@
             <h5 class="d-inline">
               類別&emsp;&emsp;&emsp;：
             </h5>
-            <a href="" @click.prevent="routerTo(showProduct.category)">{{ showProduct.category }}</a>
+            <a href="#" @click.prevent="routerTo(showProduct.category)">{{ showProduct.category }}</a>
             <!-- 點擊連回商城，並套用該類別的過濾器 -->
           </div>
           <div>
@@ -88,7 +88,7 @@
         <div v-for="item in bestSellers" class="col-12 col-sm-6 col-lg-3 singleBestSeller"
           @mouseover="addHoverProduct(item.id)" @mouseleave="removeHoverProduct">
           <div class="my-auto" style="cursor: pointer;" @click.prevent="toSingleProductPage(item.id)">
-            <img :src="item.imageUrl" alt="" class="img-fluid">
+            <img :src="item.imageUrl" :alt="item.title +' 商品圖片'" class="img-fluid">
           </div>
           <h4 style="cursor: pointer;" @click.prevent="toSingleProductPage(item.id)">
             {{ item.title }}
@@ -239,7 +239,8 @@
         const vm = this;
         if (method === "minus") {
           if (vm.addNum === 1) {
-            alert("加入購物車的數量不能少於 1 喔~");
+            // alert("加入購物車的數量不能少於 1 喔~");
+            vm.$alertMsg_Bus.$emit("alertMsgEvent", "加入購物車的數量不能少於 1 喔~", "warning", 2000);
           }
           else {
             vm.addNum = vm.addNum - 1;
@@ -297,7 +298,7 @@
           vm.userLSCartArr.push(tempAddObj); // push 進 LS 陣列中
           localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS
         }
-        vm.$alertMsg_Bus.$emit("alertMsgEvent", vm.showProduct.title, vm.addNum, vm.showProduct.unit, "success");
+        vm.$alertMsg_Bus.$emit("alertMsgEvent", `已加入 ${vm.addNum} ${vm.showProduct.unit}<br>${vm.showProduct.title}<br>至購物車`);
         vm.addNum = 1; // 重置加入購物車數量為預設數量 
         vm.getLSCart();
       },

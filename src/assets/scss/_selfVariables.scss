@@ -1,19 +1,15 @@
 $dominant-color: #e1e4e9;
 $second-color: #343b4d;
-$accent-color: #316aff; // 直接改 BS 的 _variables.scss
+$accent-color: #316aff; // 直接改 BS 的 _variables.scss 的 primary
 
 $black: #1a1a1a;
 $light-black: #2a2a2a;
-$pale-red: #a37a74; // 可以考慮直接改 BS 的 danger
-$pale-green: #748067; // 可以考慮直接改 BS 的 success
+$pale-red: #a37a74;
+$pale-green: #748067;
 $pure-yellow: #ffa91f;
-// background-color: #d6d8dd;
 
 %allFlexCenter {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-// @extend %allFlexCenter;
-// <style scoped lang="scss">
-//   @import "@/assets/scss/frontEnd/logout.scss";

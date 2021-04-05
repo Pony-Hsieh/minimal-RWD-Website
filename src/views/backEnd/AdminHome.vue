@@ -39,17 +39,6 @@
 </script>
 
 
-<style scoped>
-  h1 {
-    height: calc(100vh - 69px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  @media (min-width: 992px) {
-    h1 {
-      height: calc(100vh - 90px);
-    }
-  }
+<style scoped lang="scss">
+  @import "@/assets/scss/backEnd/adminHome.scss";
 </style>

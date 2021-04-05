@@ -7,9 +7,6 @@
 .logoutArea {
   height: calc(100vh - 60px - 30px);
   padding: 80px 70px;
-}
-
-.logoutArea {
   @extend %allFlexCenter;
   flex-direction: column;
   color: #fff;
@@ -18,40 +15,40 @@
   background: -webkit-linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
   background: linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00ffa5", endColorstr="#00aacc", GradientType=1);
-}
 
-.logoutArea h3 {
-  font-size: 24px;
-  font-weight: 700;
-}
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+  }
 
-.logoutArea p {
-  font-size: 15px;
-  margin-top: 17px;
-  margin-bottom: 0;
-  /* 覆寫掉 _reboot.scss 中　p 的 margin-bottom 設定 */
-}
+  p {
+    font-size: 15px;
+    margin-top: 17px;
+    margin-bottom: 0;
+    /* 覆寫掉 _reboot.scss 中　p 的 margin-bottom 設定 */
+  }
 
-.logoutArea a {
-  width: 226.43px;
-  height: 40.667px;
-  margin-top: 28px;
-  @extend %allFlexCenter;
-  border: 1px solid #c2ffef;
-  border-radius: 50px;
-  background-color: transparent;
-  font-size: 14px;
-  text-decoration: none;
-  color: #fff;
-}
-
-.logoutArea a:hover {
-  background-color: #fff;
-  color: $accent-color;
-}
-
-.logoutArea a:active {
-  font-size: 15px;
+  a {
+    width: 226.43px;
+    height: 40.667px;
+    margin-top: 28px;
+    @extend %allFlexCenter;
+    border: 1px solid #c2ffef;
+    border-radius: 50px;
+    background-color: transparent;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    
+    &:hover {
+      background-color: #fff;
+      color: $accent-color;
+    }
+    
+    &:active {
+      font-size: 15px;
+    }
+  }
 }
 
 @media (min-width: 992px) {
@@ -60,3 +57,37 @@
     padding: 80px 70px;
   }
 }
+
+// .logoutArea h3 {
+//   font-size: 24px;
+//   font-weight: 700;
+// }
+
+// .logoutArea p {
+//   font-size: 15px;
+//   margin-top: 17px;
+//   margin-bottom: 0;
+//   /* 覆寫掉 _reboot.scss 中　p 的 margin-bottom 設定 */
+// }
+
+// .logoutArea a {
+//   width: 226.43px;
+//   height: 40.667px;
+//   margin-top: 28px;
+//   @extend %allFlexCenter;
+//   border: 1px solid #c2ffef;
+//   border-radius: 50px;
+//   background-color: transparent;
+//   font-size: 14px;
+//   text-decoration: none;
+//   color: #fff;
+// }
+
+// .logoutArea a:hover {
+//   background-color: #fff;
+//   color: $accent-color;
+// }
+
+// .logoutArea a:active {
+//   font-size: 15px;
+// }

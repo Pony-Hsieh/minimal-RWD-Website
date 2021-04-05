@@ -14,7 +14,59 @@ a {
 
 .editProductQty {
   vertical-align: middle;
+
+  input {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    outline: none;
+    border: none;
+    text-align: center;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      /* 拿掉數字輸入欄位的箭頭 */
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+      /* 拿掉數字輸入欄位的箭頭 */
+    }
+
+    &.ing {
+      outline: none;
+      border: 1.5px solid $accent-color;
+      border-radius: 0.2rem;
+    }
+  }
 }
+
+// .editProductQty input::-webkit-outer-spin-button,
+// .editProductQty input::-webkit-inner-spin-button {
+//   -webkit-appearance: none;
+//   /* 拿掉數字輸入欄位的箭頭 */
+// }
+
+// .editProductQty input[type="number"] {
+//   -moz-appearance: textfield;
+//   /* 拿掉數字輸入欄位的箭頭 */
+// }
+
+// .editProductQty input {
+//   width: 30px;
+//   height: 30px;
+//   background: transparent;
+//   outline: none;
+//   border: none;
+//   text-align: center;
+// }
+
+// .editProductQty input.ing {
+//   outline: none;
+//   border: 1.5px solid $accent-color;
+//   border-radius: 0.2rem;
+// }
 
 .qtyChange_btn {
   width: 30px;
@@ -25,50 +77,30 @@ a {
   border-radius: 0.2rem;
   outline: none;
   background: transparent;
+
+  &:active {
+    background-color: $accent-color;
+    color: $dominant-color;
+    border: none;
+  }
 }
 
-.qtyChange_btn:active {
-  background-color: $accent-color;
-  color: $dominant-color;
-  border: none;
-}
-
-.editProductQty input::-webkit-outer-spin-button,
-.editProductQty input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  /* 拿掉數字輸入欄位的箭頭 */
-}
-
-.editProductQty input[type="number"] {
-  -moz-appearance: textfield;
-  /* 拿掉數字輸入欄位的箭頭 */
-}
-
-.editProductQty input {
-  width: 30px;
-  height: 30px;
-  background: transparent;
-  outline: none;
-  border: none;
-  text-align: center;
-}
-
-.editProductQty input.ing {
-  outline: none;
-  border: 1.5px solid $accent-color;
-  border-radius: 0.2rem;
-}
+// .qtyChange_btn:active {
+//   background-color: $accent-color;
+//   color: $dominant-color;
+//   border: none;
+// }
 
 @media (min-width: 576px) {
+  .editProductQty input {
+    width: 34px;
+    height: 34px;
+  }
+
   .qtyChange_btn {
     width: 34px;
     height: 34px;
     display: inline;
-  }
-
-  .editProductQty input {
-    width: 34px;
-    height: 34px;
   }
 }
 
@@ -90,4 +122,8 @@ a {
     color: $dominant-color;
     border-radius: 15px;
   }
+}
+
+tbody img {
+  border-radius: 4px;
 }

@@ -46,7 +46,7 @@
 
           <!-- 紅字來源XD -->
           <!-- 金額 filter -->
-          <!-- <div class="filterCard priceFilter mt-5">
+          <div class="filterCard priceFilter mt-5">
             <h5>依據 金額 篩選</h5>
             <div class="priceFilterInfo">
               <vue-slider v-model="priceRange" dot-size="20" max="10000" interval="100" :lazy="true" />
@@ -63,21 +63,19 @@
                 </button>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
 
         <main class="col-12 col-lg-9">
           <div class="container-fluid">
             <!-- 顯示類別、該類別有幾項商品 -->
             <div class="row">
-              <div class="col-12 col-lg-6 p-0 pl-lg-4">
-                <h3 class="h4" style="line-height: 42px;">
+              <div class="col-12 col-lg-6 p-0 pl-lg-4 showNowCategory">
+                <h3 class="h4">
                   {{ showString[showCategory] }}
                   ({{ filteredArray.length }})
                 </h3>
               </div>
-              <!-- <div class="col-12 col-lg-6 p-0 pr-lg-4 filterDropDown"
-                              style="margin-top:20px; margin-bottom: 40px;"> -->
               <div class="col-12 col-lg-6 p-0 pr-lg-4 filterDropDown">
                 <!-- 依據類別篩選 -->
                 <div class="container-fluid">
@@ -129,7 +127,7 @@
                 class="col-12 col-sm-6 col-lg-4 singleProductInfo">
                 <div style="cursor: pointer;" @mouseover="addHoverProduct(item.id)" @mouseleave="removeHoverProduct"
                   @click.prevent="toSingleProductPage(item.id)">
-                  <img :src="item.imageUrl" alt="">
+                  <img :src="item.imageUrl" :alt="item.title + ' 商品圖片'">
                 </div>
                 <h4 style="cursor: pointer;" @click.prevent="toSingleProductPage(item.id)">
                   {{ item.title }}
@@ -452,7 +450,7 @@
           vm.userLSCartArr.push(tempAddObj); // push 進 LS 陣列中
           localStorage.setItem("userLSCart", JSON.stringify(vm.userLSCartArr)); // 並送往 LS
         }
-        vm.$alertMsg_Bus.$emit("alertMsgEvent", nowProduct.title, 1, nowProduct.unit, "success");
+        vm.$alertMsg_Bus.$emit("alertMsgEvent", `已加入 1 ${nowProduct.unit}<br>${nowProduct.title}<br>至購物車`);
         // 使用 $emit 傳遞多參數時，不可加上小括號，否則會導致接收端($on)無法正確接收。
         // 錯誤範例：
         // vm.$alertMsg_Bus.$emit("alertMsgEvent", (nowProduct.title, 1, nowProduct.unit, "success"));

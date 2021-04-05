@@ -25,21 +25,21 @@
 
         methods: {
 
-            updateMessage(message, status) {
+            updateMessage(message, status, removeTime) {
                 const timestamp = Math.floor(new Date() / 1000);
                 this.receiveMessages.push({
                     message,
                     status,
                     timestamp,
                 });
-                this.removeMessageWithTiming(timestamp);
+                this.removeMessageWithTiming(timestamp, removeTime);
             },
 
             removeMessage(num) {
                 this.receiveMessages.splice(num, 1);
             },
 
-            removeMessageWithTiming(timestamp) {
+            removeMessageWithTiming(timestamp, removeTime) {
                 const vm = this;
                 setTimeout(() => {
                     vm.receiveMessages.forEach((item, i) => {
@@ -47,16 +47,15 @@
                             vm.receiveMessages.splice(i, 1);
                         }
                     });
-                    // }, 300000000);
-                }, 3000);
+                }, removeTime);
             },
         },
 
 
         created() {
             const vm = this;
-            vm.$alertMsg_Bus.$on("alertMsgEvent", (productTitle, productAddNum = 1, productUnit, status = "success") => {
-                vm.updateMessage(`已加入 ${productAddNum} ${productUnit}<br>${productTitle}<br>至購物車`, status);
+            vm.$alertMsg_Bus.$on("alertMsgEvent", (msg, status = "success", removeTime = 3000) => {
+                vm.updateMessage(msg, status, removeTime);
             });
         },
 

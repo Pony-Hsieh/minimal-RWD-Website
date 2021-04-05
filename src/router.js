@@ -57,14 +57,14 @@ export default new Router({
           path: "logout",
           name: "Logout",
           component: () => import('@/views/frontEnd/Logout.vue'),
-          // meta: { requiresAuth: true }, // 須驗證登入
+          meta: { requiresAuth: true }, // 須驗證登入
         },
         {
           // 會員 - 檢視所有訂單
           path: "order",
           name: "Order",
           component: () => import('@/views/frontEnd/Order.vue'),
-          // meta: { requiresAuth: true }, // 須驗證登入
+          meta: { requiresAuth: true }, // 須驗證登入
         },
         {
           // 會員 - 購物車(無須登入即可使用)
@@ -88,9 +88,6 @@ export default new Router({
       // 聯繫我們
       path: '/contactUs',
       name: 'ContactUs',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('@/views/frontEnd/ContactUs.vue'),
     },
 
@@ -116,19 +113,19 @@ export default new Router({
           path: "adminProducts",
           name: "AdminProducts",
           component: () => import('@/views/backEnd/AdminProducts.vue'),
-          // meta: { requiresAdminAuth: true }, // 須驗證登入
+          meta: { requiresAdminAuth: true }, // 須驗證登入
         },
         {
           path: "adminCoupon",
           name: "AdminCoupon",
           component: () => import('@/views/backEnd/AdminCoupon.vue'),
-          // meta: { requiresAdminAuth: true }, // 須驗證登入
+          meta: { requiresAdminAuth: true }, // 須驗證登入
         },
         {
           path: "adminOrder",
           name: "AdminOrder",
           component: () => import('@/views/backEnd/AdminOrder.vue'),
-          // meta: { requiresAdminAuth: true }, // 須驗證登入
+          meta: { requiresAdminAuth: true }, // 須驗證登入
         },
       ]
     },

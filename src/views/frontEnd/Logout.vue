@@ -1,12 +1,15 @@
 <template>
   <div>
+
+    <AlertMsg />
+
     <HeaderComponent />
+
     <div class="container-fluid">
       <div class="row">
         <div class="col">
           <div class="logoutArea">
-            <img src="https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png" alt="使用者大頭貼"
-              height="50px">
+            <img src="@/assets/img/user4.png" alt="使用者大頭貼" height="50px">
             <h3>user name</h3>
             <a href="#" @click.prevent="signout">登出</a>
           </div>
@@ -16,6 +19,7 @@
 
     <IgPost />
     <FooterComponent />
+
   </div>
 </template>
 
@@ -25,6 +29,7 @@
   import HeaderComponent from '@/components/HeaderComponent.vue';
   import IgPost from '@/components/IgPost.vue';
   import FooterComponent from '@/components/FooterComponent.vue';
+  import AlertMsg from '@/components/AlertMsg.vue';
 
   export default {
     // name: "logout",
@@ -33,6 +38,7 @@
       HeaderComponent,
       IgPost,
       FooterComponent,
+      AlertMsg,
     },
 
     created() {
@@ -46,17 +52,20 @@
       signout() {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/logout`;
-
         vm.$http.post(api).then((response) => {
-          // console.log(response.data);
+
           if (response.data.success) {
-            // 跳出訊息通知使用者登出成功
-            alert("登出成功！將前往首頁");
-            vm.$router.push("/");
+            vm.$alertMsg_Bus.$emit("alertMsgEvent", "登出成功！<br/>將前往首頁");
+            setTimeout(() => {
+              vm.$router.push("/");
+            }, 3000);
           }
+
           else {
-            alert("登出失敗QQ，請稍後再嘗試一次");
-            location.reload(); // 強制幫用戶重新載入頁面
+            vm.$alertMsg_Bus.$emit("alertMsgEvent", "登出失敗QQ，請稍後再嘗試一次", "danger");
+            setTimeout(() => {
+              location.reload(); // 強制幫用戶重新載入頁面
+            }, 3000);
           }
         });
       },

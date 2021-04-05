@@ -43,9 +43,10 @@
   </section>
 </template>
 
+
 <script>
   export default {
-    name: 'IgPost',
+    // name: 'IgPost',
     data() {
       return {
         igPostStatus: {
@@ -67,6 +68,7 @@
     },
   };
 </script>
+
 
 <style scoped lang="scss">
   @import "@/assets/scss/components/igPost.scss";

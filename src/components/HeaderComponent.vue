@@ -141,6 +141,7 @@
         this.LSCartItemNum = LSCart.length;
       },
 
+      // 切換主選單開闔
       toggleHeaderNavBurger() {
         this.headerNavBurgerStatus = !this.headerNavBurgerStatus;
         // 如果直接閉合主選單，次選單也會閉合
@@ -148,13 +149,19 @@
           this.dropdownNavStatus = false;
         }
       },
+
+      // 切換次選單開闔
       toggleDropdownNav() {
         this.dropdownNavStatus = !this.dropdownNavStatus;
       },
+
+      // 垂下 .searchInputArea
       dropdown() {
         // document.querySelector(".searchArea .dropdown-item").classList.add("ing"); // 原生 JS 寫法
         $('.searchInputArea').addClass('ing');
       },
+
+      // 收闔 .searchInputArea
       closeDropdown() {
         // document.querySelector(".searchArea .dropdown-item").classList.remove("ing");  // 原生 JS 寫法
         $('.searchInputArea').removeClass('ing');

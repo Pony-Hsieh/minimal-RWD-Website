@@ -339,14 +339,6 @@
 </script>
 
 
-<style scoped>
-  th {
-    white-space: nowrap;
-    text-align: center;
-    vertical-align: middle
-  }
-
-  td {
-    vertical-align: middle
-  }
+<style scoped lang="scss">
+  @import "@/assets/scss/backEnd/adminOrder.scss";
 </style>

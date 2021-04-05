@@ -82,9 +82,11 @@
                 <div class="d-flex justify-content-center align-items-center">
                   <!-- 商品圖片、商品名稱 -->
                   <div>
-                    <img :src="item.product.imageUrl" alt="" style="width: 100px;">
-                    <br>
+                    <!-- <img :src="item.product.imageUrl" alt="item.product.title + ' 商品圖片'" style="width: 100px;"> -->
+                    <img :src="item.product.imageUrl" alt="item.product.title + ' 商品圖片'">
+                    <!-- <br> -->
                     <div class="text-center mt-1">
+                    <!-- <div class="text-center"> -->
                       {{ item.product.title }}
                     </div>
                   </div>
@@ -141,7 +143,7 @@
           </li>
           <li v-for="page in pagination.total_pages" :key="page" class="page-item"
             :class="{ 'active' : pagination.current_page === page }">
-            <a class="page-link" href="#" @click.prevent="getProducts(page)">{{ page }}</a>
+            <a class="page-link" href="#" @click.prevent="getOrders(page)">{{ page }}</a>
           </li>
           <li class="page-item" :class="{'disabled' : !pagination.has_next }">
             <a class="page-link" href="#" aria-label="Next">
@@ -186,12 +188,12 @@
     },
 
     created() {
-      this.getRawData();
+      this.getOrders();
     },
 
     methods: {
 
-      getRawData(page = 1) {
+      getOrders(page = 1) {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/orders?page=${page}`;
         vm.isLoading = true;
@@ -201,6 +203,12 @@
           // console.log("response", response); // 確認遠端撈回來的資料結構
           vm.rawData = response.data.orders;
           vm.pagination = response.data.pagination;
+          // if ((document.body.clientWidth || document.documentElement.clientWidth) >= 992) {
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
+          // }
+          // else {
+          // document.body.scrollTop = document.documentElement.scrollTop = 666;
+          // }
           vm.isLoading = false;
         });
       },
@@ -214,7 +222,7 @@
           // console.log("response", response); // 確認遠端撈回來的資料結構
           if (response.success) {
             alert("付款成功！");
-            vm.getRawData();
+            vm.getOrders();
           }
         });
       },
@@ -223,8 +231,6 @@
   }
 </script>
 
-<style scoped>
-  .wrapper {
-    background-color: #e1e4e9;
-  }
+<style scoped lang="scss">
+  @import "@/assets/scss/frontEnd/order.scss";
 </style>

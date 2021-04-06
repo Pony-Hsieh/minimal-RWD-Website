@@ -263,7 +263,7 @@
         vm.isLoading = true;
 
         vm.$http.post(api).then((response) => {
-          if (response.success) {
+          if (response.data.success) {
             vm.$alertMsg_Bus.$emit("alertMsgEvent", "付款成功！");
             vm.getOrders();
             vm.isLoading = false;

@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <AlertMsg />
 
     <HeaderComponent />
@@ -9,9 +8,14 @@
       <div class="row">
         <div class="col">
           <div class="logoutArea">
-            <img src="@/assets/img/user4.png" alt="使用者大頭貼" height="50px">
+            <img src="@/assets/img/user1.png"
+              alt="使用者大頭貼"
+              height="50px"
+            >
             <h3>user name</h3>
-            <a href="#" @click.prevent="signout">登出</a>
+            <a href="#"
+              @click.prevent="signout"
+            >登出</a>
           </div>
         </div>
       </div>
@@ -19,7 +23,6 @@
 
     <IgPost />
     <FooterComponent />
-
   </div>
 </template>
 

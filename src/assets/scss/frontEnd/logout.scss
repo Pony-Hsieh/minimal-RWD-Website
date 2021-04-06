@@ -39,12 +39,12 @@
     font-size: 14px;
     text-decoration: none;
     color: #fff;
-    
+
     &:hover {
       background-color: #fff;
       color: $accent-color;
     }
-    
+
     &:active {
       font-size: 15px;
     }
@@ -57,37 +57,3 @@
     padding: 80px 70px;
   }
 }
-
-// .logoutArea h3 {
-//   font-size: 24px;
-//   font-weight: 700;
-// }
-
-// .logoutArea p {
-//   font-size: 15px;
-//   margin-top: 17px;
-//   margin-bottom: 0;
-//   /* 覆寫掉 _reboot.scss 中　p 的 margin-bottom 設定 */
-// }
-
-// .logoutArea a {
-//   width: 226.43px;
-//   height: 40.667px;
-//   margin-top: 28px;
-//   @extend %allFlexCenter;
-//   border: 1px solid #c2ffef;
-//   border-radius: 50px;
-//   background-color: transparent;
-//   font-size: 14px;
-//   text-decoration: none;
-//   color: #fff;
-// }
-
-// .logoutArea a:hover {
-//   background-color: #fff;
-//   color: $accent-color;
-// }
-
-// .logoutArea a:active {
-//   font-size: 15px;
-// }

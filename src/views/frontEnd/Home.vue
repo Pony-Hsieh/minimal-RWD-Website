@@ -1,10 +1,9 @@
 <template>
   <div class="wrapper">
-
     <loading :active.sync="isLoading">
       <div class="loadingio-spinner-eclipse-qd52l2xe1a">
         <div class="ldio-zf9gth3n7r">
-          <div></div>
+          <div />
         </div>
       </div>
     </loading>
@@ -36,12 +35,12 @@
               less is more
             </h3>
           </div>
-          <div class="col-1">
-          </div>
-          <div class="col-1">
-          </div>
+          <div class="col-1" />
+          <div class="col-1" />
           <div class="col-11">
-            <router-link to="/shop" class="btn_shopdirect mt-2">
+            <router-link to="/shop"
+              class="btn_shopdirect mt-2"
+            >
               前往商城
             </router-link>
           </div>
@@ -53,33 +52,54 @@
       <div class="row pt-4 mx-0">
         <div class="col-12 col-sm-6 col-lg-4 mt-0 px-lg-0 singleCategoryDirect">
           <div>
-            <img src="https://i.imgur.com/13UEze0.jpg" alt="MaleProductPhoto"
-              :class="{'ing': categoryDirectHover === 'Men'}" @mouseover="categoryDirectHover = 'Men'"
-              @mouseleave="categoryDirectHover=''">
-            <a href="#" class="btn_shopdirect" @click.prevent="routerTo('Men')" @mouseover="categoryDirectHover = 'Men'"
-              @mouseleave="categoryDirectHover='Men'">
+            <img src="https://i.imgur.com/13UEze0.jpg"
+              alt="MaleProductPhoto"
+              :class="{'ing': categoryDirectHover === 'Men'}"
+              @mouseover="categoryDirectHover = 'Men'"
+              @mouseleave="categoryDirectHover=''"
+            >
+            <a href="#"
+              class="btn_shopdirect"
+              @click.prevent="routerTo('Men')"
+              @mouseover="categoryDirectHover = 'Men'"
+              @mouseleave="categoryDirectHover='Men'"
+            >
               選購 男士 商品
             </a>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-lg-4 mt-3 mt-sm-0 px-lg-0 singleCategoryDirect">
           <div>
-            <img src="https://i.imgur.com/0TzCFtq.jpg" alt="FemaleProductPhoto"
-              :class="{'ing': categoryDirectHover === 'Women'}" @mouseover="categoryDirectHover = 'Women'"
-              @mouseleave="categoryDirectHover=''">
-            <a href="#" class="btn_shopdirect" @click.prevent="routerTo('Women')"
-              @mouseover="categoryDirectHover = 'Women'" @mouseleave="categoryDirectHover='Men'">
+            <img src="https://i.imgur.com/0TzCFtq.jpg"
+              alt="FemaleProductPhoto"
+              :class="{'ing': categoryDirectHover === 'Women'}"
+              @mouseover="categoryDirectHover = 'Women'"
+              @mouseleave="categoryDirectHover=''"
+            >
+            <a href="#"
+              class="btn_shopdirect"
+              @click.prevent="routerTo('Women')"
+              @mouseover="categoryDirectHover = 'Women'"
+              @mouseleave="categoryDirectHover='Men'"
+            >
               選購 女士 商品
             </a>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-lg-4 mt-3 mt-lg-0 px-lg-0 singleCategoryDirect">
           <div>
-            <img src="https://i.imgur.com/3kAQgQp.jpg" alt="ShoesProductPhoto"
-              :class="{'ing': categoryDirectHover === 'Shoes'}" @mouseover="categoryDirectHover = 'Shoes'"
-              @mouseleave="categoryDirectHover=''">
-            <a href="#" class="btn_shopdirect" @click.prevent="routerTo('Shoes')"
-              @mouseover="categoryDirectHover = 'Shoes'" @mouseleave="categoryDirectHover='Men'">
+            <img src="https://i.imgur.com/3kAQgQp.jpg"
+              alt="ShoesProductPhoto"
+              :class="{'ing': categoryDirectHover === 'Shoes'}"
+              @mouseover="categoryDirectHover = 'Shoes'"
+              @mouseleave="categoryDirectHover=''"
+            >
+            <a href="#"
+              class="btn_shopdirect"
+              @click.prevent="routerTo('Shoes')"
+              @mouseover="categoryDirectHover = 'Shoes'"
+              @mouseleave="categoryDirectHover='Men'"
+            >
               選購 鞋類 商品
             </a>
           </div>
@@ -99,24 +119,34 @@
               <div class="col-12 col-lg-4 mx-auto">
                 <ul class="list-unstyled tab">
                   <li>
-                    <a href="#" :class="{'ing':newArrivalCategoryTab === 'all'}"
-                      @click.prevent="newArrivalCategoryTab = 'all'">全部</a>
+                    <a href="#"
+                      :class="{'ing':newArrivalCategoryTab === 'all'}"
+                      @click.prevent="newArrivalCategoryTab = 'all'"
+                    >全部</a>
                   </li>
                   <li>
-                    <a href="#" :class="{'ing':newArrivalCategoryTab === 'rawMen'}"
-                      @click.prevent="newArrivalCategoryTab = 'rawMen'">男士</a>
+                    <a href="#"
+                      :class="{'ing':newArrivalCategoryTab === 'rawMen'}"
+                      @click.prevent="newArrivalCategoryTab = 'rawMen'"
+                    >男士</a>
                   </li>
                   <li>
-                    <a href="#" :class="{'ing':newArrivalCategoryTab === 'rawWomen'}"
-                      @click.prevent="newArrivalCategoryTab = 'rawWomen'">女士</a>
+                    <a href="#"
+                      :class="{'ing':newArrivalCategoryTab === 'rawWomen'}"
+                      @click.prevent="newArrivalCategoryTab = 'rawWomen'"
+                    >女士</a>
                   </li>
                   <li>
-                    <a href="#" :class="{'ing':newArrivalCategoryTab === 'rawShoes'}"
-                      @click.prevent="newArrivalCategoryTab = 'rawShoes'">鞋類</a>
+                    <a href="#"
+                      :class="{'ing':newArrivalCategoryTab === 'rawShoes'}"
+                      @click.prevent="newArrivalCategoryTab = 'rawShoes'"
+                    >鞋類</a>
                   </li>
                   <li>
-                    <a href="#" :class="{'ing':newArrivalCategoryTab === 'rawSports'}"
-                      @click.prevent="newArrivalCategoryTab = 'rawSports'">運動</a>
+                    <a href="#"
+                      :class="{'ing':newArrivalCategoryTab === 'rawSports'}"
+                      @click.prevent="newArrivalCategoryTab = 'rawSports'"
+                    >運動</a>
                   </li>
                 </ul>
               </div>
@@ -127,15 +157,25 @@
           <!-- newArrivalProductHover -->
           <div class="col-12 p-0 newArrivalProducts">
             <div class="row mx-0">
-              <div v-for="item in newArrivalCategoryArr[newArrivalCategoryTab]"
-                class="col-12 col-sm-4 singleNewArrivalProduct">
-                <div @mouseover="newArrivalProductHover = item.id" @mouseleave="newArrivalProductHover=''">
+              <div v-for="(item, index) in newArrivalCategoryArr[newArrivalCategoryTab]"
+                :key="index"
+                class="col-12 col-sm-4 singleNewArrivalProduct"
+              >
+                <div @mouseover="newArrivalProductHover = item.id"
+                  @mouseleave="newArrivalProductHover=''"
+                >
                   <div class="overflow-hidden">
-                    <img :src="item.imageUrl" :alt="item.title + ' 商品圖片'"
-                      :class="{'ing': newArrivalProductHover === item.id}">
+                    <img :src="item.imageUrl"
+                      :alt="item.title + ' 商品圖片'"
+                      :class="{'ing': newArrivalProductHover === item.id}"
+                    >
                   </div>
-                  <div class="filter" :class="{'ing': newArrivalProductHover === item.id}"></div>
-                  <div class="productInfo" :class="{'ing': newArrivalProductHover === item.id}">
+                  <div class="filter"
+                    :class="{'ing': newArrivalProductHover === item.id}"
+                  />
+                  <div class="productInfo"
+                    :class="{'ing': newArrivalProductHover === item.id}"
+                  >
                     <h4>{{ item.title }}</h4>
                     <div class="cutomerRating">
                       <i class="fas fa-star" />
@@ -145,15 +185,23 @@
                       <i class="fas fa-star" />
                     </div>
                     <h4>{{ item.price | currency }}</h4>
-                    <ul class="list-unstyled hoverWidget" @mouseover="newArrivalProductHover = item.id"
-                      @mouseleave="newArrivalProductHover = item.id">
+                    <ul class="list-unstyled hoverWidget"
+                      @mouseover="newArrivalProductHover = item.id"
+                      @mouseleave="newArrivalProductHover = item.id"
+                    >
                       <li class="like">
-                        <a href="#" title="收藏此商品" @click.prevent>
+                        <a href="#"
+                          title="收藏此商品"
+                          @click.prevent
+                        >
                           <i class="far fa-heart" />
                         </a>
                       </li>
                       <li class="addCart">
-                        <a href="#" title="加入購物車" @click.prevent="addToLSCart(item)">
+                        <a href="#"
+                          title="加入購物車"
+                          @click.prevent="addToLSCart(item)"
+                        >
                           <i class="fas fa-cart-plus" />
                         </a>
                       </li>
@@ -170,7 +218,6 @@
     <ShippingDescription />
     <IgPost />
     <FooterComponent />
-
   </div>
 </template>
 

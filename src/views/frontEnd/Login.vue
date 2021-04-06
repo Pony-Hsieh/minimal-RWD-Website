@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <AlertMsg />
 
     <HeaderComponent />
@@ -15,7 +14,9 @@
                 There are advances being made in science and technology everyday, and a good example of this
                 is the
               </p>
-              <a href="#" @click.prevent>CREATE AN ACCOUNT</a>
+              <a href="#"
+                @click.prevent
+              >CREATE AN ACCOUNT</a>
             </div>
           </div>
 
@@ -25,18 +26,32 @@
               <br>
               Please Sign in now
             </h3>
-            <form action="" @submit.prevent="signin">
-              <input v-model="user.username" type="email" placeholder="Username" required>
-              <input v-model="user.password" type="password" placeholder="Password" required>
+            <form action=""
+              @submit.prevent="signin"
+            >
+              <input v-model="user.username"
+                type="email"
+                placeholder="Username"
+                required
+              >
+              <input v-model="user.password"
+                type="password"
+                placeholder="Password"
+                required
+              >
               <div>
                 <label for="rememberMe">記住我的帳號</label>
-                <input id="rememberMe" type="checkbox">
+                <input id="rememberMe"
+                  type="checkbox"
+                >
                 <button type="submit">
                   LOG IN
                 </button>
                 <!-- <button @click="signin">LOG IN</button> -->
                 <!-- 在 form 寫了 @submit ，這個 button 就不用再綁一次事件了，如果再綁一次，就會觸發兩次事件  -->
-                <a href="#" @click.prevent>
+                <a href="#"
+                  @click.prevent
+                >
                   忘記密碼？
                 </a>
               </div>
@@ -48,7 +63,6 @@
 
     <IgPost />
     <FooterComponent />
-
   </div>
 </template>
 

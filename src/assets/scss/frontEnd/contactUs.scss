@@ -30,12 +30,6 @@ button {
   }
 }
 
-// button:active {
-//   border: 1.5px solid $accent-color;
-//   background-color: #fff;
-//   color: $accent-color;
-// }
-
 .companyInfo {
   margin-top: 30px;
   margin-left: 4px;
@@ -77,40 +71,3 @@ button {
     margin-top: 4px;
   }
 }
-
-// .companyInfo > div {
-//   margin-bottom: 32px;
-//   display: flex;
-//   align-items: center;
-// }
-
-// /* 放 icon */
-// .companyInfo > div > div:first-of-type {
-//   width: 28px;
-//   height: 28px;
-//   text-align: center;
-//   line-height: 28px;
-// }
-
-// .companyInfo i {
-//   color: #8f9195;
-//   font-size: 28px;
-// }
-
-// /* 放聯絡資訊 */
-// .companyInfo > div > div:last-of-type {
-//   margin-left: 20px;
-// }
-
-// .companyInfo h3 {
-//   color: $black;
-//   font-size: 18px;
-//   margin: 0;
-// }
-
-// .companyInfo p {
-//   color: $black;
-//   font-size: 16px;
-//   margin: 0;
-//   margin-top: 4px;
-// }

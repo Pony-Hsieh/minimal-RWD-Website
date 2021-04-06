@@ -7,16 +7,24 @@
             <h5>Category</h5>
             <ul class="list-unstyled">
               <li>
-                <a href="#" @click.prevent="routerTo('Men')">男士</a>
+                <a href="#"
+                  @click.prevent="routerTo('Men')"
+                >男士</a>
               </li>
               <li>
-                <a href="#" @click.prevent="routerTo('Women')">女士</a>
+                <a href="#"
+                  @click.prevent="routerTo('Women')"
+                >女士</a>
               </li>
               <li>
-                <a href="#" @click.prevent="routerTo('Sports')">運動</a>
+                <a href="#"
+                  @click.prevent="routerTo('Sports')"
+                >運動</a>
               </li>
               <li>
-                <a href="#" @click.prevent="routerTo('Shoes')">鞋類</a>
+                <a href="#"
+                  @click.prevent="routerTo('Shoes')"
+                >鞋類</a>
               </li>
             </ul>
           </div>
@@ -26,16 +34,24 @@
             <h5>Company</h5>
             <ul class="list-unstyled">
               <li>
-                <a href="#" @click.prevent>關於我們</a>
+                <a href="#"
+                  @click.prevent
+                >關於我們</a>
               </li>
               <li>
-                <a href="#" @click.prevent>新聞報導</a>
+                <a href="#"
+                  @click.prevent
+                >新聞報導</a>
               </li>
               <li>
-                <a href="#" @click.prevent>常見問答</a>
+                <a href="#"
+                  @click.prevent
+                >常見問答</a>
               </li>
               <li>
-                <a href="#" @click.prevent>產地證明</a>
+                <a href="#"
+                  @click.prevent
+                >產地證明</a>
               </li>
             </ul>
           </div>
@@ -60,21 +76,32 @@
           <div class="singleFooterPart">
             <h5>Newsletter</h5>
             <div class="subscribe">
-              <form action="" class="d-flex" @submit.prevent>
-                <input type="email" placeholder="e-mail">
+              <form action=""
+                class="d-flex"
+                @submit.prevent
+              >
+                <input type="email"
+                  placeholder="e-mail"
+                >
                 <button type="submit">
                   Subscribe
                 </button>
               </form>
             </div>
             <div class="socialMedia">
-              <a href="#" @click.prevent>
+              <a href="#"
+                @click.prevent
+              >
                 <i class="fab fa-facebook-f" />
               </a>
-              <a href="#" @click.prevent>
+              <a href="#"
+                @click.prevent
+              >
                 <i class="fab fa-twitter" />
               </a>
-              <a href="#" @click.prevent>
+              <a href="#"
+                @click.prevent
+              >
                 <i class="fab fa-instagram" />
               </a>
             </div>

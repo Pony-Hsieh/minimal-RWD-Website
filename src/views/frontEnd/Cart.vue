@@ -1,10 +1,9 @@
 <template>
   <div class="wrapper">
-
     <loading :active.sync="isLoading">
       <div class="loadingio-spinner-eclipse-qd52l2xe1a">
         <div class="ldio-zf9gth3n7r">
-          <div></div>
+          <div />
         </div>
       </div>
     </loading>
@@ -14,19 +13,22 @@
     <HeaderComponent />
 
     <div class="container my-5">
-
       <div>
         <h1 class="h2 text-center">
           購物車
         </h1>
         <div class="d-flex justify-content-center align-items-center position-relative">
-          <div class="position-absolute" style="right: calc(50% + 10px);">
+          <div class="position-absolute"
+            style="right: calc(50% + 10px);"
+          >
             共計 {{ userLSCartArr.length }} 種商品
           </div>
           <div style="overflow:hidden; width:0; border-left: 1.5px solid #212529;">
             |
           </div>
-          <div class="position-absolute" style="left: calc(50% + 10px);">
+          <div class="position-absolute"
+            style="left: calc(50% + 10px);"
+          >
             {{ LSFinal_total | currency }}
           </div>
         </div>
@@ -36,13 +38,14 @@
       <div class="row">
         <!-- 購物車品項 -->
         <div class="col-12 col-lg-8">
-
           <!-- 如果 LS 購物車為空，則顯示此區塊 -->
-          <div v-if="userLSCartArr.length === 0" class="text-center my-5">
+          <div v-if="userLSCartArr.length === 0"
+            class="text-center my-5"
+          >
             目前購物車內沒有商品喔~~
-            <br />
-            <br />
-            <br />
+            <br>
+            <br>
+            <br>
             <router-link to="/shop">
               點我去選購商品，GOGOGO ！！！
             </router-link>
@@ -56,29 +59,45 @@
             <table class="talbe mt-4 w-100 table-striped table-responsive-lg">
               <thead>
                 <tr>
-                  <th width="150px" class="text-center py-3">
+                  <th width="150px"
+                    class="text-center py-3"
+                  >
                     商品
                   </th>
-                  <th width="200PX" class="text-center">
+                  <th width="200PX"
+                    class="text-center"
+                  >
                     數量
                   </th>
-                  <th width="120px" class="text-center d-none d-sm-table-cell">
+                  <th width="120px"
+                    class="text-center d-none d-sm-table-cell"
+                  >
                     單價
                   </th>
-                  <th width="120px" class="text-center">
+                  <th width="120px"
+                    class="text-center"
+                  >
                     小計
                   </th>
-                  <th width="180px" class="text-center">
+                  <th width="180px"
+                    class="text-center"
+                  >
                     移除
                   </th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr v-for="item in showingCartArr" :key="item.product_id">
+                <tr v-for="item in showingCartArr"
+                  :key="item.product_id"
+                >
                   <!-- 商品圖片、商品名稱 -->
                   <td class="text-center py-2 py-sm-3">
-                    <img :src="item.imageUrl" width="70px" :alt="item.title+' 圖片'" class="mb-sm-2">
+                    <img :src="item.imageUrl"
+                      width="70px"
+                      :alt="item.title+' 圖片'"
+                      class="mb-sm-2"
+                    >
                     <br>
                     {{ item.title }}
                   </td>
@@ -86,15 +105,24 @@
                   <!-- 數量 -->
                   <td class="text-center editProductQty">
                     <!-- 減少 -->
-                    <button type="button" class="qtyChange_btn" @click.prevent="minusLSCart(item)">
+                    <button type="button"
+                      class="qtyChange_btn"
+                      @click.prevent="minusLSCart(item)"
+                    >
                       －
                     </button>
-                    <input v-model.lazy="item.qty" type="number"
+                    <input v-model.lazy="item.qty"
+                      type="number"
                       :class="{'ing':item.product_id === editingLSQtyItem.product_id}"
-                      @click="judgeLSEditingQtyItem(item)" @keyup.esc="removeLSEditingQtyItem()"
+                      @click="judgeLSEditingQtyItem(item)"
+                      @keyup.esc="removeLSEditingQtyItem()"
                       @blur="editLSCartQty(item), removeLSEditingQtyItem()"
-                      @keyup.enter="editLSCartQty(item), removeLSEditingQtyItem()">
-                    <button type="button" class="qtyChange_btn" @click.prevent="plusLSCart(item)">
+                      @keyup.enter="editLSCartQty(item), removeLSEditingQtyItem()"
+                    >
+                    <button type="button"
+                      class="qtyChange_btn"
+                      @click.prevent="plusLSCart(item)"
+                    >
                       ＋
                     </button>
                   </td>
@@ -139,7 +167,10 @@
 
                   <!-- 移除 -->
                   <td class="text-center">
-                    <button type="button" class="btn btn-outline-danger btn-sm" @click="openLSDeleteModal(item)">
+                    <button type="button"
+                      class="btn btn-outline-danger btn-sm"
+                      @click="openLSDeleteModal(item)"
+                    >
                       <i class="fas fa-times" />
                     </button>
                   </td>
@@ -158,37 +189,47 @@
 
           <!-- 訂單金額 -->
           <div class="row orderTotalArea">
-
             <!-- 小計 -->
             <div class="col-12">
               <div class="row">
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
                 <div class="col-12 col-sm-10 col-lg-12 d-flex justify-content-between">
                   <h6>小計</h6>
                   <h6 class="mr-1">
                     {{ LSTotal | currency }}
                   </h6>
                 </div>
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
               </div>
             </div>
 
             <!-- 套用 coupon -->
             <!-- 相等代表目前沒有套用 coupon -->
-            <div class="col-12" v-if="LSTotal === LSFinal_total">
+            <div v-if="LSTotal === LSFinal_total"
+              class="col-12"
+            >
               <div class="row">
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
                 <div class="col-12 col-sm-10 col-lg-12">
                   <div class="input-group input-group-sm">
-                    <input v-model.trim="inputCouponCode" type="text" placeholder="請輸入 coupon" class="form-control"
-                      @keyup.enter="applyCoupon">
+                    <input v-model.trim="inputCouponCode"
+                      type="text"
+                      placeholder="請輸入 coupon"
+                      class="form-control"
+                      @keyup.enter="applyCoupon"
+                    >
                     <div class="input-group-append">
-                      <button type="button" class="btn btn-primary" @click="applyCoupon">
+                      <button type="button"
+                        class="btn btn-primary"
+                        @click="applyCoupon"
+                      >
                         套用 coupon
                       </button>
                     </div>
                   </div>
-                  <div v-if="couponVerify === true" class="text-success">
+                  <div v-if="couponVerify === true"
+                    class="text-success"
+                  >
                     有效優惠券
                   </div>
                   <div v-if="couponVerify === false">
@@ -199,14 +240,16 @@
                     <div> 謝謝~~</div>
                   </div>
                 </div>
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
               </div>
             </div>
 
             <!-- 折抵 -->
-            <div class="col-12" v-if="LSTotal !== LSFinal_total">
+            <div v-if="LSTotal !== LSFinal_total"
+              class="col-12"
+            >
               <div class="row">
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
                 <div class="col-12 col-sm-10 col-lg-12 d-flex justify-content-between align-items-center">
                   <h6>
                     折抵
@@ -215,16 +258,19 @@
                     - {{ LSTotal - LSFinal_total | currency }}
                   </h6>
                 </div>
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
               </div>
             </div>
 
             <!-- 已套用 coupon 相關資訊 -->
-            <div class="col-12" v-if="usingCoupon.percent !== 100">
+            <div v-if="usingCoupon.percent !== 100"
+              class="col-12"
+            >
               <div class="row">
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
                 <div class="col-12 col-sm-10 col-lg-12 d-flex justify-content-between align-items-center"
-                  style="margin-top: 14px; font-size: 15px;">
+                  style="margin-top: 14px; font-size: 15px;"
+                >
                   <div>
                     已套用 coupon 名稱：{{ usingCoupon.title }}
                     <br>
@@ -233,19 +279,22 @@
                     已套用 coupon 優惠：{{ usingCoupon.percent | couponTransfer }}
                   </div>
                   <div>
-                    <button type="button" class="btn btn-outline-danger btn-sm" @click="cancelCoupon">
+                    <button type="button"
+                      class="btn btn-outline-danger btn-sm"
+                      @click="cancelCoupon"
+                    >
                       <i class="fas fa-times" />
                     </button>
                   </div>
                 </div>
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
               </div>
             </div>
 
             <!-- 總計 -->
             <div class="col-12">
               <div class="row">
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
                 <div class="col-12 col-sm-10 col-lg-12 d-flex justify-content-between align-items-center mt-3">
                   <h6 class="font-weight-bold">
                     總計
@@ -254,14 +303,16 @@
                     {{ LSFinal_total | currency }}
                   </h6>
                 </div>
-                <div class="col-sm-1 d-lg-none"></div>
+                <div class="col-sm-1 d-lg-none" />
               </div>
             </div>
           </div>
 
 
           <!-- 客戶收件資料及聯絡資料 、 送出訂單 -->
-          <div v-if="userLSCartArr.length !== 0" class="receiverInfoArea">
+          <div v-if="userLSCartArr.length !== 0"
+            class="receiverInfoArea"
+          >
             <h5 class="text-center">
               收件資訊
             </h5>
@@ -271,43 +322,71 @@
             <validation-observer v-slot="{ invalid }">
               <form @submit.prevent="sendOrder">
                 <!-- 訂購人 email -->
-                <validation-provider v-slot="{ errors, classes }" rules="required|email">
+                <validation-provider v-slot="{ errors, classes }"
+                  rules="required|email"
+                >
                   <div class="form-group">
                     <!-- 輸入框 -->
                     <label for="userEmail">* 訂購人 email</label>
-                    <input id="userEmail" v-model="form.user.email" type="email" name="訂購人 email" class="form-control"
-                      :class="classes">
+                    <input id="userEmail"
+                      v-model="form.user.email"
+                      type="email"
+                      name="訂購人 email"
+                      class="form-control"
+                      :class="classes"
+                    >
                     <!-- 錯誤訊息 -->
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </div>
                 </validation-provider>
 
                 <!-- 收件人姓名 -->
-                <validation-provider v-slot="{ errors, classes }" rules="required">
+                <validation-provider v-slot="{ errors, classes }"
+                  rules="required"
+                >
                   <div class="form-group">
                     <label for="userName">* 收件人姓名</label>
-                    <input id="userName" v-model="form.user.name" type="text" name="收件人姓名" class="form-control"
-                      :class="classes">
+                    <input id="userName"
+                      v-model="form.user.name"
+                      type="text"
+                      name="收件人姓名"
+                      class="form-control"
+                      :class="classes"
+                    >
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </div>
                 </validation-provider>
 
                 <!-- 收件人電話 -->
-                <validation-provider v-slot="{ errors, classes }" rules="required">
+                <validation-provider v-slot="{ errors, classes }"
+                  rules="required"
+                >
                   <div class="form-group">
                     <label for="userTel">* 收件人電話</label>
-                    <input id="userTel" v-model="form.user.tel" type="tel" name="收件人電話" class="form-control"
-                      :class="classes">
+                    <input id="userTel"
+                      v-model="form.user.tel"
+                      type="tel"
+                      name="收件人電話"
+                      class="form-control"
+                      :class="classes"
+                    >
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </div>
                 </validation-provider>
 
                 <!-- 收件人地址 -->
-                <validation-provider v-slot="{ errors, classes }" rules="required">
+                <validation-provider v-slot="{ errors, classes }"
+                  rules="required"
+                >
                   <div class="form-group">
                     <label for="userAddress">* 收件人地址</label>
-                    <input id="userAddress" v-model="form.user.address" type="text" name="收件人地址" class="form-control"
-                      :class="classes">
+                    <input id="userAddress"
+                      v-model="form.user.address"
+                      type="text"
+                      name="收件人地址"
+                      class="form-control"
+                      :class="classes"
+                    >
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </div>
                 </validation-provider>
@@ -315,14 +394,19 @@
                 <!-- 訂單留言 -->
                 <div class="form-group">
                   <label for="comment">留言</label>
-                  <textarea id="comment" v-model="form.message" class="form-control"
-                    style="resize: none; height: 200px;" />
+                  <textarea id="comment"
+                    v-model="form.message"
+                    class="form-control"
+                    style="resize: none; height: 200px;"
+                  />
                 </div>
 
                 <!-- 送出訂單 -->
                 <div class="my-5">
-                  <button type="submit" :class="['btn', 'btn-primary', 'btn-block', {'cursorNotAllowed' : invalid}]"
-                    :disabled="invalid">
+                  <button type="submit"
+                    :class="['btn', 'btn-primary', 'btn-block', {'cursorNotAllowed' : invalid}]"
+                    :disabled="invalid"
+                  >
                     送出訂單
                   </button>
                 </div>
@@ -334,15 +418,28 @@
     </div>
 
     <!-- minus、移除 確認刪除用 Modal  -->
-    <div id="LSDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div id="LSDeleteModal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog"
+        role="document"
+      >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="exampleModalLabel" class="modal-title">
+            <h5 id="exampleModalLabel"
+              class="modal-title"
+            >
               欲移出購物車的商品名稱：
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -352,10 +449,17 @@
           <div class="modal-footer">
             <div class="container">
               <div class="row">
-                <button type="button" class="btn btn-secondary col mr-1" data-dismiss="modal" @click="getLSCart">
+                <button type="button"
+                  class="btn btn-secondary col mr-1"
+                  data-dismiss="modal"
+                  @click="getLSCart"
+                >
                   否，關閉此彈跳視窗
                 </button>
-                <button type="button" class="btn btn-danger col ml-1" @click="deleteLSCart(deletingLSItem)">
+                <button type="button"
+                  class="btn btn-danger col ml-1"
+                  @click="deleteLSCart(deletingLSItem)"
+                >
                   是，將此商品移出購物車
                 </button>
               </div>
@@ -366,7 +470,6 @@
     </div>
 
     <FooterComponent />
-
   </div>
 </template>
 
@@ -430,6 +533,7 @@
     created() {
       this.getLSCart(); // 從 LS 中取得購物車資料
       this.calLSTotal(); // 計算 LS 總金額
+      document.body.scrollTop = document.documentElement.scrollTop = 0; // 回到頁面頂部
     },
 
     mounted() {

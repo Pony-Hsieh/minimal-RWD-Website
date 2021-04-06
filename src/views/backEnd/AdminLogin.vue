@@ -1,20 +1,41 @@
 <template>
   <div class="conainer-fluid p-0">
-    <form class="form-signin" @submit.prevent="signin">
+    <form class="form-signin"
+      @submit.prevent="signin"
+    >
       <h1 class="h3 mb-3 font-weight-normal">
         管理員登入
       </h1>
-      <label for="inputEmail" class="sr-only">管理員帳號</label>
-      <input id="inputEmail" v-model="user.username" type="email" class="form-control" placeholder="管理員帳號" required>
-      <label for="inputPassword" class="sr-only">管理員密碼</label>
-      <input id="inputPassword" v-model="user.password" type="password" class="form-control" placeholder="管理員密碼"
-        required>
+      <label for="inputEmail"
+        class="sr-only"
+      >管理員帳號</label>
+      <input id="inputEmail"
+        v-model="user.username"
+        type="email"
+        class="form-control"
+        placeholder="管理員帳號"
+        required
+      >
+      <label for="inputPassword"
+        class="sr-only"
+      >管理員密碼</label>
+      <input id="inputPassword"
+        v-model="user.password"
+        type="password"
+        class="form-control"
+        placeholder="管理員密碼"
+        required
+      >
       <div class="checkbox mb-3">
         <label>
-          <input type="checkbox" value="remember-me"> 記住我
+          <input type="checkbox"
+            value="remember-me"
+          > 記住我
         </label>
       </div>
-      <button class="btn btn-primary btn-block" type="submit">
+      <button class="btn btn-primary btn-block"
+        type="submit"
+      >
         登入
       </button>
     </form>

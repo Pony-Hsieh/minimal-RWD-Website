@@ -2,50 +2,71 @@
   <header class="container-fluid bg-white sticky-top shadow">
     <div class="row w-100 h-100">
       <!-- 漢堡選單按鈕 -->
-      <div class="col-2 d-flex d-lg-none justify-content-center align-items-center" style="cursor: pointer;"
-        @click="toggleHeaderNavBurger">
+      <div class="col-2 d-flex d-lg-none justify-content-center align-items-center"
+        style="cursor: pointer;"
+        @click="toggleHeaderNavBurger"
+      >
         <i class="fas fa-bars" />
       </div>
       <!-- 漢堡選單 -->
-      <nav class="headerNavBurger col-lg-8 order-lg-2" :class="{'ing':headerNavBurgerStatus}">
+      <nav class="headerNavBurger col-lg-8 order-lg-2"
+        :class="{'ing':headerNavBurgerStatus}"
+      >
         <ul class="list-unstyled">
           <li>
-            <router-link to="/" :class="{'nowMainPage':nowMainPage === ''}">
+            <router-link to="/"
+              :class="{'nowMainPage':nowMainPage === ''}"
+            >
               首頁
             </router-link>
           </li>
           <li>
-            <router-link to="/shop" :class="{'nowMainPage':nowMainPage === '/shop'}">
+            <router-link to="/shop"
+              :class="{'nowMainPage':nowMainPage === '/shop'}"
+            >
               商城
             </router-link>
           </li>
           <li>
-            <a href="#" :class="{'nowMainPage':nowMainPage === '/member'}" @click.prevent="toggleDropdownNav">
+            <a href="#"
+              :class="{'nowMainPage':nowMainPage === '/member'}"
+              @click.prevent="toggleDropdownNav"
+            >
               會員&nbsp;&nbsp;<i class="fas fa-caret-down" />
             </a>
-            <ul class="list-unstyled dropdownNav" :class="{'ing':dropdownNavStatus}">
+            <ul class="list-unstyled dropdownNav"
+              :class="{'ing':dropdownNavStatus}"
+            >
               <li>
                 <!-- <router-link to="/member/login"> -->
-                <router-link to="/member/login" :class="{'nowSubPage':navLogStatus}">
+                <router-link to="/member/login"
+                  :class="{'nowSubPage':navLogStatus}"
+                >
                   登入/登出
                 </router-link>
               </li>
               <li>
                 <!-- <router-link to="/member/order"> -->
-                <router-link to="/member/order" :class="{'nowSubPage':nowSubPage === '/member/order'}">
+                <router-link to="/member/order"
+                  :class="{'nowSubPage':nowSubPage === '/member/order'}"
+                >
                   檢視訂單
                 </router-link>
               </li>
               <li>
                 <!-- <router-link to="/member/cart"> -->
-                <router-link to="/member/cart" :class="{'nowSubPage':nowSubPage === '/member/cart'}">
+                <router-link to="/member/cart"
+                  :class="{'nowSubPage':nowSubPage === '/member/cart'}"
+                >
                   購物車
                 </router-link>
               </li>
             </ul>
           </li>
           <li :class="{'ing':dropdownNavStatus}">
-            <router-link to="/contactUs" :class="{'nowMainPage':nowMainPage === '/contactUs'}">
+            <router-link to="/contactUs"
+              :class="{'nowMainPage':nowMainPage === '/contactUs'}"
+            >
               聯繫我們
             </router-link>
           </li>
@@ -54,7 +75,9 @@
 
       <!-- LOGO -->
       <div class="col-8 col-lg-2 order-lg-1 d-flex justify-content-center align-items-center logoArea">
-        <img src="@/assets/img/squareIconWithoutWord.png" alt="minimal Logo">
+        <img src="@/assets/img/squareIconWithoutWord.png"
+          alt="minimal Logo"
+        >
       </div>
 
       <!-- iconArea -->
@@ -65,14 +88,22 @@
             {{ LSCartItemNum }}
           </div>
         </router-link>
-        <i class="fas fa-search ml-2 ml-lg-4" title="目前僅可點擊，但跳出的搜尋欄無搜尋功能"
-          @click.prevent="searchBarStatus = !searchBarStatus" />
+        <i class="fas fa-search ml-2 ml-lg-4"
+          title="目前僅可點擊，但跳出的搜尋欄無搜尋功能"
+          @click.prevent="searchBarStatus = !searchBarStatus"
+        />
       </div>
 
       <!-- 搜尋欄 -->
-      <div class="searchBar" :class="{'ing':searchBarStatus}">
-        <input type="text" placeholder="Search Here">
-        <i class="fas fa-times" @click.prevent="searchBarStatus = !searchBarStatus" />
+      <div class="searchBar"
+        :class="{'ing':searchBarStatus}"
+      >
+        <input type="text"
+          placeholder="Search Here"
+        >
+        <i class="fas fa-times"
+          @click.prevent="searchBarStatus = !searchBarStatus"
+        />
       </div>
     </div>
   </header>

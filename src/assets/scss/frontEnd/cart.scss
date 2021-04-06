@@ -41,32 +41,12 @@ a {
     }
   }
 }
-
-// .editProductQty input::-webkit-outer-spin-button,
-// .editProductQty input::-webkit-inner-spin-button {
-//   -webkit-appearance: none;
-//   /* 拿掉數字輸入欄位的箭頭 */
-// }
-
-// .editProductQty input[type="number"] {
-//   -moz-appearance: textfield;
-//   /* 拿掉數字輸入欄位的箭頭 */
-// }
-
-// .editProductQty input {
-//   width: 30px;
-//   height: 30px;
-//   background: transparent;
-//   outline: none;
-//   border: none;
-//   text-align: center;
-// }
-
-// .editProductQty input.ing {
-//   outline: none;
-//   border: 1.5px solid $accent-color;
-//   border-radius: 0.2rem;
-// }
+@media (min-width: 576px) {
+  .editProductQty input {
+    width: 34px;
+    height: 34px;
+  }
+}
 
 .qtyChange_btn {
   width: 30px;
@@ -84,19 +64,7 @@ a {
     border: none;
   }
 }
-
-// .qtyChange_btn:active {
-//   background-color: $accent-color;
-//   color: $dominant-color;
-//   border: none;
-// }
-
 @media (min-width: 576px) {
-  .editProductQty input {
-    width: 34px;
-    height: 34px;
-  }
-
   .qtyChange_btn {
     width: 34px;
     height: 34px;

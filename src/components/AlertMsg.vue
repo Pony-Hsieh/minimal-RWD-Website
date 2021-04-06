@@ -1,13 +1,22 @@
 <template>
-    <div class="message-alert">
-        <div class="alert alert-dismissible" :class="'alert-' + item.status" v-for="(item, i) in receiveMessages"
-            :key="i" role="alert">
-            <div v-html="item.message"></div>
-            <button type="button" class="close" @click="removeMessage(i)" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+  <div class="message-alert">
+    <div v-for="(item, i) in receiveMessages"
+      :key="i"
+      class="alert alert-dismissible"
+      :class="'alert-' + item.status"
+      role="alert"
+    >
+      <div v-html="item.message" />
+      <button type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+        @click="removeMessage(i)"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+  </div>
 </template>
 
 
@@ -20,6 +29,14 @@
             return {
                 receiveMessages: [],
             };
+        },
+
+
+        created() {
+            const vm = this;
+            vm.$alertMsg_Bus.$on("alertMsgEvent", (msg, status = "success", removeTime = 3000) => {
+                vm.updateMessage(msg, status, removeTime);
+            });
         },
 
 
@@ -49,14 +66,6 @@
                     });
                 }, removeTime);
             },
-        },
-
-
-        created() {
-            const vm = this;
-            vm.$alertMsg_Bus.$on("alertMsgEvent", (msg, status = "success", removeTime = 3000) => {
-                vm.updateMessage(msg, status, removeTime);
-            });
         },
 
     };

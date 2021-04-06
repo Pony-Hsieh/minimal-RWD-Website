@@ -1,10 +1,9 @@
 <template>
   <div class="container-fluid p-0 wrapper">
-
     <loading :active.sync="isLoading">
       <div class="loadingio-spinner-eclipse-qd52l2xe1a">
         <div class="ldio-zf9gth3n7r">
-          <div></div>
+          <div />
         </div>
       </div>
     </loading>
@@ -12,29 +11,35 @@
     <HeaderComponent />
 
     <div class="container orderData">
-
       <h1 class="h3 text-center">
         訂單資訊
       </h1>
 
       <div class="simpleInfo">
-        <h3 class="text-center" v-if="orderData.is_paid">
+        <h3 v-if="orderData.is_paid"
+          class="text-center"
+        >
           您已成功訂購商品並付清款項
-          <br /><br />
-          訂單相關訊息(包含出貨通知)將會發送至<br />
-          <span class="text-white">{{orderData.user.email}}</span><br />
+          <br><br>
+          訂單相關訊息(包含出貨通知)將會發送至<br>
+          <span class="text-white">{{ orderData.user.email }}</span><br>
           再麻煩您留意，謝謝~
-          <br /><br />
+          <br><br>
           購買商品明細如下：
         </h3>
-        <h3 class="text-center" v-if="!orderData.is_paid">
+        <h3 v-if="!orderData.is_paid"
+          class="text-center"
+        >
           您已成功訂購商品
-          <br /><br />
-          但您尚未付款，故尚未安排出貨<br />
-          <button v-if="!orderData.is_paid" class="btn btn-sm btn-primary mt-2" @click.prevent="payOrder(orderData.id)">
+          <br><br>
+          但您尚未付款，故尚未安排出貨<br>
+          <button v-if="!orderData.is_paid"
+            class="btn btn-sm btn-primary mt-2"
+            @click.prevent="payOrder(orderData.id)"
+          >
             點此付款
           </button>
-          <br /><br />
+          <br><br>
           訂購商品明細如下：
         </h3>
       </div>
@@ -66,9 +71,14 @@
           <h3>訂購商品</h3>
         </div>
         <div class="col-8">
-          <div v-for="item in orderData.products" class="my-4">
+          <div v-for="(item, index) in orderData.products"
+            :key="index"
+            class="my-4"
+          >
             <h4>商品名稱：{{ item.product.title }}</h4>
-            <img :src="item.product.imageUrl" alt="">
+            <img :src="item.product.imageUrl"
+              :alt="item.product.title + ' 商品圖片'"
+            >
             <h4 class="mt-2">
               購買數量：{{ item.qty }}
             </h4>
@@ -91,13 +101,20 @@
           <h3>付款狀態</h3>
         </div>
         <div class="col-8 d-flex justify-content-center align-items-center">
-          <p v-if="orderData.is_paid" class="m-0 text-success">
+          <p v-if="orderData.is_paid"
+            class="m-0 text-success"
+          >
             已付
           </p>
-          <p v-if="!orderData.is_paid" class="m-0 text-danger">
+          <p v-if="!orderData.is_paid"
+            class="m-0 text-danger"
+          >
             未付
           </p>
-          <button v-if="!orderData.is_paid" class="btn btn-sm btn-primary ml-3" @click.prevent="payOrder(orderData.id)">
+          <button v-if="!orderData.is_paid"
+            class="btn btn-sm btn-primary ml-3"
+            @click.prevent="payOrder(orderData.id)"
+          >
             點此付款
           </button>
         </div>
@@ -138,7 +155,11 @@
     </div>
 
     <div class="continueShopping">
-      前往商城 → &nbsp;<router-link to="/shop" class="btn btn-primary btn-sm">GO GO GO！！！</router-link>
+      前往商城 → &nbsp;<router-link to="/shop"
+        class="btn btn-primary btn-sm"
+      >
+        GO GO GO！！！
+      </router-link>
     </div>
 
     <FooterComponent />
@@ -147,12 +168,10 @@
 
 
 <script>
-
   import HeaderComponent from '@/components/HeaderComponent.vue';
   import FooterComponent from '@/components/FooterComponent.vue';
 
   export default {
-    // name: "singleOrder",
 
     components: {
       HeaderComponent,
@@ -168,7 +187,6 @@
     },
 
     created() {
-      // this.scrollTop();
       this.judgeOrderByRouterParam(); // 先將 訂單id 存入 data return 中
       this.getOrderData();
     },
@@ -178,8 +196,6 @@
       // 將 訂單id 存入 data return 中
       judgeOrderByRouterParam() {
         this.orderId = this.$route.query.orderId;
-        // console.log("this.$route.query.orderId", this.$route.query.orderId);
-        // console.log("this.orderId", this.orderId);
       },
 
       // 取得該訂單的資訊
@@ -189,10 +205,8 @@
 
         vm.isLoading = true;
         vm.$http.get(api).then((response) => {
-          // console.log("orderResponse", response); // 確認遠端撈回來的資料結構
           if (response.data.success) {
             vm.orderData = response.data.order;
-            // console.log("vm.orderData", vm.orderData);
             vm.isLoading = false;
           }
         });
@@ -205,9 +219,7 @@
 
         vm.isLoading = true;
         vm.$http.post(api).then((response) => {
-          // console.log("response", response); // 確認遠端撈回來的資料結構
           if (response.data.success) {
-            // alert("付款成功！");
             vm.$alertMsg_Bus.$emit("alertMsgEvent", "付款成功！");
             vm.getOrderData();
             document.body.scrollTop = document.documentElement.scrollTop = 0;

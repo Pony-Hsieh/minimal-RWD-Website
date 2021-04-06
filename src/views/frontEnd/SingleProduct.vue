@@ -1,20 +1,25 @@
 <template>
   <div class="wrapper">
-
     <AlertMsg />
 
-    <headerComponent />
+    <HeaderComponent />
 
     <div class="container">
       <main class="row product">
         <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-          <img :src="showProduct.imageUrl" :alt="showProduct.title + ' 商品圖片'" class="img-fluid">
+          <img :src="showProduct.imageUrl"
+            :alt="showProduct.title + ' 商品圖片'"
+            class="img-fluid"
+          >
         </div>
 
         <div class="col-12 col-lg-6 mainProductInfo">
           <div>
             <h1>{{ showProduct.title }}</h1>
-            <a href="#" title="將商品加入至收藏清單" @click.prevent>
+            <a href="#"
+              title="將商品加入至收藏清單"
+              @click.prevent
+            >
               <i class="far fa-heart" />
             </a>
           </div>
@@ -26,7 +31,9 @@
             <h5 class="d-inline">
               類別&emsp;&emsp;&emsp;：
             </h5>
-            <a href="#" @click.prevent="routerTo(showProduct.category)">{{ showProduct.category }}</a>
+            <a href="#"
+              @click.prevent="routerTo(showProduct.category)"
+            >{{ showProduct.category }}</a>
             <!-- 點擊連回商城，並套用該類別的過濾器 -->
           </div>
           <div>
@@ -35,23 +42,35 @@
             </h5>
             <!-- 如果是啟用狀態，則顯示有庫存 -->
             <span v-if="showProduct.is_enabled">有貨</span>
-            <span v-else class="text-secondary">已售完</span>
+            <span v-else
+              class="text-secondary"
+            >已售完</span>
           </div>
           <hr>
           <p>{{ showProduct.description }}</p>
 
           <div class="cartRelevant">
             <div class="cartCount">
-              <button type="button" @click="changeAddNum('minus')">
+              <button type="button"
+                @click="changeAddNum('minus')"
+              >
                 &nbsp;&nbsp;－
               </button>
-              <input v-model="addNum" type="number" class=" text-center">
-              <button type="button" @click="changeAddNum('plus')">
+              <input v-model="addNum"
+                type="number"
+                class=" text-center"
+              >
+              <button type="button"
+                @click="changeAddNum('plus')"
+              >
                 ＋&nbsp;&nbsp;
               </button>
             </div>
             <div class="addToCartArea">
-              <button type="button" class="btn btn-primary" @click="addToLSCart">
+              <button type="button"
+                class="btn btn-primary"
+                @click="addToLSCart"
+              >
                 加入購物車
               </button>
             </div>
@@ -60,16 +79,25 @@
           <div class="socialMedia">
             <ul class="list-unstyled">
               <li class="facebook">
-                <a href="" title="分享到 Facebook" @click.prevent>
+                <a href=""
+                  title="分享到 Facebook"
+                  @click.prevent
+                >
                   <i class="fab fa-facebook-f" />
                 </a>
               </li>
-              <li class="twitter" title="分享到 twitter" @click.prevent>
+              <li class="twitter"
+                title="分享到 twitter"
+                @click.prevent
+              >
                 <a href="">
                   <i class="fab fa-twitter" />
                 </a>
               </li>
-              <li class="linkedin" title="分享到 Linkedin" @click.prevent>
+              <li class="linkedin"
+                title="分享到 Linkedin"
+                @click.prevent
+              >
                 <a href="">
                   <i class="fab fa-linkedin-in" />
                 </a>
@@ -85,32 +113,58 @@
             熱銷商品
           </h3>
         </div>
-        <div v-for="item in bestSellers" class="col-12 col-sm-6 col-lg-3 singleBestSeller"
-          @mouseover="addHoverProduct(item.id)" @mouseleave="removeHoverProduct">
-          <div class="my-auto" style="cursor: pointer;" @click.prevent="toSingleProductPage(item.id)">
-            <img :src="item.imageUrl" :alt="item.title +' 商品圖片'" class="img-fluid">
+        <div v-for="(item, index) in bestSellers"
+          :key="index"
+          class="col-12 col-sm-6 col-lg-3 singleBestSeller"
+          @mouseover="addHoverProduct(item.id)"
+          @mouseleave="removeHoverProduct"
+        >
+          <div class="my-auto"
+            style="cursor: pointer;"
+            @click.prevent="toSingleProductPage(item.id)"
+          >
+            <img :src="item.imageUrl"
+              :alt="item.title +' 商品圖片'"
+              class="img-fluid"
+            >
           </div>
-          <h4 style="cursor: pointer;" @click.prevent="toSingleProductPage(item.id)">
+          <h4 style="cursor: pointer;"
+            @click.prevent="toSingleProductPage(item.id)"
+          >
             {{ item.title }}
           </h4>
-          <del v-if="item.origin_price !== item.price" class="d-block text-center" style="cursor: pointer;"
-            @click.prevent="toSingleProductPage(item.id)">
+          <del v-if="item.origin_price !== item.price"
+            class="d-block text-center"
+            style="cursor: pointer;"
+            @click.prevent="toSingleProductPage(item.id)"
+          >
             {{ item.origin_price|currency }}
           </del>
-          <h5 style="cursor: pointer;" @click.prevent="toSingleProductPage(item.id)">
+          <h5 style="cursor: pointer;"
+            @click.prevent="toSingleProductPage(item.id)"
+          >
             {{ item.price|currency }}
           </h5>
 
           <!-- 加入購物車、加入收藏按鈕 -->
-          <ul class="list-unstyled hoverWidget" :class="{'ing': hoverProductId === item.id}"
-            @mouseover="addHoverProduct(item.id)" @mouseleave="removeHoverProduct">
+          <ul class="list-unstyled hoverWidget"
+            :class="{'ing': hoverProductId === item.id}"
+            @mouseover="addHoverProduct(item.id)"
+            @mouseleave="removeHoverProduct"
+          >
             <li class="like">
-              <a href="#" title="收藏此商品" @click.prevent>
+              <a href="#"
+                title="收藏此商品"
+                @click.prevent
+              >
                 <i class="far fa-heart" />
               </a>
             </li>
             <li class="addCart">
-              <a href="#" title="加入購物車" @click.prevent="addToLSCart(item)">
+              <a href="#"
+                title="加入購物車"
+                @click.prevent="addToLSCart(item)"
+              >
                 <i class="fas fa-cart-plus" />
               </a>
             </li>
@@ -119,9 +173,9 @@
       </div>
     </div>
 
-    <shippingDescription />
-    <igPost />
-    <footerComponent />
+    <ShippingDescription />
+    <IgPost />
+    <FooterComponent />
   </div>
 </template>
 
@@ -144,6 +198,7 @@
 
     data() {
       return {
+        isLoading: false,
         rawProducts: [],  // 所有商品資料
         showProduct: [], // 要顯示的主要商品資料
         productId: "", // 這個頁面顯示的主要商品  // 將傳入的參數(商品 id) 存在這個變數
@@ -156,8 +211,6 @@
 
     watch: {
       '$route'(to, from) {
-        // console.log("TO", to);
-        // console.log("FROM", from);
         if (to.query !== from.query) {
           this.judgeProductByRouterParam();
           this.getRawProducts(); // 取得原始資料
@@ -187,16 +240,14 @@
       getRawProducts() {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`; // 這個成功取回資料
-
-        // vm.isLoading = true; // 讀取效果
+        vm.isLoading = true; // 讀取效果
 
         // 從遠端取回 產品 、 分頁 的資料
         vm.$http.get(api).then((response) => {
-          // console.log(response); // 確認遠端撈回來的資料結構
           vm.rawProducts = response.data.products;
           vm.bestSellers = vm.rawProducts.slice(0, 4); // 將 best sellers 存入 data return // slice() 方法會回傳一個新陣列物件，為原陣列選擇之 begin 至 end（不含 end）部分的淺拷貝（shallow copy） // .splice() 和 .slice() 不同喔XD，不要看錯了
           vm.getTheProduct();  // 比對資料，取得特定商品資料
-          // vm.isLoading = false;  // 讀取效果
+          vm.isLoading = false;  // 讀取效果
         });
       },
 
@@ -239,7 +290,6 @@
         const vm = this;
         if (method === "minus") {
           if (vm.addNum === 1) {
-            // alert("加入購物車的數量不能少於 1 喔~");
             vm.$alertMsg_Bus.$emit("alertMsgEvent", "加入購物車的數量不能少於 1 喔~", "warning", 2000);
           }
           else {

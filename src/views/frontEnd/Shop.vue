@@ -1,10 +1,9 @@
 <template>
   <div class="wrapper">
-
     <loading :active.sync="isLoading">
       <div class="loadingio-spinner-eclipse-qd52l2xe1a">
         <div class="ldio-zf9gth3n7r">
-          <div></div>
+          <div />
         </div>
       </div>
     </loading>
@@ -22,24 +21,34 @@
             <h5>依據 類別 篩選</h5>
             <ul class="list-unstyled categoryList">
               <li>
-                <a href="#" :class="{'nowCategory':showCategory === 'all'}"
-                  @click.prevent="showCategory = 'all', saveFilteredArray()">全部</a>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'all'}"
+                  @click.prevent="showCategory = 'all', saveFilteredArray()"
+                >全部</a>
               </li>
               <li>
-                <a href="#" :class="{'nowCategory':showCategory === 'rawMen'}"
-                  @click.prevent="showCategory = 'rawMen', saveFilteredArray()">男士</a>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'rawMen'}"
+                  @click.prevent="showCategory = 'rawMen', saveFilteredArray()"
+                >男士</a>
               </li>
               <li>
-                <a href="#" :class="{'nowCategory':showCategory === 'rawWomen'}"
-                  @click.prevent="showCategory = 'rawWomen', saveFilteredArray()">女士</a>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'rawWomen'}"
+                  @click.prevent="showCategory = 'rawWomen', saveFilteredArray()"
+                >女士</a>
               </li>
               <li>
-                <a href="#" :class="{'nowCategory':showCategory === 'rawShoes'}"
-                  @click.prevent="showCategory = 'rawShoes', saveFilteredArray()">鞋類</a>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'rawShoes'}"
+                  @click.prevent="showCategory = 'rawShoes', saveFilteredArray()"
+                >鞋類</a>
               </li>
               <li>
-                <a href="#" :class="{'nowCategory':showCategory === 'rawSports'}"
-                  @click.prevent="showCategory = 'rawSports', saveFilteredArray()">運動</a>
+                <a href="#"
+                  :class="{'nowCategory':showCategory === 'rawSports'}"
+                  @click.prevent="showCategory = 'rawSports', saveFilteredArray()"
+                >運動</a>
               </li>
             </ul>
           </div>
@@ -49,16 +58,28 @@
           <div class="filterCard priceFilter mt-5">
             <h5>依據 金額 篩選</h5>
             <div class="priceFilterInfo">
-              <vue-slider v-model="priceRange" dot-size="20" max="10000" interval="100" :lazy="true" />
+              <vue-slider v-model="priceRange"
+                dot-size="20"
+                max="10000"
+                interval="100"
+                :lazy="true"
+              />
 
               <div class="w-100">
-                <input v-model="priceRange[0]" type="number">
+                <input v-model="priceRange[0]"
+                  type="number"
+                >
                 到
-                <input v-model="priceRange[1]" type="number">
+                <input v-model="priceRange[1]"
+                  type="number"
+                >
               </div>
 
               <div class="w-100">
-                <button type="button" class="btn btn-sm" @click="saveFilteredArray">
+                <button type="button"
+                  class="btn btn-sm"
+                  @click="saveFilteredArray"
+                >
                   套用金額範圍
                 </button>
               </div>
@@ -81,8 +102,14 @@
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col p-0 mr-1">
-                      <select v-model="showCategory" class="w-100" style="height: 42px;" @change="saveFilteredArray">
-                        <option value="all" disabled>
+                      <select v-model="showCategory"
+                        class="w-100"
+                        style="height: 42px;"
+                        @change="saveFilteredArray"
+                      >
+                        <option value="all"
+                          disabled
+                        >
                           選擇類別
                         </option>
                         <option value="all">
@@ -104,8 +131,14 @@
                     </div>
                     <div class="col p-0 ml-1">
                       <!-- 每頁顯示幾項商品 -->
-                      <select v-model="pageUnit" class="w-100" style="height: 42px;" @change="getPage">
-                        <option value="9" default>
+                      <select v-model="pageUnit"
+                        class="w-100"
+                        style="height: 42px;"
+                        @change="getPage"
+                      >
+                        <option value="9"
+                          default
+                        >
                           每頁顯示 9 樣商品
                         </option>
                         <option value="6">
@@ -123,30 +156,50 @@
 
             <!-- 顯示商品 -->
             <div class="row productInfo">
-              <div v-for=" (item, index) in showProducts" :key="index"
-                class="col-12 col-sm-6 col-lg-4 singleProductInfo">
-                <div style="cursor: pointer;" @mouseover="addHoverProduct(item.id)" @mouseleave="removeHoverProduct"
-                  @click.prevent="toSingleProductPage(item.id)">
-                  <img :src="item.imageUrl" :alt="item.title + ' 商品圖片'">
+              <div v-for=" (item, index) in showProducts"
+                :key="index"
+                class="col-12 col-sm-6 col-lg-4 singleProductInfo"
+              >
+                <div style="cursor: pointer;"
+                  @mouseover="addHoverProduct(item.id)"
+                  @mouseleave="removeHoverProduct"
+                  @click.prevent="toSingleProductPage(item.id)"
+                >
+                  <img :src="item.imageUrl"
+                    :alt="item.title + ' 商品圖片'"
+                  >
                 </div>
-                <h4 style="cursor: pointer;" @click.prevent="toSingleProductPage(item.id)">
+                <h4 style="cursor: pointer;"
+                  @click.prevent="toSingleProductPage(item.id)"
+                >
                   {{ item.title }}
                 </h4>
-                <div class="d-flex flex-column" style="height: 80px;cursor: pointer;"
-                  @click.prevent="toSingleProductPage(item.id)">
+                <div class="d-flex flex-column"
+                  style="height: 80px;cursor: pointer;"
+                  @click.prevent="toSingleProductPage(item.id)"
+                >
                   <del v-if="item.origin_price !== item.price">{{ item.origin_price|currency }}</del>
                   <h5>{{ item.price|currency }}</h5>
                 </div>
 
-                <ul class="list-unstyled hoverWidget" :class="{'ing': hoverProductId === item.id}"
-                  @mouseover="addHoverProduct(item.id)" @mouseleave="removeHoverProduct">
+                <ul class="list-unstyled hoverWidget"
+                  :class="{'ing': hoverProductId === item.id}"
+                  @mouseover="addHoverProduct(item.id)"
+                  @mouseleave="removeHoverProduct"
+                >
                   <li class="like">
-                    <a href="#" title="收藏此商品" @click.prevent>
+                    <a href="#"
+                      title="收藏此商品"
+                      @click.prevent
+                    >
                       <i class="far fa-heart" />
                     </a>
                   </li>
                   <li class="addCart">
-                    <a href="#" title="加入購物車" @click.prevent="addToLSCart(item)">
+                    <a href="#"
+                      title="加入購物車"
+                      @click.prevent="addToLSCart(item)"
+                    >
                       <i class="fas fa-cart-plus" />
                     </a>
                   </li>
@@ -155,26 +208,44 @@
             </div>
 
             <!-- 分頁功能 -->
-            <nav aria-label="Page navigation example" class="my-4">
+            <nav aria-label="Page navigation example"
+              class="my-4"
+            >
               <ul class="pagination justify-content-center">
                 <!-- 上一頁 -->
-                <li class="page-item" :class="{'disabled' : currentPageNumber === 1}">
-                  <a class="page-link" href="#" aria-label="Previous"
-                    @click.prevent="updateCurrentPageNumber(currentPageNumber - 1)">
+                <li class="page-item"
+                  :class="{'disabled' : currentPageNumber === 1}"
+                >
+                  <a class="page-link"
+                    href="#"
+                    aria-label="Previous"
+                    @click.prevent="updateCurrentPageNumber(currentPageNumber - 1)"
+                  >
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                   </a>
                 </li>
                 <!-- 各分頁 -->
-                <li v-for="pageNum in totalPageNumber" :key="pageNum" class="page-item"
-                  :class="{ 'active' : currentPageNumber === pageNum }">
-                  <a class="page-link" href="#" @click.prevent="updateCurrentPageNumber(pageNum)">{{
+                <li v-for="pageNum in totalPageNumber"
+                  :key="pageNum"
+                  class="page-item"
+                  :class="{ 'active' : currentPageNumber === pageNum }"
+                >
+                  <a class="page-link"
+                    href="#"
+                    @click.prevent="updateCurrentPageNumber(pageNum)"
+                  >{{
                     pageNum }}</a>
                 </li>
                 <!-- 下一頁 -->
-                <li class="page-item" :class="{'disabled' : currentPageNumber === totalPageNumber}">
-                  <a class="page-link" href="#" aria-label="Next"
-                    @click.prevent="updateCurrentPageNumber(currentPageNumber + 1)">
+                <li class="page-item"
+                  :class="{'disabled' : currentPageNumber === totalPageNumber}"
+                >
+                  <a class="page-link"
+                    href="#"
+                    aria-label="Next"
+                    @click.prevent="updateCurrentPageNumber(currentPageNumber + 1)"
+                  >
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
                   </a>
@@ -189,7 +260,6 @@
     <ShippingDescription />
     <IgPost />
     <FooterComponent />
-
   </div>
 </template>
 

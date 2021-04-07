@@ -83,7 +83,7 @@
             <td class="text-center"
               style="word-break: keep-all;"
             >
-              {{ order.create_at|formatTime }}
+              {{ order.create_at | formatTime }}
             </td>
             <!-- 付款狀態 -->
             <td class="text-center">

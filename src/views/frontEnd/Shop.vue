@@ -178,8 +178,8 @@
                   style="height: 80px;cursor: pointer;"
                   @click.prevent="toSingleProductPage(item.id)"
                 >
-                  <del v-if="item.origin_price !== item.price">{{ item.origin_price|currency }}</del>
-                  <h5>{{ item.price|currency }}</h5>
+                  <del v-if="item.origin_price !== item.price">{{ item.origin_price | currency }}</del>
+                  <h5>{{ item.price | currency }}</h5>
                 </div>
 
                 <ul class="list-unstyled hoverWidget"
@@ -234,8 +234,7 @@
                   <a class="page-link"
                     href="#"
                     @click.prevent="updateCurrentPageNumber(pageNum)"
-                  >{{
-                    pageNum }}</a>
+                  >{{ pageNum }}</a>
                 </li>
                 <!-- 下一頁 -->
                 <li class="page-item"

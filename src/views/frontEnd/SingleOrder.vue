@@ -92,7 +92,7 @@
           <h3>訂單金額</h3>
         </div>
         <div class="col-8">
-          <p>{{ orderData.total|currency }}</p>
+          <p>{{ orderData.total | currency }}</p>
         </div>
       </div>
 

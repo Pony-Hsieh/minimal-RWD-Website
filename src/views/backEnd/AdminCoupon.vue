@@ -83,7 +83,7 @@
             </td>
             <!-- 優惠內容 -->
             <td class="text-center align-middle">
-              {{ item.percent|couponTransfer }}
+              {{ item.percent | couponTransfer }}
             </td>
             <!-- 是否啟用 -->
             <td class="text-center align-middle">
@@ -96,7 +96,7 @@
             </td>
             <!-- 使用截止期限 -->
             <td class="text-center align-middle">
-              {{ item.due_date|couponFormatTime }}
+              {{ item.due_date | couponFormatTime }}
             </td>
             <td class="text-center align-middle">
               <button class="btn btn-outline-info btn-sm"
@@ -104,8 +104,6 @@
               >
                 編輯
               </button>
-              <!-- <button class="btn btn-outline-primary btn-sm"
-                                @click="openCouponModal(false, item)">編輯</button> -->
             </td>
             <td class="text-center align-middle">
               <button class="btn btn-outline-danger btn-sm"

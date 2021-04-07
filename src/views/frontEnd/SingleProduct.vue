@@ -24,9 +24,9 @@
             </a>
           </div>
           <del v-if="showProduct.origin_price !== showProduct.price">
-            {{ showProduct.origin_price|currency }}
+            {{ showProduct.origin_price | currency }}
           </del>
-          <h4>{{ showProduct.price|currency }}</h4>
+          <h4>{{ showProduct.price | currency }}</h4>
           <div>
             <h5 class="d-inline">
               類別&emsp;&emsp;&emsp;：
@@ -47,7 +47,8 @@
             >已售完</span>
           </div>
           <hr>
-          <p>{{ showProduct.description }}</p>
+          <!-- <p>{{ showProduct.description }}</p> -->
+          <div v-html="showProduct.description" />
 
           <div class="cartRelevant">
             <div class="cartCount">
@@ -138,12 +139,12 @@
             style="cursor: pointer;"
             @click.prevent="toSingleProductPage(item.id)"
           >
-            {{ item.origin_price|currency }}
+            {{ item.origin_price | currency }}
           </del>
           <h5 style="cursor: pointer;"
             @click.prevent="toSingleProductPage(item.id)"
           >
-            {{ item.price|currency }}
+            {{ item.price | currency }}
           </h5>
 
           <!-- 加入購物車、加入收藏按鈕 -->

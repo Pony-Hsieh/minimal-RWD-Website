@@ -88,7 +88,7 @@
             <td class="text-center align-middle"
               style="word-break: keep-all;"
             >
-              {{ order.create_at|formatTime }}
+              {{ order.create_at | formatTime }}
             </td>
             <!-- 付款狀態 -->
             <td class="text-center align-middle">
@@ -130,7 +130,7 @@
             </td>
             <!-- 訂單金額 -->
             <td class="text-center align-middle">
-              {{ order.total|currency }}
+              {{ order.total | currency }}
             </td>
             <!-- 訂單留言 -->
             <td style="max-width: 20%;  word-break: break-all;">

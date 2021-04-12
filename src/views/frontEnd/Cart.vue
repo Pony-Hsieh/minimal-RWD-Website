@@ -701,173 +701,172 @@
         const LSCoupon = JSON.parse(localStorage.getItem("LSCoupon"));
         vm.isLoading = true;
 
-        // 取得 LS 購物車內容
-        let LSCart = JSON.parse(localStorage.getItem("userLSCart")); // 取出來會是 JSON 格式  // [{…}, {…}, {…}]
-        let sendArr = [];
-        let promiseArr = []; // 用以暫存 準備送出之 API 陣列 // let promiseArr = [vm.$http.post(api, { data: sendArr[i] }), vm.$http.post(api, { data: sendArr[i] })];
-
-        // 將 LSCart 內容取出，並製作送出訂單用的陣列
-        LSCart.forEach((item) => { // 因為沒有終止迴圈的需求，所以可以使用 .forEacch() 
-          let cart = {
-            product_id: item.product_id,
-            qty: item.qty,
-          };
-          sendArr.push(cart);
-        });
-
-        // 將 送出訂單用的陣列 內容取出，並發送訂單 Promise
-        sendArr.forEach((item, index) => {
-          promiseArr.push(vm.$http.post(cartApi, { data: item }))
-        });
-        // ------------------------------------------- 以上為前置作業 -------------------------------------------
+        clearServerCartFN();
 
 
-        Promise.all(promiseArr).then((response) => { // 已經完成將 LS 加入伺服器購物車的行為
-          vm.$http.get(cartApi); // 取得 伺服器購物車的資料，確保已經加入
-        }).then((response) => {
-          if (response === undefined) { // 代表目前購物車還沒更新，但請求已經送出
-            confirmServerCart();
-          }
-          else { // 代表目前購物車已經更新
-            applyCouponAndSendOrder();
-          }
-        });
-
-        // 用以確認已經將 LS 加入伺服器購物車內
-        function confirmServerCart() {
+        // 重新整理
+        function reloadFN() {
+          vm.$alertMsg_Bus.$emit("alertMsgEvent", "訂購失敗QQ，請稍後再試一次", "danger");
           setTimeout(() => {
-
-            vm.$http.get(cartApi).then((response) => {
-
-              if (response.data.success) { // 代表已成功將 LSCart 內容加入至伺服器購物車
-
-                if (LSCoupon !== null) { // 代表目前 LS 有存 LSCoupon
-                  const coupon = {
-                    code: LSCoupon.code,
-                  };
-                  vm.$http.post(couponApi, { data: coupon }).then((response) => { // 發送 coupon API
-
-                    if (response.data.success) { // 代表已經成功於伺服器購物車 apply Coupon 了
-                      vm.$http.post(orderApi, { data: receiveInfo }).then((response) => { // 發送訂單 API
-
-                        if (response.data.success) {
-                          localStorage.removeItem("userLSCart"); // 清空 LSCart
-                          localStorage.removeItem("LSCoupon"); // 清空 Coupon
-                          vm.toSingleOrderPage(response.data.orderId);
-                        }
-
-                        else {
-                          vm.$alertMsg_Bus.$emit("alertMsgEvent", "訂購失敗QQ，請稍後再試一次", "warning");
-                          setTimeout(() => {
-                            location.reload();
-                          }, 3000);
-                        }
-                      });
-                    }
-                  });
-                }
-
-                else { // 代表目前 LS 沒有 LSCoupon
-                  vm.$http.post(orderApi, { data: receiveInfo }).then((response) => { // 發送訂單 API
-
-                    if (response.data.success) {
-                      localStorage.removeItem("userLSCart"); // 清空 LSCart
-                      localStorage.removeItem("LSCoupon"); // 清空 Coupon
-                      vm.toSingleOrderPage(response.data.orderId);
-                    }
-
-                    else {
-                      vm.$alertMsg_Bus.$emit("alertMsgEvent", "訂購失敗QQ，請稍後再試一次", "warning");
-                      setTimeout(() => {
-                        location.reload();
-                      }, 3000);
-                    }
-                  });
-                }
-
-              }
-              else {
-                // console.log("多碼母我又來囉");
-                confirmServerCart();
-              }
-            });
-          }, 0);
+            location.reload();
+          }, 3000);
         }
 
-        // 直接於伺服器購物車套用 coupon 並送出訂單
-        function applyCouponAndSendOrder() {
-          setTimeout(() => {
 
-            if (LSCoupon !== null) { // 代表目前 LS 有存 LSCoupon
-              const coupon = {
-                code: LSCoupon.code,
-              };
-              vm.$http.post(couponApi, { data: coupon }).then((response) => { // 發送 coupon API
-
-                if (response.data.success) { // 代表已經成功於伺服器購物車 apply Coupon 了
-                  vm.$http.post(orderApi, { data: receiveInfo }).then((response) => { // 發送訂單 API
-
-                    if (response.data.success) {
-                      localStorage.removeItem("userLSCart"); // 清空 LSCart
-                      localStorage.removeItem("LSCoupon"); // 清空 Coupon
-                      vm.toSingleOrderPage(response.data.orderId);
+        // 清空伺服器購物車
+        function clearServerCartFN() {
+          vm.$http.get(cartApi)
+            .then((resolveRes) => {
+              if (resolveRes.data.data.carts.length === 0) { // 代表 server cart 本來就是空的
+                AddLSCartToServerCartFN();
+              }
+              else {
+                let deleteArr = [];
+                resolveRes.data.data.carts.forEach((item) => {
+                  let deleteId = item.id;
+                  let deleteCartApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${deleteId}`;
+                  deleteArr.push(vm.$http.delete(deleteCartApi));
+                });
+                Promise.all(deleteArr).then(
+                  (resolveRes) => {
+                    let checkPoint = 0;
+                    resolveRes.forEach((item) => {
+                      if (!item.data.success) {
+                        checkPoint += 1;
+                      }
+                    });
+                    if (checkPoint !== 0) { // 代表有購物車內容沒有成功刪除
+                      clearServerCartFN();
                     }
-
-                    else {
-                      vm.$alertMsg_Bus.$emit("alertMsgEvent", "訂購失敗QQ，請稍後再試一次", "warning");
-                      setTimeout(() => {
-                        location.reload();
-                      }, 3000);
+                    else { // 代表成功清空 server 購物車
+                      AddLSCartToServerCartFN();
                     }
-                  });
+                  },
+                  (rejectRes) => {
+                    clearServerCartFN();
+                  },
+                );
+              }
+            })
+            .catch(() => { // 連伺服器購物車資料都沒拿到
+              reloadFN();
+            });
+        }
+
+
+        // 取得 LS 購物車內容、發送 Promise 將內容加入至 伺服器購物車
+        function AddLSCartToServerCartFN() {
+          let LSCart = JSON.parse(localStorage.getItem("userLSCart")); // 取出來會是 JSON 格式  // [{…}, {…}, {…}]
+          let sendArr = [];
+          let promiseArr = []; // 用以暫存 準備送出之 API 陣列 // let promiseArr = [vm.$http.post(api, { data: sendArr[i] }), vm.$http.post(api, { data: sendArr[i] })];
+          LSCart.forEach((item) => {
+            let cart = {
+              product_id: item.product_id,
+              qty: item.qty,
+            };
+            sendArr.push(cart);
+          });
+          sendArr.forEach((item, index) => {
+            promiseArr.push(vm.$http.post(cartApi, { data: item }))
+          });
+          Promise.all(promiseArr)
+            .then((resolveRes) => {
+              vm.$http.get(cartApi).then( // 發送取得伺服器購物車 api ，確保已經將 LS 購物車加入伺服器購物車
+                (resolveRes) => {
+                  if (resolveRes.data.data.carts.length >= 1) { // 代表已經將 LS 購物車加入伺服器購物車
+                    checkCouponFN(); // 檢查是否有 LScoupon
+                  }
+                },
+                (rejectRes) => {
+                  reloadFN();
+                },
+              );
+            })
+            .catch(() => { // 有任一個 加入購物車的 Promise rejected 的話，執行這裡；
+              reloadFN();
+            })
+        }
+
+
+        // 檢查、套用 coupon
+        function checkCouponFN() {
+          if (LSCoupon !== null) { // 代表目前 LS 有存 LSCoupon
+            const coupon = {
+              code: LSCoupon.code,
+            };
+            vm.$http.post(couponApi, { data: coupon }) // 發送 套用　coupon API
+              .then((resolveRes) => {
+                if (resolveRes.data.success) { // 代表已經成功於伺服器購物車套用 coupon 了
+                  sendOrderFN();
                 }
-              });
-            }
-
-            else { // 代表目前 LS 沒有 LSCoupon
-              vm.$http.post(orderApi, { data: receiveInfo }).then((response) => { // 發送訂單 API
-
-                if (response.data.success) {
-                  localStorage.removeItem("userLSCart"); // 清空 LSCart
-                  localStorage.removeItem("LSCoupon"); // 清空 Coupon
-                  vm.toSingleOrderPage(response.data.orderId);
-                }
-
                 else {
-                  vm.$alertMsg_Bus.$emit("alertMsgEvent", "訂購失敗QQ，請稍後再試一次", "warning");
-                  setTimeout(() => {
-                    location.reload();
-                  }, 3000);
+                  reloadFN();
                 }
+              })
+              .catch(() => {
+                reloadFN();
               });
-            }
-          }, 0);
+          }
+          else { // 代表目前 LS 沒有 LSCoupon
+            sendOrderFN();
+          }
+        }
+
+
+        // 發送訂單
+        function sendOrderFN() {
+          vm.$http.post(orderApi, { data: receiveInfo })
+            .then((resolveRes) => {
+              if (resolveRes.data.success) {
+                localStorage.removeItem("userLSCart"); // 清空 LSCart
+                localStorage.removeItem("LSCoupon"); // 清空 Coupon
+                vm.toSingleOrderPage(resolveRes.data.orderId);
+              }
+              else {
+                reloadFN();
+              }
+            })
+            .catch(() => {
+              reloadFN();
+            });
         }
       },
 
 
       // 判斷的話就不用撈 coupon 的詳細資料回來存在 LS 中
       judgeCoupon() {
+        if (this.inputCouponCode === "") {
+          this.couponVerify = "";
+          return;
+        }
         const vm = this;
         const couponApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
         // 因為你只是要確認這個 coupon 可用，沒有要拿詳細資料，所以購物車為空也沒關係，因此也就不用發送 cart API
         const coupon = {
           code: vm.inputCouponCode,
         };
-        vm.$http.post(couponApi, { data: coupon }).then((response) => {
-          // console.log(response);
-          if (response.data.success) {
-            vm.couponVerify = true;
-          }
-          else {
+
+        vm.$http.post(couponApi, { data: coupon })
+          .then((resolveRes) => {
+            if (resolveRes.data.success) {
+              vm.couponVerify = true;
+            }
+            else {
+              vm.couponVerify = false;
+            }
+          })
+          .catch(() => {
             vm.couponVerify = false;
-          }
-        });
+          });
       },
 
 
       // 套用 coupon  // 實際行為只有將 coupon 資料存入 LSCoupon 中
       applyCoupon() {
+        if (this.inputCouponCode === "") {
+          console.log("coupon 為空");
+          return;
+        }
         const vm = this;
         const couponApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
         const coupon = {
@@ -875,45 +874,51 @@
         };
         const cartApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
         const fakeCart = {
-          product_id: "-MPseqW11lTu_HkgXL2j", // 男士 西裝外套 // 但現在已經改了，之後再查現在改叫甚麼
+          product_id: "-MPseqW11lTu_HkgXL2j", // 男子 排汗短袖
           qty: 1,
         };
 
-        vm.$http.post(cartApi, { data: fakeCart }).then((response) => { // 發送虛假購物車請求
-          vm.$http.post(couponApi, { data: coupon }).then((response) => { // 發送 coupon API
+        // 重新整理
+        function reloadFN() {
+          vm.$alertMsg_Bus.$emit("alertMsgEvent", "coupon 套用失敗，請稍後再試一次", "danger");
+          setTimeout(() => {
+            location.reload();
+          }, 3000);
+        }
 
-            if (response.data.success) {
-              setTimeout(() => {
-                // console.log("準備取得 fake cart");
-                vm.$http.get(cartApi).then((response) => { // 取得虛假購物車資料 (內含 coupon 詳細資料)
-                  vm.usingCoupon.title = response.data.data.carts[0].coupon.title;
-                  vm.usingCoupon.code = response.data.data.carts[0].coupon.code;
-                  vm.usingCoupon.percent = response.data.data.carts[0].coupon.percent;
-
-                  localStorage.setItem("LSCoupon", JSON.stringify(vm.usingCoupon)); // 將 coupon 資訊存入 LS
-                  vm.inputCouponCode = ""; // 資訊存入 LS 後將輸入欄位清空
-
-                  const fakeCartID = response.data.data.carts[0].id; // cart ID 要留著，因為刪除要用到
-                  const deleteApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${fakeCartID}`;
-
-                  vm.$http.delete(deleteApi).then((response) => {
-                    // console.log("delete API 取得的 response", response);
-                    vm.calLSTotal(); // 計算 LS 套用 coupon 後的金額
-                    if (!response.data.success) {
-                      vm.$http.delete(deleteApi); // 如果沒有成功刪除，就再發一次刪除的請求
+        vm.isLoading = true;
+        vm.$http.post(cartApi, { data: fakeCart }) // 發送虛假購物車請求
+          .then((resolveRes) => {
+            vm.$http.post(couponApi, { data: coupon }) // 發送 coupon API
+              .then((resolveRes) => {
+                if (resolveRes.data.success) { // 代表有成功套用 coupon 
+                  vm.$http.get(cartApi) // 取得虛假購物車資料 (內含 coupon 詳細資料)
+                    .then((resolveRes) => {
+                      // 因為套用新 coupon 的話，所有的都會套用，舊有的也會被覆蓋掉，所以只要取第一項產品的 coupon 資料即可
+                      vm.usingCoupon.title = resolveRes.data.data.carts[0].coupon.title;
+                      vm.usingCoupon.code = resolveRes.data.data.carts[0].coupon.code;
+                      vm.usingCoupon.percent = resolveRes.data.data.carts[0].coupon.percent;
+                      localStorage.setItem("LSCoupon", JSON.stringify(vm.usingCoupon)); // 將 coupon 資訊存入 LS
+                      vm.inputCouponCode = ""; // 資訊存入 LS 後將輸入欄位清空
                       vm.calLSTotal(); // 計算 LS 套用 coupon 後的金額
-                    }
-                  });
-                });
-              }, 500);
-            }
-
-            else {
-              // vm.infoMsg = "抱歉，目前無法使用此優惠券。請嘗試其他優惠券，或聯繫客服人員，謝謝~~";
-            }
-
+                      vm.isLoading = false;
+                    })
+                    .catch(() => {
+                      reloadFN();
+                    });
+                }
+                else {
+                  vm.$alertMsg_Bus.$emit("alertMsgEvent", "coupon 套用失敗，請稍後再試一次", "danger");
+                  vm.isLoading = false;
+                }
+              })
+              .catch(() => {
+                reloadFN();
+              });
+          })
+          .catch((rejectRes) => {
+            reloadFN();
           });
-        });
       },
 
 

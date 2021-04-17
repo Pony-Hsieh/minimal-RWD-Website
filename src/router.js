@@ -11,6 +11,13 @@ Vue.use(Router);
 export default new Router({
   routes: [
 
+    // 測試用頁面
+    {
+      path: "/test",
+      name: "Test",
+      component: () => import('@/views/frontEnd/Test.vue'),
+    },
+
     // 客戶端 前台
     {
       // 客戶端首頁

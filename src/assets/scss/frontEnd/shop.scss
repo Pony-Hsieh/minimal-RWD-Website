@@ -8,20 +8,26 @@
   max-width: 1110px;
 }
 
-/* 套用 filter */
+// 通用卡片外圍樣式
 .filterCard {
-  box-shadow: 0px 8px 8px 0px rgba(153, 153, 153, 0.1);
-  padding-bottom: 4px;
+  // 閉合狀態
+  height: 48px; // 閉合狀態高度 === h5 高度
+  box-shadow: 0px 8px 8px 0px rgba(153, 153, 153, 0.5);
   border-radius: 8px;
-  border: 1.5px solid $second-color;
+  position: relative;
+  overflow: hidden;
+  transition: all 1s;
 
   &:first-of-type {
     margin-top: 20px;
   }
 
   h5 {
+    // 閉合狀態
+    // 初始狀態
     height: 48px;
-    border-radius: 8px 8px 0 0;
+    width: 100%;
+    border-radius: 8px;
     background-color: $second-color;
     color: #fff;
     font-size: 16px;
@@ -29,54 +35,134 @@
     display: flex;
     align-items: center;
     padding-left: 20px;
-    margin: -1.5px; // 使 h5 貼齊 border
-    margin-bottom: 0;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    transition: all 1s;
+  }
+
+  .fa-angle-down {
+    display: block;
+    transform: rotate(360deg);
+    transition: all 1s;
+  }
+
+  &.ing {
+    // 開啟狀態
+    h5 {
+      border-radius: 8px 8px 0 0;
+      box-shadow: none;
+      transition: all 1s;
+    }
+
+    .fa-angle-down {
+      transform: rotate(180deg);
+      transition: all 1s;
+    }
+
+    .filterCardContent {
+      border: 1.5px solid $second-color;
+      border-top: none;
+      opacity: 1;
+      transition: all 1s;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .filterCard {
+    .fa-angle-down {
+      display: none;
+    }
+  }
+}
+
+// 通用卡片內容樣式
+.filterCardContent {
+  // 閉合狀態
+  // 初始狀態
+  border: 1.5px solid transparent;
+  border-radius: 0 0 8px 8px;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: all 1s;
+}
+
+// 類別篩選器
+.categoryFilter {
+  .filterCardContent {
+    height: 218px;
+    width: 100%;
   }
 
   ul {
     margin: 16px;
-  }
-}
 
-.categoryList {
-  li {
-    height: 36px;
-    margin-top: 1.5px;
-    margin-bottom: 1.5px;
+    li {
+      height: 36px;
+      margin-top: 1.5px;
+      margin-bottom: 1.5px;
 
-    a {
-      width: 100%;
-      height: 100%;
-      padding: 0 16px;
-      text-decoration: none;
-      color: $black;
-      display: flex;
-      align-items: center;
-
-      &:hover {
-        background-color: $light-black;
-        color: #fff;
+      a {
+        width: 100%;
+        height: 100%;
+        padding: 0 16px;
+        text-decoration: none;
+        color: $black;
+        display: flex;
+        align-items: center;
         border-radius: 8px;
-        transition: 0.5s;
+
+        &:hover {
+          background-color: $light-black;
+          color: #fff;
+          transition: all 0.5s;
+        }
       }
+    }
+
+    .nowCategory {
+      background-color: $light-black;
+      color: #fff;
+      border-radius: 8px;
+      transition: all 0.5s;
     }
   }
 
-  .nowCategory {
-    background-color: $light-black;
-    color: #fff;
-    border-radius: 8px;
-    transition: 0.5s;
+  &.ing {
+    height: 266px;
+    overflow: hidden;
+    transition: all 1s;
+
+    .filterCardContent {
+      top: 48px;
+      z-index: 1;
+      transition: all 1s;
+    }
   }
 }
 
+// 金額篩選器
 .priceFilter {
-  h5 {
-    margin-bottom: 16px;
+  .filterCardContent {
+    padding: 32px;
+    height: 218px;
+    width: 100%;
   }
 
-  .priceFilterInfo {
-    padding: 16px;
+  &.ing {
+    height: 266px;
+    transition: all 1s;
+
+    .filterCardContent {
+      top: 48px;
+      z-index: 1;
+      transition: all 1s;
+    }
   }
 
   .w-100 {
@@ -91,7 +177,7 @@
   }
 
   input[type="number"] {
-    width: 33%;
+    width: 50%;
     margin: 0 5px;
     text-align: right;
     -moz-appearance: textfield;

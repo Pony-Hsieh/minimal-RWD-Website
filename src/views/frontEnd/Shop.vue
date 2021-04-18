@@ -14,53 +14,75 @@
 
     <div class="container all">
       <div class="row pt-5">
+        <div class="col-12 d-lg-none">
+          <h2 class="text-center">
+            商城
+          </h2>
+        </div>
+
         <!-- 套用 filter 區塊-->
         <div class="col-12 col-lg-3">
           <!-- 類別 filter -->
-          <div class="filterCard">
-            <h5>依據 類別 篩選</h5>
-            <ul class="list-unstyled categoryList">
-              <li>
-                <a href="#"
-                  :class="{'nowCategory':showCategory === 'all'}"
-                  @click.prevent="showCategory = 'all', saveFilteredArray()"
-                >全部</a>
-              </li>
-              <li>
-                <a href="#"
-                  :class="{'nowCategory':showCategory === 'rawMen'}"
-                  @click.prevent="showCategory = 'rawMen', saveFilteredArray()"
-                >男士</a>
-              </li>
-              <li>
-                <a href="#"
-                  :class="{'nowCategory':showCategory === 'rawWomen'}"
-                  @click.prevent="showCategory = 'rawWomen', saveFilteredArray()"
-                >女士</a>
-              </li>
-              <li>
-                <a href="#"
-                  :class="{'nowCategory':showCategory === 'rawShoes'}"
-                  @click.prevent="showCategory = 'rawShoes', saveFilteredArray()"
-                >鞋類</a>
-              </li>
-              <li>
-                <a href="#"
-                  :class="{'nowCategory':showCategory === 'rawSports'}"
-                  @click.prevent="showCategory = 'rawSports', saveFilteredArray()"
-                >運動</a>
-              </li>
-            </ul>
+          <div class="filterCard categoryFilter"
+            :class="{'ing' : filterCardStatus['category'] === true}"
+          >
+            <h5 @click="switchCardStatus('category')">
+              依據 類別 篩選
+              &nbsp; &nbsp; &nbsp;
+              <i class="fas fa-angle-down" />
+            </h5>
+            <div class="filterCardContent"
+              :class="{'ing' : filterCardStatus['category'] === true}"
+            >
+              <ul class="list-unstyled categoryList">
+                <li>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'all'}"
+                    @click.prevent="showCategory = 'all', saveFilteredArray()"
+                  >全部</a>
+                </li>
+                <li>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'rawMen'}"
+                    @click.prevent="showCategory = 'rawMen', saveFilteredArray()"
+                  >男士</a>
+                </li>
+                <li>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'rawWomen'}"
+                    @click.prevent="showCategory = 'rawWomen', saveFilteredArray()"
+                  >女士</a>
+                </li>
+                <li>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'rawShoes'}"
+                    @click.prevent="showCategory = 'rawShoes', saveFilteredArray()"
+                  >鞋類</a>
+                </li>
+                <li>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'rawSports'}"
+                    @click.prevent="showCategory = 'rawSports', saveFilteredArray()"
+                  >運動</a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <!-- 紅字來源XD -->
           <!-- 金額 filter -->
-          <div class="filterCard priceFilter mt-5">
-            <h5>依據 金額 篩選</h5>
-            <div class="priceFilterInfo">
+          <div class="filterCard priceFilter mt-5"
+            :class="{'ing' : filterCardStatus['price'] === true}"
+          >
+            <h5 @click="switchCardStatus('price')">
+              依據 金額 篩選
+              &nbsp; &nbsp; &nbsp;
+              <i class="fas fa-angle-down" />
+            </h5>
+            <div class="filterCardContent">
               <vue-slider v-model="priceRange"
                 dot-size="20"
-                max="10000"
+                max="5000"
                 interval="100"
                 :lazy="true"
               />
@@ -91,7 +113,9 @@
           <div class="container-fluid">
             <!-- 顯示類別、該類別有幾項商品 -->
             <div class="row">
-              <div class="col-12 col-lg-6 p-0 pl-lg-4 showNowCategory">
+              <div id="appliedCategoryTitle"
+                class="col-12 col-lg-6 p-0 pl-lg-4 showNowCategory"
+              >
                 <h3 class="h4">
                   {{ showString[showCategory] }}
                   ({{ filteredArray.length }})
@@ -178,7 +202,8 @@
                   style="height: 80px;cursor: pointer;"
                   @click.prevent="toSingleProductPage(item.id)"
                 >
-                  <del v-if="item.origin_price !== item.price">{{ item.origin_price | currency }}</del>
+                  <del v-if="item.origin_price !== item.price">{{ item.origin_price | currency
+                  }}</del>
                   <h5>{{ item.price | currency }}</h5>
                 </div>
 
@@ -234,7 +259,8 @@
                   <a class="page-link"
                     href="#"
                     @click.prevent="updateCurrentPageNumber(pageNum)"
-                  >{{ pageNum }}</a>
+                  >{{
+                    pageNum }}</a>
                 </li>
                 <!-- 下一頁 -->
                 <li class="page-item"
@@ -264,6 +290,8 @@
 
 
 <script>
+  import $ from "jquery";
+
   import HeaderComponent from '@/components/HeaderComponent.vue';
   import ShippingDescription from '@/components/ShippingDescription.vue';
   import IgPost from '@/components/IgPost.vue';
@@ -302,8 +330,8 @@
         },
         categoryFilterArray: [],  // 使用 類別過濾器 過濾後的陣列
 
-        priceRange: [0, 10000],    // 用以暫存商品售價範圍
-        priceRawRange: [0, 10000],    // 用以暫存商品售價範圍
+        priceRange: [0, 5000],    // 用以暫存商品售價範圍
+        // priceRawRange: [0, 10000],    // 用以暫存商品售價範圍
         priceFilterArray: [],      // 使用 金額過濾器 過濾後的陣列
 
         filteredArray: [], // 套用 類別 金額 過濾器之後的產品列表
@@ -316,6 +344,13 @@
         hoverProductId: "",
 
         userLSCartArr: [], // LS 購物車內容
+
+        clientWidth: 0,
+
+        filterCardStatus: {
+          category: true,
+          price: true,
+        },
       }
     },
 
@@ -327,7 +362,22 @@
           this.judgeCategoryByRouterParam();
           this.saveFilteredArray();
           this.scrollTop();
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
         }
+      },
+      "clientWidth": {
+        handler: function (val) {
+          if (val < 992) {
+            // < 992 ，條件篩選器 預設關閉
+            this.filterCardStatus.category = false;
+            this.filterCardStatus.price = false;
+          }
+          else {
+            // > 992 ，條件篩選器 預設開啟 (並透過函式判斷保持開啟)
+            this.filterCardStatus.category = true;
+            this.filterCardStatus.price = true;
+          }
+        },
       },
     },
 
@@ -335,6 +385,23 @@
       this.judgeCategoryByRouterParam();
       this.getRawProducts();
       this.getLSCart();
+    },
+
+    mounted() {
+      const vm = this;
+      window.onresize = function () {
+        vm.clientWidth = document.body.clientWidth;
+      };
+      if (vm.clientWidth < 992) {
+        // < 992 ，條件篩選器 預設關閉
+        vm.filterCardStatus.category = false;
+        vm.filterCardStatus.price = false;
+      }
+      else {
+        // > 992 ，條件篩選器 預設開啟 (並透過函式判斷保持開啟)
+        vm.filterCardStatus.category = true;
+        vm.filterCardStatus.price = true;
+      }
     },
 
     methods: {
@@ -409,9 +476,18 @@
       // 套用 金額 過濾器
       applyPriceFilter() {
         const vm = this;
+        // 判斷使用者輸入的範圍是否介於設定的範圍值內；若否，則調整
+        if (vm.priceRange[0] < 0) {
+          vm.priceRange[0] = 0;
+          vm.$alertMsg_Bus.$emit("alertMsgEvent", "篩選金額需要介於 0 ~ 5000 之間喔~", "warning");
+        }
+        else if (vm.priceRange[1] > 5000) {
+          vm.priceRange[1] = 5000;
+          vm.$alertMsg_Bus.$emit("alertMsgEvent", "篩選金額需要介於 0 ~ 5000 之間喔~", "warning");
+        }
         vm.priceFilterArray = []; // 先將原本的陣列清空。 // 如果沒有加這行，符合篩選條件的內容就就會一直疊加到舊的陣列中
         let arr = vm.categoryFilterArray.filter(function (item) {
-          if (item.price >= vm.priceRange[0] && item.price <= vm.priceRange[1]) {
+          if (item.price >= Number(vm.priceRange[0]) && item.price <= Number(vm.priceRange[1])) {
             return item.is_enabled === 1; // 如果商品有啟用，則顯示
           }
         });
@@ -452,6 +528,13 @@
           }
         });
         vm.showProducts = finalArr; // 將要渲染的項目存入 data return 中
+      },
+
+      // 切換 filterCard 狀態
+      switchCardStatus(param) {
+        if (this.clientWidth < 992) {
+          this.filterCardStatus[param] = !this.filterCardStatus[param];
+        }
       },
 
       // hover 移入 行為
@@ -539,12 +622,38 @@
 
       // 回到頁面頂部
       scrollTop() {
-        // if ((document.body.clientWidth || document.documentElement.clientWidth) >= 992) {
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
-        // }
-        // else {
-        // document.body.scrollTop = document.documentElement.scrollTop = 666;
-        // }
+        // 桌機板
+        if ((document.body.clientWidth || document.documentElement.clientWidth) >= 992) {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+        // 行動版
+        else {
+          if ((document.body.scrollTop || document.documentElement.scrollTop) >= 300) {
+            // 觸發條件通常為 切換至第 n 頁
+            let categoryTitleDistance = $("#appliedCategoryTitle").offset().top;
+            window.scrollTo({
+              top: (categoryTitleDistance - 80),
+              behavior: "smooth",
+            });
+          }
+          else if ((this.filterCardStatus.category === true || this.filterCardStatus.price === true)) {
+            // 觸發條件通常為 用戶另行套用篩選器
+            let categoryTitleDistance = $("#appliedCategoryTitle").offset().top;
+            window.scrollTo({
+              top: (categoryTitleDistance - 80),
+              behavior: "smooth",
+            });
+          }
+          else {
+            // 觸發條件通常為 第一次進到這個頁面
+            window.scrollTo({
+              top: 0,
+            });
+          }
+        }
       },
 
 

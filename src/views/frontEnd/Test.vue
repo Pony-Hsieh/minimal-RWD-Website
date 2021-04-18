@@ -5,33 +5,51 @@
     <div class="container all">
       <div class="row pt-5">
         <div class="col-12 col-lg-3">
-
           <!-- 類別 filter -->
-          <div class="filterCard categoryFilter" :class="{'ing' : filterCardStatus['category'] === true}">
+          <div class="filterCard categoryFilter"
+            :class="{'ing' : filterCardStatus['category'] === true}"
+          >
             <h5 @click="switchCardStatus('category')">
               依據 類別 篩選
               &nbsp; &nbsp; &nbsp;
-              <i class="fas fa-angle-down"></i>
+              <i class="fas fa-angle-down" />
               &nbsp; &nbsp; &nbsp;
               <span v-if="filterCardStatus['category'] === true">展開</span>
               <span v-else>收闔</span>
             </h5>
-            <div class="filterCardContent" :class="{'ing' : filterCardStatus['category'] === true}">
-              <ul class="list-unstyled">
+            <div class="filterCardContent"
+              :class="{'ing' : filterCardStatus['category'] === true}"
+            >
+              <ul class="list-unstyled categoryList">
                 <li>
-                  <a href="">全部</a>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'all'}"
+                    @click.prevent="showCategory = 'all', saveFilteredArray()"
+                  >全部</a>
                 </li>
                 <li>
-                  <a href="">男士</a>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'rawMen'}"
+                    @click.prevent="showCategory = 'rawMen', saveFilteredArray()"
+                  >男士</a>
                 </li>
                 <li>
-                  <a href="">女士</a>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'rawWomen'}"
+                    @click.prevent="showCategory = 'rawWomen', saveFilteredArray()"
+                  >女士</a>
                 </li>
                 <li>
-                  <a href="">鞋類</a>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'rawShoes'}"
+                    @click.prevent="showCategory = 'rawShoes', saveFilteredArray()"
+                  >鞋類</a>
                 </li>
                 <li>
-                  <a href="">運動</a>
+                  <a href="#"
+                    :class="{'nowCategory':showCategory === 'rawSports'}"
+                    @click.prevent="showCategory = 'rawSports', saveFilteredArray()"
+                  >運動</a>
                 </li>
               </ul>
             </div>
@@ -39,26 +57,40 @@
 
           <!-- 紅字來源XD -->
           <!-- 金額 filter -->
-          <div class="filterCard priceFilter mt-5" :class="{'ing' : filterCardStatus['price'] === true}">
+          <div class="filterCard priceFilter mt-5"
+            :class="{'ing' : filterCardStatus['price'] === true}"
+          >
             <h5 @click="switchCardStatus('price')">
               依據 金額 篩選
               &nbsp; &nbsp; &nbsp;
-              <i class="fas fa-angle-down"></i>
+              <i class="fas fa-angle-down" />
               &nbsp; &nbsp; &nbsp;
               <span v-if="filterCardStatus['price'] === true">展開</span>
               <span v-else>收闔</span>
             </h5>
             <div class="filterCardContent">
-              <vue-slider dot-size="20" max="10000" interval="100" :lazy="true" />
+              <vue-slider v-model="priceRange"
+                dot-size="20"
+                max="10000"
+                interval="100"
+                :lazy="true"
+              />
 
               <div class="w-100">
-                <input type="number">
+                <input v-model="priceRange[0]"
+                  type="number"
+                >
                 到
-                <input type="number">
+                <input v-model="priceRange[1]"
+                  type="number"
+                >
               </div>
 
               <div class="w-100">
-                <button type="button" class="btn btn-sm">
+                <button type="button"
+                  class="btn btn-sm"
+                  @click="saveFilteredArray"
+                >
                   套用金額範圍
                 </button>
               </div>
@@ -164,7 +196,6 @@
 
     <!-- <IgPost /> -->
     <!-- <FooterComponent /> -->
-
   </div>
 </template>
 
@@ -235,6 +266,11 @@
       window.onresize = function () {
         vm.clientWidth = document.body.clientWidth;
       };
+
+      var el = document.getElementById('w3c');
+      el.addEventListener('click', function (e) {
+        console.log('W3C标准事件');
+      }, { once: true });
     },
 
     methods: {

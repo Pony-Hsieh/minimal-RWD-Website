@@ -21,57 +21,57 @@
 
 
 <script>
-    export default {
+  export default {
 
-        // name: 'Navbar',
+    // name: 'Navbar',
 
-        data() {
-            return {
-                receiveMessages: [],
-            };
-        },
-
-
-        created() {
-            const vm = this;
-            vm.$alertMsg_Bus.$on("alertMsgEvent", (msg, status = "success", removeTime = 3000) => {
-                vm.updateMessage(msg, status, removeTime);
-            });
-        },
+    data() {
+      return {
+        receiveMessages: [],
+      };
+    },
 
 
-        methods: {
+    created() {
+      const vm = this;
+      vm.$alertMsg_Bus.$on("alertMsgEvent", (msg, status = "success", removeTime = 3000) => {
+        vm.updateMessage(msg, status, removeTime);
+      });
+    },
 
-            updateMessage(message, status, removeTime) {
-                const timestamp = Math.floor(new Date() / 1000);
-                this.receiveMessages.push({
-                    message,
-                    status,
-                    timestamp,
-                });
-                this.removeMessageWithTiming(timestamp, removeTime);
-            },
 
-            removeMessage(num) {
-                this.receiveMessages.splice(num, 1);
-            },
+    methods: {
 
-            removeMessageWithTiming(timestamp, removeTime) {
-                const vm = this;
-                setTimeout(() => {
-                    vm.receiveMessages.forEach((item, i) => {
-                        if (item.timestamp === timestamp) {
-                            vm.receiveMessages.splice(i, 1);
-                        }
-                    });
-                }, removeTime);
-            },
-        },
+      updateMessage(message, status, removeTime) {
+        const timestamp = Math.floor(new Date() / 1000);
+        this.receiveMessages.push({
+          message,
+          status,
+          timestamp,
+        });
+        this.removeMessageWithTiming(timestamp, removeTime);
+      },
 
-    };
+      removeMessage(num) {
+        this.receiveMessages.splice(num, 1);
+      },
+
+      removeMessageWithTiming(timestamp, removeTime) {
+        const vm = this;
+        setTimeout(() => {
+          vm.receiveMessages.forEach((item, i) => {
+            if (item.timestamp === timestamp) {
+              vm.receiveMessages.splice(i, 1);
+            }
+          });
+        }, removeTime);
+      },
+    },
+
+  };
 </script>
 
 
 <style scope lang="scss">
-    @import "@/assets/scss/components/alertMsg.scss";
+  @import "@/assets/scss/components/alertMsg.scss";
 </style>

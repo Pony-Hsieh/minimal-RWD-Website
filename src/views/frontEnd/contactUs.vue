@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent />
 
-    <div class="wrapper">
+    <main>
       <div class="container py-5">
         <!-- 地圖 -->
         <div class="my-3 d-none d-sm-block">
@@ -82,7 +82,9 @@
           </div>
         </section>
       </div>
-    </div>
+    </main>
+
+    <div class="filled" />
 
     <IgPost />
     <FooterComponent />
@@ -109,6 +111,36 @@
       // 回到頁面頂部
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
+
+    mounted() {
+      this.judgeFilled(); // 判斷是否需要加入填補空白區域的 div
+    },
+
+    methods: {
+      // 判斷是否需要加入填補空白區域的 div
+      judgeFilled() {
+        let elBody = document.querySelector("body");
+        let headerHeight = document.querySelector("header").offsetHeight;
+        let igHeight = document.querySelector(".igPostArea").offsetHeight;
+        let footerHeight = document.querySelector("footer").offsetHeight;
+        let mainHeight = document.querySelector("main").offsetHeight;
+        let rawHeight = headerHeight + igHeight + footerHeight + mainHeight;
+
+        let bodyResizeObserver = new ResizeObserver(function () {
+          if (window.innerHeight > rawHeight) {
+            let h = window.innerHeight - rawHeight;
+            document.querySelector(".filled").style.height = `${h}px`;
+            // console.log(`高度為 ${h}`);
+          }
+          else {
+            document.querySelector(".filled").style.height = "0";
+            // console.log("無高度");
+          }
+        });
+        bodyResizeObserver.observe(elBody);
+      },
+    },
+
 
   };
 </script>

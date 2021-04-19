@@ -12,7 +12,7 @@
 
     <HeaderComponent />
 
-    <div class="container my-5">
+    <main class="container my-5">
       <div>
         <h1 class="h2 text-center">
           購物車
@@ -415,7 +415,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
+
+    <div class="filled" />
+
+    <FooterComponent />
 
     <!-- minus、移除 確認刪除用 Modal  -->
     <div id="LSDeleteModal"
@@ -468,8 +472,6 @@
         </div>
       </div>
     </div>
-
-    <FooterComponent />
   </div>
 </template>
 
@@ -541,6 +543,7 @@
       $('#LSDeleteModal').on('hidden.bs.modal', () => { // 當 #LSDeleteModal 這個 modal 觸發 .hide 時，會執行這個函式的內容
         vm.getLSCart();
       });
+      vm.judgeFilled(); // 判斷是否需要加入填補空白區域的 div
     },
 
     methods: {
@@ -577,6 +580,32 @@
           vm.LSFinal_total = vm.LSTotal * (Number(vm.usingCoupon.percent) / 100);
         }
       },
+
+
+      // 判斷是否需要加入填補空白區域的 div
+      judgeFilled() {
+        let elBody = document.querySelector("body");
+        let elMain = document.querySelector("main");
+        let headerHeight = document.querySelector("header").offsetHeight;
+        let footerHeight = document.querySelector("footer").offsetHeight;
+        let mainHeight = elMain.offsetHeight;
+        let mainMargin = Number(window.getComputedStyle(elMain).marginTop.replace("px", "")) + Number(window.getComputedStyle(elMain).marginBottom.replace("px", ""));
+        let rawHeight = headerHeight + footerHeight + mainHeight + mainMargin;
+
+        let bodyResizeObserver = new ResizeObserver(function () {
+          if (window.innerHeight > rawHeight) {
+            let h = window.innerHeight - rawHeight;
+            // console.log(`高度為 ${h}`);
+            document.querySelector(".filled").style.height = `${h}px`;
+          }
+          else {
+            document.querySelector(".filled").style.height = "0";
+            // console.log("無高度");
+          }
+        });
+        bodyResizeObserver.observe(elBody);
+      },
+
 
       // 新增 LS 購物車內商品，數量 +1
       plusLSCart(nowProduct) {
@@ -945,7 +974,6 @@
         this.$router.push({ path: '/singleOrder', query: { orderId: orderId } });
       },
     },
-
   };
 </script>
 

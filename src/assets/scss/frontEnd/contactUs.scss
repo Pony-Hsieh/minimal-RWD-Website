@@ -1,6 +1,6 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
-.wrapper {
+main {
   background-color: $dominant-color;
 }
 
@@ -70,4 +70,9 @@ button {
     margin: 0;
     margin-top: 4px;
   }
+}
+
+.filled {
+  width: 100%;
+  background-color: $dominant-color;
 }

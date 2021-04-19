@@ -159,9 +159,11 @@
       });
 
       vm.clientWidth = document.body.clientWidth;
-      window.onresize = function () {
+      let el = document.querySelector("body");
+      let bodyResizeObserver = new ResizeObserver(function () {
         vm.clientWidth = document.body.clientWidth;
-      };
+      });
+      bodyResizeObserver.observe(el);
     },
 
     methods: {

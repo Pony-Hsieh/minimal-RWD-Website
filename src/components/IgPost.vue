@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper">
+  <section class="wrapper igPostArea">
     <div class="singleIgPost"
       @mouseover="igPostHover(1)"
       @mouseleave="removeIgPostHover(1)"

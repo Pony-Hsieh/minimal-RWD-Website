@@ -1,17 +1,44 @@
 <template>
   <section class="container">
     <div class="row">
-      <div v-for="(item, i) in image"
-        :key="i"
-        class="singleShippingDetail col-12 col-sm-6 col-lg-3"
-      >
+      <div class="singleShippingDetail col-12 col-sm-6 col-lg-3">
         <div class="my-auto">
-          <img :src="item"
+          <img :src="image[0]"
             alt="示意 icon"
           >
         </div>
-        <h4>Free shipping</h4>
-        <p>Divided face for bearing the divide unto seed winged divided light Forth.</p>
+        <h4>運費</h4>
+        <p>單筆訂單滿千免運</p>
+      </div>
+
+      <div class="singleShippingDetail col-12 col-sm-6 col-lg-3">
+        <div class="my-auto">
+          <img :src="image[1]"
+            alt="示意 icon"
+          >
+        </div>
+        <h4>發票</h4>
+        <p>統一開立電子發票</p>
+      </div>
+
+      <div class="singleShippingDetail col-12 col-sm-6 col-lg-3">
+        <div class="my-auto">
+          <img :src="image[2]"
+            alt="示意 icon"
+          >
+        </div>
+        <h4>付款</h4>
+        <p>提供多元付款方式</p>
+      </div>
+
+      <div class="singleShippingDetail col-12 col-sm-6 col-lg-3">
+        <div class="my-auto">
+          <img :src="image[3]"
+            alt="示意 icon"
+          >
+        </div>
+        <h4>客服</h4>
+        <p>週一至週五，8:00~17:00</p>
       </div>
     </div>
   </section>

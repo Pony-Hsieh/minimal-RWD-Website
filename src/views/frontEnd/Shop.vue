@@ -389,9 +389,7 @@
 
     mounted() {
       const vm = this;
-      window.onresize = function () {
-        vm.clientWidth = document.body.clientWidth;
-      };
+      vm.clientWidth = document.body.clientWidth;
       if (vm.clientWidth < 992) {
         // < 992 ，條件篩選器 預設關閉
         vm.filterCardStatus.category = false;
@@ -402,6 +400,16 @@
         vm.filterCardStatus.category = true;
         vm.filterCardStatus.price = true;
       }
+      // 監聽尺寸變化方式 1
+      // window.onresize = function () {
+      //   vm.clientWidth = document.body.clientWidth;
+      // };
+      // 監聽尺寸變化方式 2 (好像比較不耗效能)
+      let el = document.querySelector("body");
+      let bodyResizeObserver = new ResizeObserver(function () {
+        vm.clientWidth = document.body.clientWidth;
+      });
+      bodyResizeObserver.observe(el);
     },
 
     methods: {

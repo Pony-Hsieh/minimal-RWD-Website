@@ -4,98 +4,102 @@
       @mouseover="igPostHover(1)"
       @mouseleave="removeIgPostHover(1)"
     >
+      <!-- 男子運動鞋 -->
       <img class="img-fluid"
         :class="{'ing' : igPostStatus[1]}"
-        src="https://preview.colorlib.com/theme/winter/img/instagram/inst_1.png"
+        src="https://i.imgur.com/hHdPGZU.jpg"
         alt="ig post photo"
       >
       <div class="filter"
         :class="{'ing' : igPostStatus[1]}"
       />
-      <a href="#"
+      <a href="https://www.instagram.com/p/COC_z-gH1D7/"
         class="igIcon"
         :class="{'ing' : igPostStatus[1]}"
-        @click.prevent
       >
         <i class="fab fa-instagram" />
       </a>
     </div>
+
     <div class="singleIgPost"
       @mouseover="igPostHover(2)"
       @mouseleave="removeIgPostHover(2)"
     >
+      <!-- 女子 保暖帽T -->
       <img class="img-fluid"
         :class="{'ing' : igPostStatus[2]}"
-        src="https://preview.colorlib.com/theme/winter/img/instagram/inst_2.png"
+        src="https://i.imgur.com/RxCKG3O.jpg"
         alt="ig post photo"
       >
       <div class="filter"
         :class="{'ing' : igPostStatus[2]}"
       />
-      <a href="#"
+      <a href="https://www.instagram.com/p/COC_yYanDjd/"
         class="igIcon"
         :class="{'ing' : igPostStatus[2]}"
-        @click.prevent
       >
         <i class="fab fa-instagram" />
       </a>
     </div>
+
     <div class="singleIgPost"
       @mouseover="igPostHover(3)"
       @mouseleave="removeIgPostHover(3)"
     >
+      <!-- 女子 帆布鞋 -->
       <img class="img-fluid"
         :class="{'ing' : igPostStatus[3]}"
-        src="https://preview.colorlib.com/theme/winter/img/instagram/inst_3.png"
+        src="https://i.imgur.com/v5zsgn6.jpg"
         alt="ig post photo"
       >
       <div class="filter"
         :class="{'ing' : igPostStatus[3]}"
       />
-      <a href="#"
+      <a href="https://www.instagram.com/p/COC_1nDHyhp/"
         class="igIcon"
         :class="{'ing' : igPostStatus[3]}"
-        @click.prevent
       >
         <i class="fab fa-instagram" />
       </a>
     </div>
+
     <div class="singleIgPost"
       @mouseover="igPostHover(4)"
       @mouseleave="removeIgPostHover(4)"
     >
+      <!-- 男子排汗短褲 -->
       <img class="img-fluid"
         :class="{'ing' : igPostStatus[4]}"
-        src="https://preview.colorlib.com/theme/winter/img/instagram/inst_4.png"
+        src="https://i.imgur.com/mu2x6Vo.jpg"
         alt="ig post photo"
       >
       <div class="filter"
         :class="{'ing' : igPostStatus[4]}"
       />
-      <a href="#"
+      <a href="https://www.instagram.com/p/COC_23eHr3C/"
         class="igIcon"
         :class="{'ing' : igPostStatus[4]}"
-        @click.prevent
       >
         <i class="fab fa-instagram" />
       </a>
     </div>
+
     <div class="singleIgPost"
       @mouseover="igPostHover(5)"
       @mouseleave="removeIgPostHover(5)"
     >
+      <!-- 男子 牛仔長褲 -->
       <img class="img-fluid"
         :class="{'ing' : igPostStatus[5]}"
-        src="https://preview.colorlib.com/theme/winter/img/instagram/inst_5.png"
+        src="https://i.imgur.com/ew82x6i.jpg"
         alt="ig post photo"
       >
       <div class="filter"
         :class="{'ing' : igPostStatus[5]}"
       />
-      <a href="#"
+      <a href="https://www.instagram.com/p/COC_wVNHIgC/"
         class="igIcon"
         :class="{'ing' : igPostStatus[5]}"
-        @click.prevent
       >
         <i class="fab fa-instagram" />
       </a>

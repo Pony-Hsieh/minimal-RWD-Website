@@ -99,9 +99,7 @@
               >
                 <i class="fab fa-twitter" />
               </a>
-              <a href="#"
-                @click.prevent
-              >
+              <a href="https://www.instagram.com/minimal_official_ig/">
                 <i class="fab fa-instagram" />
               </a>
             </div>

@@ -38,7 +38,6 @@
               :class="{'ing':dropdownNavStatus}"
             >
               <li>
-                <!-- <router-link to="/member/login"> -->
                 <router-link to="/member/login"
                   :class="{'nowSubPage':navLogStatus}"
                 >
@@ -46,7 +45,6 @@
                 </router-link>
               </li>
               <li>
-                <!-- <router-link to="/member/order"> -->
                 <router-link to="/member/order"
                   :class="{'nowSubPage':nowSubPage === '/member/order'}"
                 >
@@ -54,7 +52,6 @@
                 </router-link>
               </li>
               <li>
-                <!-- <router-link to="/member/cart"> -->
                 <router-link to="/member/cart"
                   :class="{'nowSubPage':nowSubPage === '/member/cart'}"
                 >
@@ -88,22 +85,6 @@
             {{ LSCartItemNum }}
           </div>
         </router-link>
-        <i class="fas fa-search ml-2 ml-lg-4"
-          title="目前僅可點擊，但跳出的搜尋欄無搜尋功能"
-          @click.prevent="searchBarStatus = !searchBarStatus"
-        />
-      </div>
-
-      <!-- 搜尋欄 -->
-      <div class="searchBar"
-        :class="{'ing':searchBarStatus}"
-      >
-        <input type="text"
-          placeholder="Search Here"
-        >
-        <i class="fas fa-times"
-          @click.prevent="searchBarStatus = !searchBarStatus"
-        />
       </div>
     </div>
   </header>
@@ -128,18 +109,6 @@
       };
     },
 
-    watch: {
-      "clientWidth": {
-        handler: function (val) {
-          if (val < 992) {
-            // 避免在螢幕尺寸切換時，造成 burger menu 破版
-            this.dropdownNavStatus = false;
-            this.headerNavBurgerStatus = false;
-          }
-        },
-      },
-    },
-
     created() {
       const vm = this;
       vm.getLSCartItemNum();
@@ -158,10 +127,13 @@
         vm.LSCartItemNum = param;
       });
 
-      vm.clientWidth = document.body.clientWidth;
+      // 避免在螢幕尺寸切換時，造成 burger menu 破版
       let el = document.querySelector("body");
       let bodyResizeObserver = new ResizeObserver(function () {
-        vm.clientWidth = document.body.clientWidth;
+        if (document.body.clientWidth < 992) {
+          vm.dropdownNavStatus = false;
+          vm.headerNavBurgerStatus = false;
+        }
       });
       bodyResizeObserver.observe(el);
     },
@@ -186,18 +158,6 @@
       // 切換次選單開闔
       toggleDropdownNav() {
         this.dropdownNavStatus = !this.dropdownNavStatus;
-      },
-
-      // 垂下 .searchInputArea
-      dropdown() {
-        // document.querySelector(".searchArea .dropdown-item").classList.add("ing"); // 原生 JS 寫法
-        $('.searchInputArea').addClass('ing');
-      },
-
-      // 收闔 .searchInputArea
-      closeDropdown() {
-        // document.querySelector(".searchArea .dropdown-item").classList.remove("ing");  // 原生 JS 寫法
-        $('.searchInputArea').removeClass('ing');
       },
     },
 

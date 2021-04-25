@@ -202,12 +202,17 @@
 .iconArea {
   i {
     font-size: 20px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   /* 購物車 icon */
   > a {
     position: relative;
     color: #000;
+
     &:active {
       transform: scale(1.1);
     }
@@ -227,77 +232,4 @@
   position: absolute;
   top: -9px;
   right: -9px;
-}
-
-/* 購物車 icon + 放大鏡 icon */
-.iconArea {
-  i:hover {
-    cursor: pointer;
-  }
-
-  .fa-search {
-    color: $black;
-  }
-}
-
-/* 搜尋欄 */
-.searchBar {
-  width: 100%;
-  height: 46.5px;
-  background-color: $accent-color;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 12.5%;
-  align-items: center;
-  position: absolute;
-  top: 20px;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.8s;
-
-  &.ing {
-    top: 70px;
-    opacity: 1;
-    visibility: visible;
-    transition: 0.8s;
-  }
-
-  input {
-    width: 95%;
-    outline: none;
-    border: none;
-    background: transparent;
-    color: #fff;
-    /* input 內的游標顏色可透過 color 調整 */
-  }
-
-  i {
-    font-size: 30px;
-    color: #fff;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  /* 以下四項為調整 placeholder 文字顏色 */
-  /*webkit瀏覽器專用*/
-  input::-webkit-input-placeholder {
-    color: #fff;
-  }
-
-  /*Firefox 4-18瀏覽器專用*/
-  input::-moz-placeholder {
-    color: #fff;
-  }
-
-  /*Firefox 19+瀏覽器專用*/
-  input::-moz-placeholder {
-    color: #fff;
-  }
-
-  /*IE10瀏覽器專用*/
-  &:-ms-input-placeholder {
-    color: #fff;
-  }
 }

@@ -1,102 +1,102 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
 .wrapper {
-  background-color: $dominant-color;
+    background-color: $dominant-color;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .cursorNotAllowed {
-  cursor: not-allowed;
+    cursor: not-allowed;
 }
 
 .editProductQty {
-  vertical-align: middle;
+    vertical-align: middle;
 
-  input {
-    width: 30px;
-    height: 30px;
-    background: transparent;
-    outline: none;
-    border: none;
-    text-align: center;
+    input {
+        width: 30px;
+        height: 30px;
+        background: transparent;
+        outline: none;
+        border: none;
+        text-align: center;
 
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      /* 拿掉數字輸入欄位的箭頭 */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            /* 拿掉數字輸入欄位的箭頭 */
+        }
+
+        &[type="number"] {
+            -moz-appearance: textfield;
+            /* 拿掉數字輸入欄位的箭頭 */
+        }
+
+        &.ing {
+            outline: none;
+            border: 1.5px solid $accent-color;
+            border-radius: 0.2rem;
+        }
     }
-
-    &[type="number"] {
-      -moz-appearance: textfield;
-      /* 拿掉數字輸入欄位的箭頭 */
-    }
-
-    &.ing {
-      outline: none;
-      border: 1.5px solid $accent-color;
-      border-radius: 0.2rem;
-    }
-  }
 }
 @media (min-width: 576px) {
-  .editProductQty input {
-    width: 34px;
-    height: 34px;
-  }
+    .editProductQty input {
+        width: 34px;
+        height: 34px;
+    }
 }
 
 .qtyChange_btn {
-  width: 30px;
-  height: 30px;
-  display: block;
-  margin: 0 auto;
-  border: 1px solid grey;
-  border-radius: 0.2rem;
-  outline: none;
-  background: transparent;
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid grey;
+    border-radius: 0.2rem;
+    outline: none;
+    background: transparent;
 
-  &:active {
-    background-color: $accent-color;
-    color: $dominant-color;
-    border: none;
-  }
+    &:active {
+        background-color: $accent-color;
+        color: $dominant-color;
+        border: none;
+    }
 }
 @media (min-width: 576px) {
-  .qtyChange_btn {
-    width: 34px;
-    height: 34px;
-    display: inline;
-  }
+    .qtyChange_btn {
+        width: 34px;
+        height: 34px;
+        display: inline;
+    }
 }
 
 .orderTotalArea {
-  margin-top: 47px;
+    margin-top: 47px;
 }
 
 .couponArea {
-  margin-top: 14px;
+    margin-top: 14px;
 }
 
 .receiverInfoArea {
-  margin-top: 108px;
+    margin-top: 108px;
 }
 
 @media (min-width: 992px) {
-  .otherCartInfo {
-    background-color: $second-color;
-    color: $dominant-color;
-    border-radius: 15px;
-  }
+    .otherCartInfo {
+        background-color: $second-color;
+        color: $dominant-color;
+        border-radius: 15px;
+    }
 }
 
 tbody img {
-  border-radius: 4px;
+    border-radius: 4px;
 }
 
 .filled {
-  width: 100%;
-  background-color: $dominant-color;
+    width: 100%;
+    background-color: $dominant-color;
 }

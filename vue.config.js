@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/minimal-RWD-Website/dist/'
+    publicPath: "/minimal-RWD-Website/dist/"
 }

@@ -1,313 +1,313 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
 .wrapper {
-  background-color: $dominant-color;
+    background-color: $dominant-color;
 }
 
 .container.all .row {
-  max-width: 1110px;
+    max-width: 1110px;
 }
 
 // 通用卡片外圍樣式
 .filterCard {
-  // 閉合狀態
-  height: 48px; // 閉合狀態高度 === h5 高度
-  box-shadow: 0px 8px 8px 0px rgba(153, 153, 153, 0.5);
-  border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-  transition: all 1s;
-
-  &:first-of-type {
-    margin-top: 20px;
-  }
-
-  h5 {
     // 閉合狀態
-    // 初始狀態
-    height: 48px;
-    width: 100%;
+    height: 48px; // 閉合狀態高度 === h5 高度
+    box-shadow: 0px 8px 8px 0px rgba(153, 153, 153, 0.5);
     border-radius: 8px;
-    background-color: $second-color;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    margin: 0;
+    position: relative;
     overflow: hidden;
-    position: absolute;
-    z-index: 3;
-    top: 0;
     transition: all 1s;
-  }
 
-  .fa-angle-down {
-    display: block;
-    transform: rotate(360deg);
-    transition: all 1s;
-  }
+    &:first-of-type {
+        margin-top: 20px;
+    }
 
-  &.ing {
-    // 開啟狀態
     h5 {
-      border-radius: 8px 8px 0 0;
-      box-shadow: none;
-      transition: all 1s;
+        // 閉合狀態
+        // 初始狀態
+        height: 48px;
+        width: 100%;
+        border-radius: 8px;
+        background-color: $second-color;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        margin: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: 3;
+        top: 0;
+        transition: all 1s;
     }
 
     .fa-angle-down {
-      transform: rotate(180deg);
-      transition: all 1s;
+        display: block;
+        transform: rotate(360deg);
+        transition: all 1s;
     }
 
-    .filterCardContent {
-      border: 1.5px solid $second-color;
-      border-top: none;
-      opacity: 1;
-      transition: all 1s;
+    &.ing {
+        // 開啟狀態
+        h5 {
+            border-radius: 8px 8px 0 0;
+            box-shadow: none;
+            transition: all 1s;
+        }
+
+        .fa-angle-down {
+            transform: rotate(180deg);
+            transition: all 1s;
+        }
+
+        .filterCardContent {
+            border: 1.5px solid $second-color;
+            border-top: none;
+            opacity: 1;
+            transition: all 1s;
+        }
     }
-  }
 }
 
 @media (min-width: 992px) {
-  .filterCard {
-    .fa-angle-down {
-      display: none;
+    .filterCard {
+        .fa-angle-down {
+            display: none;
+        }
     }
-  }
 }
 
 // 通用卡片內容樣式
 .filterCardContent {
-  // 閉合狀態
-  // 初始狀態
-  border: 1.5px solid transparent;
-  border-radius: 0 0 8px 8px;
-  position: absolute;
-  top: 0;
-  z-index: 0;
-  opacity: 0;
-  transition: all 1s;
+    // 閉合狀態
+    // 初始狀態
+    border: 1.5px solid transparent;
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    opacity: 0;
+    transition: all 1s;
 }
 
 // 類別篩選器
 .categoryFilter {
-  .filterCardContent {
-    height: 218px;
-    width: 100%;
-  }
-
-  ul {
-    margin: 16px;
-
-    li {
-      height: 36px;
-      margin-top: 1.5px;
-      margin-bottom: 1.5px;
-
-      a {
-        width: 100%;
-        height: 100%;
-        padding: 0 16px;
-        text-decoration: none;
-        color: $black;
-        display: flex;
-        align-items: center;
-        border-radius: 8px;
-
-        &:hover {
-          background-color: $light-black;
-          color: #fff;
-          transition: all 0.5s;
-        }
-      }
-    }
-
-    .nowCategory {
-      background-color: $light-black;
-      color: #fff;
-      border-radius: 8px;
-      transition: all 0.5s;
-    }
-  }
-
-  &.ing {
-    height: 266px;
-    overflow: hidden;
-    transition: all 1s;
-
     .filterCardContent {
-      top: 48px;
-      z-index: 1;
-      transition: all 1s;
+        height: 218px;
+        width: 100%;
     }
-  }
+
+    ul {
+        margin: 16px;
+
+        li {
+            height: 36px;
+            margin-top: 1.5px;
+            margin-bottom: 1.5px;
+
+            a {
+                width: 100%;
+                height: 100%;
+                padding: 0 16px;
+                text-decoration: none;
+                color: $black;
+                display: flex;
+                align-items: center;
+                border-radius: 8px;
+
+                &:hover {
+                    background-color: $light-black;
+                    color: #fff;
+                    transition: all 0.5s;
+                }
+            }
+        }
+
+        .nowCategory {
+            background-color: $light-black;
+            color: #fff;
+            border-radius: 8px;
+            transition: all 0.5s;
+        }
+    }
+
+    &.ing {
+        height: 266px;
+        overflow: hidden;
+        transition: all 1s;
+
+        .filterCardContent {
+            top: 48px;
+            z-index: 1;
+            transition: all 1s;
+        }
+    }
 }
 
 // 金額篩選器
 .priceFilter {
-  .filterCardContent {
-    padding: 32px;
-    height: 218px;
-    width: 100%;
-  }
-
-  &.ing {
-    height: 266px;
-    transition: all 1s;
-
     .filterCardContent {
-      top: 48px;
-      z-index: 1;
-      transition: all 1s;
+        padding: 32px;
+        height: 218px;
+        width: 100%;
     }
-  }
-
-  .w-100 {
-    @extend %allFlexCenter;
-    margin-top: 30px;
-  }
-
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    /* 拿掉數字輸入欄位的箭頭 */
-  }
-
-  input[type="number"] {
-    width: 50%;
-    margin: 0 5px;
-    text-align: right;
-    -moz-appearance: textfield;
-    /* 拿掉數字輸入欄位的箭頭 */
-  }
-
-  button {
-    border: 1px solid $light-black;
-
-    &:hover {
-      background-color: $light-black;
-      color: #fff;
-    }
-
-    &:active {
-      transform: translate(1px, 1px);
-    }
-  }
-}
-
-.showNowCategory {
-  h3 {
-    line-height: 42px;
-  }
-}
-
-main {
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-@media (min-width: 992px) {
-  main .row:first-of-type {
-    margin-bottom: 20px;
-  }
-}
-.filterDropDown {
-  margin-top: 20px;
-  margin-bottom: 40px;
-
-  select {
-    border-radius: 4px;
-    outline: none;
-    border: none;
-    padding-left: 8px;
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 992px) {
-  .filterDropDown {
-    margin: 0;
-  }
-}
-
-.singleProductInfo {
-  > div {
-    height: 200px;
-    @extend %allFlexCenter;
-  }
-
-  img {
-    max-width: 100%;
-    max-height: 200px;
-    position: relative;
-    border-radius: 8px;
-  }
-
-  h4 {
-    color: $black;
-    font-size: 16px;
-    margin-top: 24px;
-    text-align: center;
-  }
-
-  del {
-    color: #606060;
-  }
-
-  h5 {
-    font-size: 18px;
-    height: 36px;
-    line-height: 36px;
-  }
-
-  .hoverWidget {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    bottom: 60px;
-    right: 12px;
-    opacity: 0;
-    transition: 0.5s;
 
     &.ing {
-      right: 36px;
-      opacity: 1;
-      transition: 0.5s;
+        height: 266px;
+        transition: all 1s;
+
+        .filterCardContent {
+            top: 48px;
+            z-index: 1;
+            transition: all 1s;
+        }
     }
 
-    li {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: $accent-color;
-      font-size: 16px;
-      line-height: 40px;
-      text-align: center;
+    .w-100 {
+        @extend %allFlexCenter;
+        margin-top: 30px;
+    }
 
-      &.like {
-        margin-bottom: 12px;
-      }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        /* 拿掉數字輸入欄位的箭頭 */
+    }
 
-      a {
-        display: block;
-        width: 100%;
-        text-decoration: none;
-        color: #fff;
-        outline: none;
+    input[type="number"] {
+        width: 50%;
+        margin: 0 5px;
+        text-align: right;
+        -moz-appearance: textfield;
+        /* 拿掉數字輸入欄位的箭頭 */
+    }
+
+    button {
+        border: 1px solid $light-black;
 
         &:hover {
-          background-color: #fff;
-          color: $accent-color;
-          border-radius: 50%;
-          border: 1.5px solid $accent-color;
+            background-color: $light-black;
+            color: #fff;
         }
 
         &:active {
-          transform: scale(1.1);
+            transform: translate(1px, 1px);
         }
-      }
     }
-  }
+}
+
+.showNowCategory {
+    h3 {
+        line-height: 42px;
+    }
+}
+
+main {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+@media (min-width: 992px) {
+    main .row:first-of-type {
+        margin-bottom: 20px;
+    }
+}
+.filterDropDown {
+    margin-top: 20px;
+    margin-bottom: 40px;
+
+    select {
+        border-radius: 4px;
+        outline: none;
+        border: none;
+        padding-left: 8px;
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 992px) {
+    .filterDropDown {
+        margin: 0;
+    }
+}
+
+.singleProductInfo {
+    > div {
+        height: 200px;
+        @extend %allFlexCenter;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 200px;
+        position: relative;
+        border-radius: 8px;
+    }
+
+    h4 {
+        color: $black;
+        font-size: 16px;
+        margin-top: 24px;
+        text-align: center;
+    }
+
+    del {
+        color: #606060;
+    }
+
+    h5 {
+        font-size: 18px;
+        height: 36px;
+        line-height: 36px;
+    }
+
+    .hoverWidget {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        bottom: 60px;
+        right: 12px;
+        opacity: 0;
+        transition: 0.5s;
+
+        &.ing {
+            right: 36px;
+            opacity: 1;
+            transition: 0.5s;
+        }
+
+        li {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: $accent-color;
+            font-size: 16px;
+            line-height: 40px;
+            text-align: center;
+
+            &.like {
+                margin-bottom: 12px;
+            }
+
+            a {
+                display: block;
+                width: 100%;
+                text-decoration: none;
+                color: #fff;
+                outline: none;
+
+                &:hover {
+                    background-color: #fff;
+                    color: $accent-color;
+                    border-radius: 50%;
+                    border: 1.5px solid $accent-color;
+                }
+
+                &:active {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
 }

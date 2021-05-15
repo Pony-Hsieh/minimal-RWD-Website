@@ -1,78 +1,78 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
 main {
-  background-color: $dominant-color;
+    background-color: $dominant-color;
 }
 
 iframe {
-  width: 100%;
-  height: 450px;
+    width: 100%;
+    height: 450px;
 }
 
 h2 {
-  font-size: 1.5rem;
-  color: $black;
+    font-size: 1.5rem;
+    color: $black;
 }
 
 button {
-  width: 164px;
-  height: 44px;
-  border-radius: 22px;
-  outline: none;
-  border: none;
-  background-color: $accent-color;
-  color: #fff;
+    width: 164px;
+    height: 44px;
+    border-radius: 22px;
+    outline: none;
+    border: none;
+    background-color: $accent-color;
+    color: #fff;
 
-  &:active {
-    border: 1.5px solid $accent-color;
-    background-color: #fff;
-    color: $accent-color;
-  }
+    &:active {
+        border: 1.5px solid $accent-color;
+        background-color: #fff;
+        color: $accent-color;
+    }
 }
 
 .companyInfo {
-  margin-top: 30px;
-  margin-left: 4px;
+    margin-top: 30px;
+    margin-left: 4px;
 
-  > div {
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
+    > div {
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
 
-    /* 放 icon */
-    > div:first-of-type {
-      width: 28px;
-      height: 28px;
-      text-align: center;
-      line-height: 28px;
+        /* 放 icon */
+        > div:first-of-type {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+        }
+
+        /* 放聯絡資訊 */
+        > div:last-of-type {
+            margin-left: 20px;
+        }
     }
 
-    /* 放聯絡資訊 */
-    > div:last-of-type {
-      margin-left: 20px;
+    i {
+        color: #8f9195;
+        font-size: 28px;
     }
-  }
 
-  i {
-    color: #8f9195;
-    font-size: 28px;
-  }
+    h3 {
+        color: $black;
+        font-size: 18px;
+        margin: 0;
+    }
 
-  h3 {
-    color: $black;
-    font-size: 18px;
-    margin: 0;
-  }
-
-  p {
-    color: $black;
-    font-size: 16px;
-    margin: 0;
-    margin-top: 4px;
-  }
+    p {
+        color: $black;
+        font-size: 16px;
+        margin: 0;
+        margin-top: 4px;
+    }
 }
 
 .filled {
-  width: 100%;
-  background-color: $dominant-color;
+    width: 100%;
+    background-color: $dominant-color;
 }

@@ -2,234 +2,234 @@
 
 /* 通用樣式 */
 .container-fluid {
-  height: 60px;
+    height: 60px;
 }
 @media (min-width: 992px) {
-  .container-fluid {
-    height: 78px;
-  }
+    .container-fluid {
+        height: 78px;
+    }
 }
 
 .headerNavBurger {
-  position: absolute;
-  top: 0;
-  z-index: -1;
-  width: 100%;
-  padding: 0 15px;
-  opacity: 0;
-  visibility: hidden;
-  transition: 1s;
-
-  &.ing {
-    opacity: 1;
-    visibility: visible;
     position: absolute;
-    top: 80px;
+    top: 0;
+    z-index: -1;
     width: 100%;
     padding: 0 15px;
-    z-index: 0;
-  }
-
-  > ul {
-    background-color: #fff;
-    border-radius: 8px;
-
-    li {
-      height: 42px;
-      line-height: 42px;
-      /* 垂直置中 */
-    }
-  }
-
-  a {
-    display: block;
-    width: 100%;
-    padding: 0 15px;
-    text-decoration: none;
-    color: $black;
-    border-radius: 8px;
-
-    &.nowMainPage {
-      background-color: $accent-color;
-      color: #fff !important;
-    }
-
-    &.nowSubPage {
-      background-color: #fff !important;
-      color: $accent-color !important;
-    }
-
-    &:hover {
-      background-color: $accent-color;
-      color: #fff;
-    }
-
-    &:active {
-      transform: scale(1.01);
-    }
-  }
-
-  li:nth-of-type(3) {
-    position: relative;
-  }
-
-  li:nth-of-type(4) {
+    opacity: 0;
+    visibility: hidden;
     transition: 1s;
-    margin-top: 0;
 
     &.ing {
-      transition: 0.8s;
-      margin-top: 156px;
+        opacity: 1;
+        visibility: visible;
+        position: absolute;
+        top: 80px;
+        width: 100%;
+        padding: 0 15px;
+        z-index: 0;
     }
-  }
-}
-@media (min-width: 992px) {
-  .logoArea,
-  .iconArea,
-  .headerNavBurger {
-    height: 78px;
-  }
-
-  .headerNavBurger {
-    position: static;
-    z-index: 0;
-    opacity: 1;
-    visibility: visible;
 
     > ul {
-      display: flex;
-      justify-content: space-between;
+        background-color: #fff;
+        border-radius: 8px;
 
-      > li {
-        height: 78px;
-        width: 25%;
-        text-align: center;
-        padding: 8px;
-      }
+        li {
+            height: 42px;
+            line-height: 42px;
+            /* 垂直置中 */
+        }
     }
 
     a {
-      height: 100%;
-      // media query 內好像無法使用 @extend (如果硬要使用， Vue 會無法編譯)
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 4px;
+        display: block;
+        width: 100%;
+        padding: 0 15px;
+        text-decoration: none;
+        color: $black;
+        border-radius: 8px;
+
+        &.nowMainPage {
+            background-color: $accent-color;
+            color: #fff !important;
+        }
+
+        &.nowSubPage {
+            background-color: #fff !important;
+            color: $accent-color !important;
+        }
+
+        &:hover {
+            background-color: $accent-color;
+            color: #fff;
+        }
+
+        &:active {
+            transform: scale(1.01);
+        }
+    }
+
+    li:nth-of-type(3) {
+        position: relative;
     }
 
     li:nth-of-type(4) {
-      transition: 0s;
+        transition: 1s;
+        margin-top: 0;
 
-      &.ing {
-        transition: 0s;
-        margin-top: 0px;
-      }
+        &.ing {
+            transition: 0.8s;
+            margin-top: 156px;
+        }
     }
-  }
+}
+@media (min-width: 992px) {
+    .logoArea,
+    .iconArea,
+    .headerNavBurger {
+        height: 78px;
+    }
+
+    .headerNavBurger {
+        position: static;
+        z-index: 0;
+        opacity: 1;
+        visibility: visible;
+
+        > ul {
+            display: flex;
+            justify-content: space-between;
+
+            > li {
+                height: 78px;
+                width: 25%;
+                text-align: center;
+                padding: 8px;
+            }
+        }
+
+        a {
+            height: 100%;
+            // media query 內好像無法使用 @extend (如果硬要使用， Vue 會無法編譯)
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+        }
+
+        li:nth-of-type(4) {
+            transition: 0s;
+
+            &.ing {
+                transition: 0s;
+                margin-top: 0px;
+            }
+        }
+    }
 }
 
 .dropdownNav {
-  opacity: 0;
-  visibility: hidden;
-  width: 95%;
-  position: absolute;
-  top: 0;
-  left: 2.5%;
-  transition: 0.5s;
-  z-index: -1;
-
-  &.ing {
-    opacity: 1;
-    visibility: visible;
+    opacity: 0;
+    visibility: hidden;
+    width: 95%;
     position: absolute;
-    top: 42px;
-    transition: 0.8s;
-    z-index: 0;
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 15px 10px;
-  }
-
-  a {
-    border-radius: 5px;
-
-    &:hover {
-      background-color: $accent-color;
-      color: #fff;
-    }
-
-    &.nowSubPage {
-      background-color: $accent-color !important;
-      color: #fff !important;
-    }
-  }
-}
-@media (min-width: 992px) {
-  .dropdownNav {
-    transition: ease-in-out 0.8s;
-    padding: 15px;
+    top: 0;
+    left: 2.5%;
+    transition: 0.5s;
+    z-index: -1;
 
     &.ing {
-      top: 78px;
-      transition: ease-in-out 0.8s;
-      background-color: $accent-color;
-    }
-    a {
-      color: #fff;
-
-      &:hover {
+        opacity: 1;
+        visibility: visible;
+        position: absolute;
+        top: 42px;
+        transition: 0.8s;
+        z-index: 0;
+        border-radius: 5px;
         background-color: #fff;
-        color: $accent-color;
-      }
-
-      &.nowSubPage {
-        background-color: #fff !important;
-        color: $accent-color !important;
-      }
+        padding: 15px 10px;
     }
-  }
+
+    a {
+        border-radius: 5px;
+
+        &:hover {
+            background-color: $accent-color;
+            color: #fff;
+        }
+
+        &.nowSubPage {
+            background-color: $accent-color !important;
+            color: #fff !important;
+        }
+    }
+}
+@media (min-width: 992px) {
+    .dropdownNav {
+        transition: ease-in-out 0.8s;
+        padding: 15px;
+
+        &.ing {
+            top: 78px;
+            transition: ease-in-out 0.8s;
+            background-color: $accent-color;
+        }
+        a {
+            color: #fff;
+
+            &:hover {
+                background-color: #fff;
+                color: $accent-color;
+            }
+
+            &.nowSubPage {
+                background-color: #fff !important;
+                color: $accent-color !important;
+            }
+        }
+    }
 }
 
 .logoArea img {
-  height: 40px;
+    height: 40px;
 }
 @media (min-width: 992px) {
-  .logoArea img {
-    height: 45px;
-  }
+    .logoArea img {
+        height: 45px;
+    }
 }
 
 .iconArea {
-  i {
-    font-size: 20px;
+    i {
+        font-size: 20px;
 
-    &:hover {
-      cursor: pointer;
+        &:hover {
+            cursor: pointer;
+        }
     }
-  }
 
-  /* 購物車 icon */
-  > a {
-    position: relative;
-    color: #000;
+    /* 購物車 icon */
+    > a {
+        position: relative;
+        color: #000;
 
-    &:active {
-      transform: scale(1.1);
+        &:active {
+            transform: scale(1.1);
+        }
     }
-  }
 }
 
 .LSCartItemNum {
-  width: 18px;
-  height: 18px;
-  font-size: 14px;
-  background-color: $accent-color;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  position: absolute;
-  top: -9px;
-  right: -9px;
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+    background-color: $accent-color;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    top: -9px;
+    right: -9px;
 }

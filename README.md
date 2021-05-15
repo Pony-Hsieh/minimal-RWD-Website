@@ -1,24 +1,169 @@
-# vue-final-vue-cli-3
+## 基本資訊：
 
-## Project setup
-```
-npm install
-```
+* [GitHub Page](https://pony-hsieh.github.io/minimal-RWD-Website/dist/#/)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+* [參考模板](https://colorlib.com/preview/#winter)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+* [配色靈感](https://www.instagram.com/p/CLCCza3IjMs)
 
-### Lints and fixes files
-```
-npm run lint
-```
+<br>
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* 使用 Vue Cli 3 搭建專案
+    <br>
+
+    下載完，解壓縮這個專案的壓縮檔後，記得先在終端機運行 
+    <code> $ npm install </code>指令，把相關的套件安裝起來喔~
+
+    如果沒安裝相關套件，就直接在終端機執行下面兩個指令的話，有可能會出錯：
+
+    - 運行 開發環境 終端機指令：
+    <code> $ npm run serve </code>
+
+    - 運行 正式環境 終端機指令：
+    <code> $ npm run build </code>
+
+
+<br>
+
+---
+<br>
+
+
+
+## 使用套件：
+<br>
+
+可於 
+[package.json](https://github.com/Pony-Hsieh/minimal-RWD-Website/blob/master/package.json) 
+→ "dependencies" 查詢各套件使用版本
+
+
+
+<br>
+
+---
+<br>
+
+
+
+## 網頁功能：
+<br>
+
+● 全體：
+
+1. RWD ，基本上都在 992px 變版(也就是 Bootstrap 4 的 lg)
+
+    <br>
+
+2. 使用 AJAX 撈資料的過程中，會有 loading 動畫 
+    <br>
+    (透過 https://loading.io/ 製作)
+
+<br>
+<br>
+
+
+● 商城：
+
+1. 自行選擇一頁顯示的產品數量 (3、6、9)
+    
+    功能寫在 
+    [Shop.vue](https://github.com/Pony-Hsieh/minimal-RWD-Website/blob/master/src/views/frontEnd/Shop.vue) 
+    中的 getPage()
+
+    <br>
+
+2. 使用價格篩選產品
+
+    功能寫在 
+    [Shop.vue](https://github.com/Pony-Hsieh/minimal-RWD-Website/blob/master/src/views/frontEnd/Shop.vue) 
+    中的 applyPriceFilter()
+
+    <br>
+
+3. 搭配套件(vue-slider-component)，達成滑動按鈕調整價格區間的效果
+
+    <br>
+    <br>
+
+
+● 購物車：
+
+1. 可透過輸入數字調整購物車內商品數量；
+    <br>
+    如果輸入 0 ，會詢問消費者是否想要刪除商品
+
+    功能寫在 
+    [Cart.vue](https://github.com/Pony-Hsieh/minimal-RWD-Website/blob/master/src/views/frontEnd/Cart.vue)
+    中的 editLSCartQty(nowProduct)
+
+    <br>
+
+2. 即時驗證並提示使用者輸入的 coupon 是否可用
+    <br>
+    可用 coupon：ALL_20_OFF
+
+    功能寫在 
+    [Cart.vue](https://github.com/Pony-Hsieh/minimal-RWD-Website/blob/master/src/views/frontEnd/Cart.vue)
+    中的 judgeCoupon()
+
+    <br>
+    
+3. 搭配套件(vee-validate)，即時驗證使用者輸入的資訊；並依據驗證結果提示使用者
+
+<br>
+<br>
+<br>
+
+
+● 其他：
+
+1. router 導航守衛，搭配 API 檢查使用者的登入狀況，並據此導引至不同頁面
+
+    功能寫在 [main.js](https://github.com/Pony-Hsieh/minimal-RWD-Website/blob/master/src/main.js) 
+    中的 router.beforeEach 那段
+    
+    <br>
+
+
+2. router param 轉址時傳遞參數
+
+    許多頁面都有實作此功能，例如 
+    [Shop.vue](https://github.com/Pony-Hsieh/minimal-RWD-Website/blob/master/src/views/frontEnd/Shop.vue) 
+    中的 toSingleProductPage(id)
+
+    <br>
+
+
+3. eventBus 跨元件通訊
+
+<br>
+
+---
+<br>
+
+
+
+## 待開發功能：
+<br>
+
+* 收藏商品功能
+
+<br>
+
+---
+<br>
+
+
+
+## 備註：
+<br>
+
+如果對於修改前的網站有興趣，可前往參考。
+
+[GitHub Page](https://pony-hsieh.github.io/vue-final-homework-2020.12.30/dist/#/)
+
+[網頁原始碼](https://github.com/Pony-Hsieh/vue-final-homework-2020.12.30)
+
+
+

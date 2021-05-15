@@ -1,59 +1,59 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
 .container-fluid .row {
-  padding: 15px 0;
+    padding: 15px 0;
 }
 
 .logoutArea {
-  height: calc(100vh - 60px - 30px);
-  padding: 80px 70px;
-  @extend %allFlexCenter;
-  flex-direction: column;
-  color: #fff;
-  background: rgb(0, 255, 165);
-  background: -moz-linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
-  background: -webkit-linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
-  background: linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00ffa5", endColorstr="#00aacc", GradientType=1);
-
-  h3 {
-    font-size: 24px;
-    font-weight: 700;
-  }
-
-  p {
-    font-size: 15px;
-    margin-top: 17px;
-    margin-bottom: 0;
-    /* 覆寫掉 _reboot.scss 中　p 的 margin-bottom 設定 */
-  }
-
-  a {
-    width: 226.43px;
-    height: 40.667px;
-    margin-top: 28px;
+    height: calc(100vh - 60px - 30px);
+    padding: 80px 70px;
     @extend %allFlexCenter;
-    border: 1px solid #c2ffef;
-    border-radius: 50px;
-    background-color: transparent;
-    font-size: 14px;
-    text-decoration: none;
+    flex-direction: column;
     color: #fff;
+    background: rgb(0, 255, 165);
+    background: -moz-linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
+    background: -webkit-linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
+    background: linear-gradient(16deg, rgba(0, 255, 165, 1) 0%, rgba(0, 170, 204, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00ffa5", endColorstr="#00aacc", GradientType=1);
 
-    &:hover {
-      background-color: #fff;
-      color: $accent-color;
+    h3 {
+        font-size: 24px;
+        font-weight: 700;
     }
 
-    &:active {
-      font-size: 15px;
+    p {
+        font-size: 15px;
+        margin-top: 17px;
+        margin-bottom: 0;
+        /* 覆寫掉 _reboot.scss 中　p 的 margin-bottom 設定 */
     }
-  }
+
+    a {
+        width: 226.43px;
+        height: 40.667px;
+        margin-top: 28px;
+        @extend %allFlexCenter;
+        border: 1px solid #c2ffef;
+        border-radius: 50px;
+        background-color: transparent;
+        font-size: 14px;
+        text-decoration: none;
+        color: #fff;
+
+        &:hover {
+            background-color: #fff;
+            color: $accent-color;
+        }
+
+        &:active {
+            font-size: 15px;
+        }
+    }
 }
 
 @media (min-width: 992px) {
-  .logoutArea {
-    height: calc(100vh - 78px - 30px);
-    padding: 80px 70px;
-  }
+    .logoutArea {
+        height: calc(100vh - 78px - 30px);
+        padding: 80px 70px;
+    }
 }

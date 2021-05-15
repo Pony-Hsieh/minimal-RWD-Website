@@ -1,277 +1,277 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
 .wrapper {
-  background-color: $dominant-color;
+    background-color: $dominant-color;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 h1 {
-  font-size: 24px;
-  font-weight: 700;
-  color: $light-black;
+    font-size: 24px;
+    font-weight: 700;
+    color: $light-black;
 }
 
 .product {
-  padding-top: 70px;
-  padding-bottom: 70px;
+    padding-top: 70px;
+    padding-bottom: 70px;
 
-  h4 {
-    font-size: 24px;
-    font-weight: 700;
-    color: $accent-color;
-  }
+    h4 {
+        font-size: 24px;
+        font-weight: 700;
+        color: $accent-color;
+    }
 
-  h5 {
-    font-size: 14px;
-    font-weight: 500;
-  }
+    h5 {
+        font-size: 14px;
+        font-weight: 500;
+    }
 }
 
 @media (min-width: 992px) {
-  .product {
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
+    .product {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
 }
 
 .mainProductInfo {
-  margin-top: 30px;
+    margin-top: 30px;
 
-  > div:first-of-type {
-    display: flex;
-    align-items: center;
+    > div:first-of-type {
+        display: flex;
+        align-items: center;
 
-    a {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: #fff;
-      color: #7f7f7f;
-      text-align: center;
-      @extend %allFlexCenter;
-      margin-left: 20px;
-      margin-bottom: 10px;
-      box-shadow: -14.142px 14.142px 20px 0px rgba(0, 0, 0, 0.1);
+        a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #7f7f7f;
+            text-align: center;
+            @extend %allFlexCenter;
+            margin-left: 20px;
+            margin-bottom: 10px;
+            box-shadow: -14.142px 14.142px 20px 0px rgba(0, 0, 0, 0.1);
 
-      &:hover {
-        background-color: $accent-color;
-        color: #fff;
-      }
+            &:hover {
+                background-color: $accent-color;
+                color: #fff;
+            }
 
-      &:active {
-        transform: scale(1.05);
-      }
+            &:active {
+                transform: scale(1.05);
+            }
+        }
+
+        i {
+            font-size: 24px;
+        }
     }
 
-    i {
-      font-size: 24px;
+    del {
+        color: #606060;
     }
-  }
 
-  del {
-    color: #606060;
-  }
-
-  a,
-  span {
-    font-size: 14px;
-  }
+    a,
+    span {
+        font-size: 14px;
+    }
 }
 
 .cartRelevant {
-  margin-top: 40px;
+    margin-top: 40px;
 }
 
 .cartCount {
-  width: 150px;
-  height: 50px;
-  border: 1px solid #ddd;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  margin-bottom: 25px;
-  position: relative;
-
-  button {
-    width: 50%;
-    height: 48px;
-    border: none;
-    border-radius: 25px;
-    outline: none;
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    &:active {
-      background-color: $accent-color;
-      color: #fff;
-    }
-
-    &:first-of-type {
-      text-align: left;
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 1;
-    }
-
-    &:last-of-type {
-      text-align: right;
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 1;
-    }
-  }
-
-  input {
-    width: 50%;
-    height: 48px;
-    /* background-color: transparent; */
-    outline: none;
-    border: none;
-    z-index: 2;
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      /* 拿掉數字輸入框的上下箭頭 */
-      -webkit-appearance: none;
-    }
-    &[type="number"] {
-      /* 拿掉數字輸入框的上下箭頭 */
-      -moz-appearance: textfield;
-    }
-  }
-}
-
-.addToCartArea {
-  @extend %allFlexCenter;
-  margin-top: -10px;
-}
-
-.socialMedia {
-  ul {
-    width: 180px;
+    width: 150px;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
     margin: 0 auto;
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  li {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    transition: 0.5s;
-
-    &:hover {
-      background-color: $accent-color;
-      transition: 0.5s;
-    }
-
-    a {
-      font-size: 18px;
-      height: 100%;
-      text-decoration: none;
-      color: #fff;
-      @extend %allFlexCenter;
-    }
-  }
-
-  .facebook {
-    background-color: #3b5998;
-  }
-
-  .twitter {
-    background-color: #55acee;
-  }
-
-  .linkedin {
-    background-color: #0077b5;
-  }
-}
-
-.bestSellers {
-  img {
+    margin-bottom: 25px;
     position: relative;
-    border-radius: 8px;
-  }
 
-  /* hover 小工具 */
-  .hoverWidget {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    bottom: 60px;
-    right: 35px;
-    right: 10px;
-    opacity: 0;
-    transition: 0.5s;
-
-    &.ing {
-      right: 35px;
-      opacity: 1;
-      transition: 0.5s;
-    }
-
-    li {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: $accent-color;
-      font-size: 16px;
-      line-height: 40px;
-      text-align: center;
-
-      a {
-        display: block;
-        width: 100%;
-        text-decoration: none;
-        color: #fff;
+    button {
+        width: 50%;
+        height: 48px;
+        border: none;
+        border-radius: 25px;
         outline: none;
 
         &:hover {
-          background-color: #fff;
-          color: $accent-color;
-          border-radius: 50%;
-          border: 1.5px solid $accent-color;
+            cursor: pointer;
         }
 
         &:active {
-          transform: scale(1.1);
+            background-color: $accent-color;
+            color: #fff;
         }
-      }
+
+        &:first-of-type {
+            text-align: left;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        &:last-of-type {
+            text-align: right;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1;
+        }
     }
 
-    .like {
-      margin-bottom: 10px;
+    input {
+        width: 50%;
+        height: 48px;
+        /* background-color: transparent; */
+        outline: none;
+        border: none;
+        z-index: 2;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            /* 拿掉數字輸入框的上下箭頭 */
+            -webkit-appearance: none;
+        }
+        &[type="number"] {
+            /* 拿掉數字輸入框的上下箭頭 */
+            -moz-appearance: textfield;
+        }
     }
-  }
+}
+
+.addToCartArea {
+    @extend %allFlexCenter;
+    margin-top: -10px;
+}
+
+.socialMedia {
+    ul {
+        width: 180px;
+        margin: 0 auto;
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    li {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        transition: 0.5s;
+
+        &:hover {
+            background-color: $accent-color;
+            transition: 0.5s;
+        }
+
+        a {
+            font-size: 18px;
+            height: 100%;
+            text-decoration: none;
+            color: #fff;
+            @extend %allFlexCenter;
+        }
+    }
+
+    .facebook {
+        background-color: #3b5998;
+    }
+
+    .twitter {
+        background-color: #55acee;
+    }
+
+    .linkedin {
+        background-color: #0077b5;
+    }
+}
+
+.bestSellers {
+    img {
+        position: relative;
+        border-radius: 8px;
+    }
+
+    /* hover 小工具 */
+    .hoverWidget {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        bottom: 60px;
+        right: 35px;
+        right: 10px;
+        opacity: 0;
+        transition: 0.5s;
+
+        &.ing {
+            right: 35px;
+            opacity: 1;
+            transition: 0.5s;
+        }
+
+        li {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: $accent-color;
+            font-size: 16px;
+            line-height: 40px;
+            text-align: center;
+
+            a {
+                display: block;
+                width: 100%;
+                text-decoration: none;
+                color: #fff;
+                outline: none;
+
+                &:hover {
+                    background-color: #fff;
+                    color: $accent-color;
+                    border-radius: 50%;
+                    border: 1.5px solid $accent-color;
+                }
+
+                &:active {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .like {
+            margin-bottom: 10px;
+        }
+    }
 }
 
 .singleBestSeller {
-  margin: 15px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 
-  h4 {
-    margin-top: 15px;
-    font-size: 18px;
-    text-align: center;
-  }
+    h4 {
+        margin-top: 15px;
+        font-size: 18px;
+        text-align: center;
+    }
 
-  del {
-    color: #606060;
-  }
+    del {
+        color: #606060;
+    }
 
-  h5 {
-    font-size: 18px;
-    text-align: center;
-  }
+    h5 {
+        font-size: 18px;
+        text-align: center;
+    }
 }

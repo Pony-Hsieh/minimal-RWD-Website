@@ -1,42 +1,42 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
 .form-signin {
-  height: calc(100vh - 60px);
-  text-align: center;
-  max-width: 330px;
-  padding: 95px 0;
-  margin: 0 auto;
+    height: calc(100vh - 60px);
+    text-align: center;
+    max-width: 330px;
+    padding: 95px 0;
+    margin: 0 auto;
 
-  .checkbox {
-    font-weight: 400;
-  }
+    .checkbox {
+        font-weight: 400;
+    }
 
-  .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    font-size: 16px;
-  }
+    .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
 
-  &:focus {
-    z-index: 2;
-  }
+    &:focus {
+        z-index: 2;
+    }
 
-  input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
+    input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 
-  input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+    input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 }
 @media (min-width: 992px) {
-  .form-signin {
-    height: calc(100vh - 78px);
-  }
+    .form-signin {
+        height: calc(100vh - 78px);
+    }
 }

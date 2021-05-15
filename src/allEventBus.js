@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from "vue";
 
 Vue.prototype.$alertMsg_Bus = new Vue();
 // vm.$alertMsg_Bus.$on("alertMsgEvent", (msg, status = "success", removeTime = 3000) => {});

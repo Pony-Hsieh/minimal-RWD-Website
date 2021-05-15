@@ -1,132 +1,132 @@
 @import "@/assets/scss/_selfVariables"; // 自定義變數
 
 .container-fluid:first-child {
-  height: 60px;
+    height: 60px;
 }
 @media (min-width: 992px) {
-  .container-fluid:first-child {
-    height: 78px;
-  }
+    .container-fluid:first-child {
+        height: 78px;
+    }
 }
 
 .headerNavBurger {
-  position: absolute;
-  top: 0;
-  z-index: -1;
-  width: 100%;
-  padding: 0 15px;
-  opacity: 0;
-  visibility: hidden;
-  transition: 1s;
-
-  &.ing {
-    opacity: 1;
-    visibility: visible;
     position: absolute;
-    top: 80px;
+    top: 0;
+    z-index: -1;
     width: 100%;
     padding: 0 15px;
-    z-index: 0;
-  }
+    opacity: 0;
+    visibility: hidden;
+    transition: 1s;
 
-  > ul {
-    outline: 1px solid #aaa;
-    background-color: #fff;
-  }
-
-  li {
-    height: 42px;
-    line-height: 42px;
-    /* 垂直置中 */
-
-    &:nth-of-type(3) {
-      position: relative;
+    &.ing {
+        opacity: 1;
+        visibility: visible;
+        position: absolute;
+        top: 80px;
+        width: 100%;
+        padding: 0 15px;
+        z-index: 0;
     }
-
-    &:nth-of-type(4) {
-      transition: 1s;
-      margin-top: 0;
-
-      &.ing {
-        transition: 0.8s;
-        margin-top: 156px;
-      }
-    }
-  }
-
-  a {
-    display: block;
-    width: 100%;
-    border-radius: 5px;
-    padding: 0 15px;
-    text-decoration: none;
-    color: $black;
-
-    &:hover {
-      background-color: $accent-color;
-      border-radius: 5px;
-      color: #fff;
-    }
-
-    &.active {
-      /* .active 是在 router index 那裏設定的 */
-      /* .active 透過路由自動設定的 */
-      background-color: $accent-color;
-      color: #fff;
-      transform: scale(1.01);
-    }
-  }
-}
-@media (min-width: 992px) {
-  .logoArea,
-  .iconArea,
-  .headerNavBurger {
-    height: 78px;
-  }
-
-  .headerNavBurger {
-    position: static;
-    z-index: 0;
-    opacity: 1;
-    visibility: visible;
 
     > ul {
-      outline: none;
-      display: flex;
-      justify-content: space-between;
+        outline: 1px solid #aaa;
+        background-color: #fff;
+    }
 
-      > li {
-        height: 78px;
-        width: 25%;
-        text-align: center;
-        padding: 8px;
-      }
+    li {
+        height: 42px;
+        line-height: 42px;
+        /* 垂直置中 */
+
+        &:nth-of-type(3) {
+            position: relative;
+        }
+
+        &:nth-of-type(4) {
+            transition: 1s;
+            margin-top: 0;
+
+            &.ing {
+                transition: 0.8s;
+                margin-top: 156px;
+            }
+        }
     }
 
     a {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 5px;
+        display: block;
+        width: 100%;
+        border-radius: 5px;
+        padding: 0 15px;
+        text-decoration: none;
+        color: $black;
+
+        &:hover {
+            background-color: $accent-color;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        &.active {
+            /* .active 是在 router index 那裏設定的 */
+            /* .active 透過路由自動設定的 */
+            background-color: $accent-color;
+            color: #fff;
+            transform: scale(1.01);
+        }
+    }
+}
+@media (min-width: 992px) {
+    .logoArea,
+    .iconArea,
+    .headerNavBurger {
+        height: 78px;
     }
 
-    li:nth-of-type(4) {
-      transition: 0s;
+    .headerNavBurger {
+        position: static;
+        z-index: 0;
+        opacity: 1;
+        visibility: visible;
 
-      &.ing {
-        transition: 0s;
-        margin-top: 0px;
-      }
+        > ul {
+            outline: none;
+            display: flex;
+            justify-content: space-between;
+
+            > li {
+                height: 78px;
+                width: 25%;
+                text-align: center;
+                padding: 8px;
+            }
+        }
+
+        a {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+        }
+
+        li:nth-of-type(4) {
+            transition: 0s;
+
+            &.ing {
+                transition: 0s;
+                margin-top: 0px;
+            }
+        }
     }
-  }
 }
 
 .logoArea img {
-  width: 40px;
+    width: 40px;
 }
 @media (min-width: 992px) {
-  .logoArea img {
-    width: 48px;
-  }
+    .logoArea img {
+        width: 48px;
+    }
 }

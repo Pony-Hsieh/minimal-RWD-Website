@@ -1,5 +1,13 @@
 <template>
     <div class="wrapper">
+        <loading :active.sync="isLoading">
+            <div class="loadingio-spinner-eclipse-qd52l2xe1a">
+                <div class="ldio-zf9gth3n7r">
+                    <div />
+                </div>
+            </div>
+        </loading>
+
         <AlertMsg />
 
         <HeaderComponent />
